@@ -25,8 +25,8 @@ var editestimate = require('./routes/editestimate');
 var app = express();
 
 //set loginFlag and adminFlag to 0
-global.loginFlag = 0;
-global.adminFlag = 0;
+loginFlag = 0;
+adminFlag =0;
 loginFailedMessage ="";
 addusermessage="";
 delusermessage="";
