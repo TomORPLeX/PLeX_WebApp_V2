@@ -1,0 +1,24 @@
+<!-- views/partials/header.ejs -->
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+                PLeX <span class="glyphicon glyphicon glyphicon-dashboard"></span>
+            </a>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li><a href="/demand"> <span class="glyphicon glyphicon glyphicon-map-marker"></span> Demand</a></li>
+            <li><a href="/dayminus1"> <span class="glyphicon glyphicon glyphicon-map-marker"></span>Day-1</a></li>
+            <li><a href="/otd"> <span class="glyphicon glyphicon glyphicon-map-marker"></span>OTD</a></li>
+            <% if (loginFlag == 1) { %><li>Logged In</li>
+            <li><a href="/logout"> <span class="glyphicon glyphicon glyphicon-map-marker"></span>Logout</a></li>
+            <% }%>
+            <% if (loginFlag ==1 && adminFlag == 1) { %>
+            <li><a href="/admin"> <span class="glyphicon glyphicon glyphicon-map-marker"></span>Admin</a></li>
+            <% }%>
+        </ul>
+
+    </div>
+</nav>

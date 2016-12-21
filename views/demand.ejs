@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Demand EJS File</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
+    <script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+
+</head>
+<body>
+<header>
+    <% include ./partials/header %>
+</header>
+
+
+    <div class="row row-centered">
+            <div class="col-md-3 col-centered" style="background-color:#F8F8F8;">
+                <h3 class="text-center">Select Fluidity Status</h3>
+                <select class="selectpicker">
+                    <option>All</option>
+                    <option>OPEN - Non Fluid</option>
+                    <option>OPEN - Fluid</option>
+                    <option>OPEN - New</option>
+                    </optgroup>
+                </select>
+                <h3 class="text-center">View Planned Work</h3>
+                <select class="selectpicker">
+                        <option>All</option>
+                        <option>Unplanned</option>
+                        <option>Planned</option>
+                    </optgroup>
+                </select>
+                <h3 class="text-center">Select Priority Score</h3>
+                <div class="checkbox">
+                    <label class="checkbox-inline"><input type="checkbox" id="priority0" name0="P1">P1</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority1" name1="P2">P2</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority2" name2="P3">P3</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority3" name2="P4">P4</label>
+                </div>
+                <div class="radio">
+                    <label class="checkbox-inline"><input type="checkbox" id="priority4" name3="P5">P5</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority5" name4="P6">P6</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority6" name5="P7">P7</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority7" name2="P8">P8</label>
+                </div>
+                <div class="radio">
+                    <label class="checkbox-inline"><input type="checkbox" id="priority8" name3="P9">P9</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority9" name4="P10">P10</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority10" name5="URGENT">URGENT</label>
+                </div>
+                <h3 class="text-center">Select Skills to be Mapped</h3>
+                <div class="checkbox">
+                    <label class="checkbox-inline"><input type="checkbox" id="filter0" name0="E-SIDE COPPER JOINTING">E-SIDE COPPER JOINTING</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter1" name1="D-SIDE COPPER JOINTING">D-SIDE COPPER JOINTING</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter2" name2="LIGHT CABLING">LIGHT CABLING</label>
+                </div>
+                <div class="radio">
+                    <label class="checkbox-inline"><input type="checkbox" id="filter3" name3="HEAVY CABLING">HEAVY CABLING</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter4" name4="PRECISION TEST OFFICER">PRECISION TEST OFFICER</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter5" name5="OVERHEAD CABLING">OVERHEAD CABLING</label>
+                </div>
+                <div class="radio">
+                    <label class="checkbox-inline"><input type="checkbox" id="filter6" name6="PRESSURE JOINTING">PRESSURE JOINTING</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter7" name7="OVERHEAD SURVEY">OVERHEAD SURVEY</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter8" name8="OTHER">OTHER</label>
+                </div>
+                <input class="btn btn-info" id="button" type="button" value="Apply Filter"/>
+            </div>
+
+        <div class="col-md-9 " id="mapid" style="width: 900px; height: 600px;"></div>
+    </div>
+
+<div class="containerTableDemand">
+<div class="table-responsive">
+<table id="table" class="table table-condensed">
+    <thead>
+    <tr>
+        <th>OBJID</th>
+        <th>CRNT_REC_IND</th>
+        <th>DELETE_FLAG</th>
+        <th>ITEM_BITAND_OLD</th>
+        <th>QUEUE_ID</th>
+        <th>QUEUE_NAME</th>
+        <th>DURATION</th>
+        <th>ES_DATE</th>
+        <th>LS_DATE</th>
+        <th>CASE_RBD</th>
+        <th>CASE_STATUS</th>
+        <th>EXCH_POST_USED</th>
+        <th>TS</th>
+        <th>Closed_date</th>
+        <th>Order_OBJID</th>
+        <th>WORK_TYPE_ID</th>
+        <th>MIN_TEAM_SIZE</th>
+        <th>SKILL_RANK</th>
+        <th>SYSMESSAGE</th>
+        <th>MAX_TEAM_SIZE</th>
+        <th>CASE_ID</th>
+        <th>LARGE_ITEM_BITAND</th>
+        <th>ACTION</th>
+        <th>LANDING_DATE</th>
+        <th>ACTION_TIMESTAMP</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for(var i=0;i<db.length;i++) { %>
+    <tr>
+        <td><%= db[i].OBJID %></td>
+        <td><%= db[i].CRNT_REC_IND %></td>
+        <td><%= db[i].DELETE_FLAG %></td>
+        <td><%= db[i].ITEM_BITAND_OLD %></td>
+        <td><%= db[i].QUEUE_ID %></td>
+        <td><%= db[i].QUEUE_NAME %></td>
+        <td><%= db[i].DURATION %></td>
+        <td><%= db[i].ES_DATE %></td>
+        <td><%= db[i].LS_DATE %></td>
+        <td><%= db[i].CASE_RBD %></td>
+        <td><%= db[i].CASE_STATUS %></td>
+        <td><%= db[i].EXCH_POST_USED%></td>
+        <td><%= db[i].TS %></td>
+        <td><%= db[i].CLOSED_DATE %></td>
+        <td><%= db[i].ORDER_OBJID %></td>
+        <td><%= db[i].WORK_TYPE_ID %></td>
+        <td><%= db[i].MIN_TEAM_SIZE %></td>
+        <td><%= db[i].SKILL_RANK %></td>
+        <td><%= db[i].SYSMESSAGE %></td>
+        <td><%= db[i].MAX_TEAM_SIZE %></td>
+        <td><%= db[i].CASE_ID %></td>
+        <td><%= db[i].LARGE_ITEM_BITAND %></td>
+        <td><%= db[i].ACTION %></td>
+        <td><%= db[i].LANDING_DATE %></td>
+        <td><%= db[i].ACTION_TIMESTAMP %></td>
+
+        <!--<td><%- JSON.stringify(db[0]) %></td>-->
+    </tr>
+    <% } %>
+    </tbody>
+</table>
+</div>
+</div>
+
+<div class="containerTableDemand">
+    <div class="table-responsive">
+        <table id="table" class="table table-condensed">
+            <thead>
+            <tr>
+                <th>OBJID</th>
+                <th>CRNT_REC_IND</th>
+                <th>DELETE_FLAG</th>
+                <th>ITEM_BITAND_OLD</th>
+                <th>QUEUE_ID</th>
+                <th>QUEUE_NAME</th>
+                <th>DURATION</th>
+                <th>ES_DATE</th>
+                <th>LS_DATE</th>
+                <th>CASE_RBD</th>
+                <th>CASE_STATUS</th>
+                <th>EXCH_POST_USED</th>
+                <th>TS</th>
+                <th>Closed_date</th>
+                <th>Order_OBJID</th>
+                <th>WORK_TYPE_ID</th>
+                <th>MIN_TEAM_SIZE</th>
+                <th>SKILL_RANK</th>
+                <th>SYSMESSAGE</th>
+                <th>MAX_TEAM_SIZE</th>
+                <th>CASE_ID</th>
+                <th>LARGE_ITEM_BITAND</th>
+                <th>ACTION</th>
+                <th>LANDING_DATE</th>
+                <th>ACTION_TIMESTAMP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0;i<db1.length;i++) { %>
+            <tr>
+                <td><%= db1[i].OBJID %></td>
+                <td><%= db1[i].CRNT_REC_IND %></td>
+                <td><%= db1[i].DELETE_FLAG %></td>
+                <td><%= db1[i].ITEM_BITAND_OLD %></td>
+                <td><%= db1[i].QUEUE_ID %></td>
+                <td><%= db1[i].QUEUE_NAME %></td>
+                <td><%= db1[i].DURATION %></td>
+                <td><%= db1[i].ES_DATE %></td>
+                <td><%= db1[i].LS_DATE %></td>
+                <td><%= db1[i].CASE_RBD %></td>
+                <td><%= db1[i].CASE_STATUS %></td>
+                <td><%= db1[i].EXCH_POST_USED%></td>
+                <td><%= db1[i].TS %></td>
+                <td><%= db1[i].CLOSED_DATE %></td>
+                <td><%= db1[i].ORDER_OBJID %></td>
+                <td><%= db1[i].WORK_TYPE_ID %></td>
+                <td><%= db1[i].MIN_TEAM_SIZE %></td>
+                <td><%= db1[i].SKILL_RANK %></td>
+                <td><%= db1[i].SYSMESSAGE %></td>
+                <td><%= db1[i].MAX_TEAM_SIZE %></td>
+                <td><%= db1[i].CASE_ID %></td>
+                <td><%= db1[i].LARGE_ITEM_BITAND %></td>
+                <td><%= db1[i].ACTION %></td>
+                <td><%= db1[i].LANDING_DATE %></td>
+                <td><%= db1[i].ACTION_TIMESTAMP %></td>
+
+                <!--<td><%- JSON.stringify(db1[0]) %></td>-->
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer>
+    <% include ./partials/footer %>
+</footer>
+<script  type="text/javascript" src="/javascripts/leaflet.js"></script>
+<script  type="text/javascript" src="/javascripts/MapJquery.js"></script>
+</body>
+</html>
