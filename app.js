@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ////adams note
 
+=======
+/// Testing GITTTTTTTTTT Toms message
+>>>>>>> 4d704b3de9faf8f44acb55556452a4580e87805a
 
 var express = require('express');
 var path = require('path');
@@ -46,7 +50,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser(''));
+app.use(cookieParser('mysecrethere'));
 
 app.use('/', index);
 app.use('/logincheck', logincheck);
