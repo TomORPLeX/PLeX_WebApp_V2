@@ -1,3 +1,6 @@
+////adams note
+
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -25,8 +28,8 @@ var editestimate = require('./routes/editestimate');
 var app = express();
 
 //set loginFlag and adminFlag to 0
-loginFlag = 0;
-adminFlag =0;
+loginFlag = 1;
+adminFlag =1;
 loginFailedMessage ="";
 addusermessage="";
 delusermessage="";
@@ -88,11 +91,11 @@ app.use('/submit', function(req,res) {
 app.use('/mapRerender', function (req,res) {
     var data = req.body;
     var LatLngData;
-    console.log('body: ' + data);
+    console.log('body: ' + JSON.stringify(data));
     console.log(data.length);
 
 
-    var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, WT_DESCRIPTION, CASE_STATUS, PRIORITY_DESCRIPTION, EXCH, CASE_ID, CUST_EST_NO  FROM live_table WHERE primary_skill IN(" + data;
+    var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, WT_DESCRIPTION, CASE_STATUS, PRIORITY_DESCRIPTION, EXCH, CASE_ID, CUST_EST_NO  FROM live_table " + data;
     console.log(quer5);
 
     pool.query(quer5, function (err, rows) {
@@ -102,7 +105,7 @@ app.use('/mapRerender', function (req,res) {
             console.log('new data displayed');
             console.log(JSON.stringify(rows));
             LatLngData = (JSON.stringify(rows));
-            fs.writeFile('./public/data/LatLngData.json', LatLngData);
+            fs.writeFile('../public/data/LatLngData.json', LatLngData);
         }
     });
     res.send('Ajax success');

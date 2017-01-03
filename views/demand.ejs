@@ -23,37 +23,37 @@
     <div class="row row-centered">
             <div class="col-md-3 col-centered" style="background-color:#F8F8F8;">
                 <h3 class="text-center">Select Fluidity Status</h3>
-                <select class="selectpicker">
+                <select class="selectpicker" id="fluidity">
                     <option>All</option>
                     <option>OPEN - Non Fluid</option>
                     <option>OPEN - Fluid</option>
                     <option>OPEN - New</option>
-                    </optgroup>
+
                 </select>
                 <h3 class="text-center">View Planned Work</h3>
-                <select class="selectpicker">
+                <select class="selectpicker" id="planned">
                         <option>All</option>
                         <option>Unplanned</option>
                         <option>Planned</option>
-                    </optgroup>
+
                 </select>
                 <h3 class="text-center">Select Priority Score</h3>
                 <div class="checkbox">
                     <label class="checkbox-inline"><input type="checkbox" id="priority0" name0="P1">P1</label>
                     <label class="checkbox-inline"><input type="checkbox" id="priority1" name1="P2">P2</label>
                     <label class="checkbox-inline"><input type="checkbox" id="priority2" name2="P3">P3</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority3" name2="P4">P4</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority3" name3="P4">P4</label>
                 </div>
                 <div class="radio">
-                    <label class="checkbox-inline"><input type="checkbox" id="priority4" name3="P5">P5</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority5" name4="P6">P6</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority6" name5="P7">P7</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority7" name2="P8">P8</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority4" name4="P5">P5</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority5" name5="P6">P6</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority6" name6="P7">P7</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority7" name7="P8">P8</label>
                 </div>
                 <div class="radio">
-                    <label class="checkbox-inline"><input type="checkbox" id="priority8" name3="P9">P9</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority9" name4="P10">P10</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority10" name5="URGENT">URGENT</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority8" name8="P9">P9</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority9" name9="P10">P10</label>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority10" name10="URGENT">URGENT</label>
                 </div>
                 <h3 class="text-center">Select Skills to be Mapped</h3>
                 <div class="checkbox">
@@ -71,7 +71,17 @@
                     <label class="checkbox-inline"><input type="checkbox" id="filter7" name7="OVERHEAD SURVEY">OVERHEAD SURVEY</label>
                     <label class="checkbox-inline"><input type="checkbox" id="filter8" name8="OTHER">OTHER</label>
                 </div>
+                <h3 class="text-center">Enter OUC</h3>
+                <select class="selectpicker" id="oucselection">
+                    <option selected></option>
+                    <% for(var i=0;i<ouc.length;i++) { %>
+                        <option><%=ouc[i].om_ouc %></option>
+                    <% } %>
+                </select>
+                <h3></h3>
+                <div>
                 <input class="btn btn-info" id="button" type="button" value="Apply Filter"/>
+                </div>
             </div>
 
         <div class="col-md-9 " id="mapid" style="width: 900px; height: 600px;"></div>

@@ -11,9 +11,11 @@
 $(document).ready(function() {
 
     var LonLatData;
+    //alert(db.length);
 
     $.getJSON('./data/LatLngData.json', function (data) {
         alert('hello');
+        L.map('mapid').remove();
         LonLatData = data;
         alert(JSON.stringify(LonLatData));
 
@@ -28,7 +30,6 @@ $(document).ready(function() {
     }).addTo(mymap);
 
 
-    var jobNo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 
     var markers = new L.MarkerClusterGroup();
 
