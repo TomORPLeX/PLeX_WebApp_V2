@@ -39,3 +39,4 @@ Thumbs.db
 # Custom Ignore #
 ######################
 workspace.xml
+./bin/workspace.xml
