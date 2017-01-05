@@ -27,7 +27,7 @@ $(document).ready(function() {
             }
         }
 
-        for (z = 0; z < 11; z++) {
+        for (z = 0; z < 8; z++) {
 
             if ($("#priority" + z).is(":checked")) {
 
@@ -113,7 +113,7 @@ $(document).ready(function() {
             contentType: 'application/json',
             url: '/mapRerender',
             success: function (data) {
-
+                window.location.reload();
             }
         });
 

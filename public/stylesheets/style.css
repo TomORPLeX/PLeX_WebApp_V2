@@ -1,10 +1,17 @@
 body {
-  padding: 50px;
+  margin:0px;
+  padding:0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+.navbar-custom {
+  background-color: #F39C12;
+  border-color: #E7E7E7;
+  color: #FFFFFF;
+}
 
-a {
-  color: #00B7FF;
+
+h3 {
+  color: #FFFFFF;
 }
 
 /*scroll for table*/
@@ -26,4 +33,105 @@ div.containerTableDemand{
   text-align:center;
   /* inline-block space fix */
   margin-right:-4px;
+}
+
+
+/*demand panel priority sytle*/
+.panel-green {
+  border-color: #5cb85c;
+}
+.panel-green > .panel-heading {
+  border-color: #5cb85c;
+  color: white;
+  background-color: #5cb85c;
+}
+.panel-green > a {
+  color: #5cb85c;
+}
+.panel-green > a:hover {
+  color: #3d8b3d;
+}
+.panel-red {
+  border-color: #d9534f;
+}
+.panel-red > .panel-heading {
+  border-color: #d9534f;
+  color: white;
+  background-color: #d9534f;
+}
+.panel-red > a {
+  color: #d9534f;
+}
+.panel-red > a:hover {
+  color: #b52b27;
+}
+.panel-yellow {
+  border-color: #f0ad4e;
+}
+.panel-yellow > .panel-heading {
+  border-color: #f0ad4e;
+  color: white;
+  background-color: #f0ad4e;
+}
+.panel-yellow > a {
+  color: #f0ad4e;
+}
+.panel-yellow > a:hover {
+  color: #df8a13;
+}
+.panel-orange {
+  border-color: #F39C12;
+}
+.panel-orange > .panel-heading {
+  border-color: #F39C12;
+  color: white;
+  background-color: #F39C12;
+}
+.panel-orange  > a {
+  color: #F39C12;
+}
+.panel-orange  > a:hover {
+  color: #F39C12;
+}
+.panel-black {
+  border-color: #111111;
+}
+.panel-black > .panel-heading {
+  border-color: #111111;
+  color: white;
+  background-color: #111111;
+}
+.panel-black  > a {
+  color: #111111;
+}
+.panel-black  > a:hover {
+  color: #111111;
+}
+.panel-greeny {
+  border-color: #3D9970;
+}
+.panel-greeny > .panel-heading {
+  border-color: #3D9970;
+  color: white;
+  background-color: #3D9970;
+}
+.panel-greeny  > a {
+  color: #3D9970;
+}
+.panel-greeny  > a:hover {
+  color: #3D9970;
+}
+.panel-lightGreen {
+  border-color: #00A65A;
+}
+.panel-lightGreen > .panel-heading {
+  border-color: #00A65A;
+  color: white;
+  background-color: #00A65A;
+}
+.panel-lightGreen  > a {
+  color: #00A65A;
+}
+.panel-lightGreen  > a:hover {
+  color: #00A65A;
 }
