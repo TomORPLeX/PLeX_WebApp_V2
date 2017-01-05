@@ -95,10 +95,85 @@ app.use('/mapRerender', function (req,res) {
     var data = req.body;
     var LatLngData;
     console.log('body: ' + JSON.stringify(data));
-    console.log(data.length);
+    console.log(data.fluidity);
 
+    var fluidityStatusFlag = 0;
+    var skillsFilter = [];
+    var fluidityStatus;
+    var plannedWork;
+    var priorityScore = [];
+    var oucSelection;
+    var dataString = [];
 
-    var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, WT_DESCRIPTION, CASE_STATUS, PRIORITY_DESCRIPTION, EXCH, CASE_ID, CUST_EST_NO  FROM live_table " + data;
+    console.log(data.priority[0]);
+    console.log(data.skills[3]);
+
+    for (var i = 0; i < data.priority.length ; i++) {
+        priorityScore[i]= "'" + data.priority[i] + "'";
+    }
+
+    for (i = 0; i < data.skills.length ; i++) {
+        skillsFilter[i]= "'" + data.skills[i] + "'";
+        console.log(data.skills[i]);
+    }
+
+    console.log(JSON.stringify(priorityScore));
+    console.log(JSON.stringify(skillsFilter));
+
+    if (data.fluidity == "All"){
+        fluidityStatusFlag = 1;
+        fluidityStatus = "";
+    }else{
+        fluidityStatus = "WHERE case_status= '" + data.fluidity +"'";
+    }
+
+    var plannedWorkFlag = 0;
+
+    if(data.planned == "All"){
+        plannedWorkFlag = 1;
+        plannedWork = "";
+    }else if (fluidityStatusFlag == 1){
+        plannedWork = "WHERE planned_work" + data.planned;
+    }else{
+        plannedWork = " OR planned_work" + data.planned;
+    }
+
+    var priorityScoreFlag = 0;
+
+    if(data.priority.length < 1){
+        priorityScoreFlag = 1;
+        priorityScore = "";
+    }else if (fluidityStatusFlag == 1){
+        priorityScore = "WHERE priority_description IN (" + priorityScore + ")";
+    }else{
+        priorityScore = " OR priority_description IN (" + priorityScore + ")";
+    }
+
+    var skillsFilterFlag = 0;
+
+    if(data.skills.length < 1){
+        skillsFilterFlag = 1;
+        skillsFilter = "";
+    }else if (priorityScoreFlag == 1){
+        skillsFilter = "WHERE primary_skill IN (" + skillsFilter + ")";
+    }else{
+        skillsFilter = " OR primary_skill IN (" + skillsFilter + ")";
+    }
+
+    var oucSelectionFlag = 0;
+
+    if(data.ouc == ""){
+        oucSelectionFlag = 1;
+        oucSelection = "";
+    }else if (skillsFilterFlag == 1){
+        oucSelection = "WHERE OM_OUC= '" + data.ouc +"'";
+    }else{
+        oucSelection = " OR OM_OUC= '" + data.ouc +"'";
+    }
+
+    dataString = fluidityStatus+plannedWork+priorityScore+skillsFilter+oucSelection+";";
+
+    var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, WT_DESCRIPTION, CASE_STATUS, PRIORITY_DESCRIPTION, EXCH, CASE_ID, CUST_EST_NO  FROM live_table " + dataString;
     console.log(quer5);
 
     pool.query(quer5, function (err, rows) {
