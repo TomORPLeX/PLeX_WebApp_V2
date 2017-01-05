@@ -15,6 +15,16 @@ function ConnectDB() {
         console.log('Connection Established');
     });
 
+    pool.on('error', function(err,rows) {
+        console.log(err.code);
+        console.log('recieved error in connection pool');
+        //logout and redirect to login?
+    });
+
+    pool.on('close', function(err,rows) {
+        console.log('Connection Pool Closed');
+    });
+
     //implement pool clustering
 
     return pool;

@@ -16,6 +16,7 @@ router.all('/', function(req,res,next) {
     addein = req.body.ein;
     addouc = req.body.ouc;
     addprofile = req.body.profile;
+
     if (addname.length == 0)
     {
         addusermessage = "Please enter the users Name in the Name field";
@@ -54,7 +55,7 @@ router.all('/', function(req,res,next) {
                         console.log('Error in select query');
                         throw err;
                     } else {
-                        obj = {db: rows};
+                        obj = {db: rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag};
                         addusermessage = 'Added User: [OUC: '+addouc+' Name: '+addname+' EIN: '+addein+' Profile: '+addprofile+' ]';
                         res.render('admin', obj);
                     }

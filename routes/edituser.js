@@ -94,7 +94,7 @@ function updatedatabase(updatequer, res) {
                     console.log('Error in select query');
                     throw err;
                 } else {
-                    obj = {db: rows};
+                    obj = {db: rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag};
                     editusermessage = "Edited User: [EIN: '"+editein+"' OUC: '"+editouc+"' Name: '"+editname+"' Profile: '"+editprofile+"' ]";
                     res.render('admin', obj);
                 }

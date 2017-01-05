@@ -17,7 +17,7 @@ router.all('/', function(req,res,next) {
         delusermessage = 'Invalid EIN';
         res.redirect('/admin');
     }
-    else //if(!(addname.length == 0 && addein.length == 0 && addouc.length == 0 && addprofile.length == 0))
+    else
     {
         console.log('EIN to delete entered');
         deletequer = 'DELETE FROM users WHERE EIN ='+delein+';';
@@ -35,7 +35,7 @@ router.all('/', function(req,res,next) {
                     if (err) {
                         throw err;
                     } else {
-                        obj = {db: rows};
+                        obj = {db: rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag};
                         delusermessage = 'User Deleted: [EIN: '+delein+']';
                         res.render('admin', obj);
                     }

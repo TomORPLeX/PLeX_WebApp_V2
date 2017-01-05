@@ -7,7 +7,6 @@ router.use('/', function(req, res, next) {
     var EIN = req.body.EIN;
     var quer1 = "SELECT * FROM users WHERE EIN = '"+EIN+"'";
     var obj = {};
-    console.log(quer1);
 
     pool.query(quer1, function(err,rows)
     {
@@ -26,16 +25,21 @@ router.use('/', function(req, res, next) {
             console.log('profile is: '+profile);
             if (profile == 'Admin')
             {
-                adminFlag = 1;
+                var adminFlag1 = 1;
             }
 
-            loginFlag = 1;
+            var loginFlag1 = 1;
 
             console.log('Logged In (logincheck.js)');
-            //res.end();
-            //res.render('index', { title: 'Welcome '+name });
-            //res.render('otd', {title:'Welcome to OTD '+name});
+
+            res.cookie('EIN', EIN, { maxAge: 900000, httpOnly: false} );
+            res.cookie('username', name, { maxAge: 900000, httpOnly: false});
+            res.cookie('loginFlag', loginFlag1, { maxAge: 900000, httpOnly: false});
+            res.cookie('adminFlag', adminFlag1, { maxAge: 900000, httpOnly: false});
+
+            //res.render('index', { title: 'Welcome '+ req.cookies.username, loginFlag: req.cookies.loginFlag, adminFlag: req.cookies.adminFlag });
             res.redirect('/demand');
+
         }
     });
 });

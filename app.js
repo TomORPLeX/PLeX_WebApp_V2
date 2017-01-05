@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-////adams note
-
-=======
-/// Testing GITTTTTTTTTT Toms message
->>>>>>> 4d704b3de9faf8f44acb55556452a4580e87805a
-
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -31,14 +24,12 @@ var editestimate = require('./routes/editestimate');
 
 var app = express();
 
-//set loginFlag and adminFlag to 0
-loginFlag = 1;
-adminFlag =1;
+loginFlag =0;
+adminFlag=0;
 loginFailedMessage ="";
 addusermessage="";
 delusermessage="";
 editusermessage="";
-global.username ="";
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -50,7 +41,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser('mysecrethere'));
+app.use(cookieParser());
 
 app.use('/', index);
 app.use('/logincheck', logincheck);
@@ -64,6 +55,14 @@ app.use('/adduser', adduser);
 app.use('/deleteuser', deleteuser);
 app.use('/edituser', edituser);
 app.use('/editestimate', editestimate);
+
+/*
+app.get('/user', function(req,res) {
+   res.send(req.cookies.name);
+});
+*/
+
+
 app.use('/submit', function(req,res) {
     console.log('Data Captured, Name: ' + req.body.nameinput);
 

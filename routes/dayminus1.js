@@ -15,7 +15,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
             throw err;
         } else
         {
-            obj = {db: rows};
+            obj = {db: rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag};
             res.render('dayminus1', obj);
             console.log(JSON.stringify(rows));
         }
