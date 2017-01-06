@@ -2,22 +2,16 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../bin/db.js');
 
-var editname ="";
-var editein ="";
-var editouc ="";
-var editprofile="";
 var selectquer = "";
 var updatequer = "";
+
 var obj = {};
 
 router.all('/', function(req,res,next) {
     console.log('Editing Estimate');
 
     estimatenum = req.body.estimatenum
-    editname = req.body.editname;
-    editein = req.body.editein;
-    editouc = req.body.editouc;
-    editprofile = req.body.editprofile;
+
 
 
 
