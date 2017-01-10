@@ -104,6 +104,7 @@ app.use('/mapRerender', function (req,res) {
     var priorityScore = [];
     var oucSelection;
     var dataString = [];
+    var obj = {};
 
     console.log(data.priority[0]);
     console.log(data.skills[3]);
@@ -162,7 +163,7 @@ app.use('/mapRerender', function (req,res) {
 
     var oucSelectionFlag = 0;
 
-    if(data.ouc == ""){
+    if(data.ouc == "All"){
         oucSelectionFlag = 1;
         oucSelection = "";
     }else if (skillsFilterFlag == 1){
@@ -182,11 +183,13 @@ app.use('/mapRerender', function (req,res) {
         } else {
             console.log('new data displayed');
             console.log(JSON.stringify(rows));
-            LatLngData = (JSON.stringify(rows));
+            obj = {LatLngData: rows,
+                selection: data};
+            LatLngData = (JSON.stringify(obj));
             fs.writeFile('../public/data/LatLngData.json', LatLngData);
         }
     });
-    res.send('Ajax success');
+    res.send('success');
 });
 
 //app.use('/mapupdate', function(req,res) {

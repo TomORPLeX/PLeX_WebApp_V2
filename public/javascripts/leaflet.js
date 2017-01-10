@@ -17,7 +17,7 @@ $(document).ready(function() {
         alert('hello');
         L.map('mapid').remove();
         LonLatData = data;
-        alert(JSON.stringify(LonLatData));
+        alert(JSON.stringify(LonLatData.LatLngData));
 
 
     var mymap = L.map('mapid').setView([51, 0], 5);
@@ -33,16 +33,16 @@ $(document).ready(function() {
 
     var markers = new L.MarkerClusterGroup();
 
-    for (i = 0; i < LonLatData.length; i++) {
+    for (i = 0; i < LonLatData.LatLngData.length; i++) {
 
-        var marker = L.marker([LonLatData[i].LAT, LonLatData[i].LON]);
-        marker.bindPopup("<b>Skill: </b><br>" + LonLatData[i].PRIMARY_SKILL +
-                "<br><b>TYPE: </b><br>" + LonLatData[i].WT_DESCRIPTION + " " + LonLatData[i].SUB_DESCRIPTION +
-                "<br><b>Case Status: </b><br>" + LonLatData[i].CASE_STATUS +
-                "<br><b>Priority: </b><br>" + LonLatData[i].PRIORITY_DESCRIPTION +
-                "<br><b>Exchange: </b><br>" + LonLatData[i].EXCH +
-                "<br><b>Case ID: </b><br>" + LonLatData[i].CASE_ID +
-                "<br><b>Estimate: </b><br>" + LonLatData[i].CUST_EST_NO
+        var marker = L.marker([LonLatData.LatLngData[i].LAT, LonLatData.LatLngData[i].LON]);
+        marker.bindPopup("<b>Skill: </b><br>" + LonLatData.LatLngData[i].PRIMARY_SKILL +
+                "<br><b>Type: </b><br>" + LonLatData.LatLngData[i].WT_DESCRIPTION + " " + LonLatData.LatLngData[i].SUB_DESCRIPTION +
+                "<br><b>Case Status: </b><br>" + LonLatData.LatLngData[i].CASE_STATUS +
+                "<br><b>Priority: </b><br>" + LonLatData.LatLngData[i].PRIORITY_DESCRIPTION +
+                "<br><b>Exchange: </b><br>" + LonLatData.LatLngData[i].EXCH +
+                "<br><b>Case ID: </b><br>" + LonLatData.LatLngData[i].CASE_ID +
+                "<br><b>Estimate: </b><br>" + LonLatData.LatLngData[i].CUST_EST_NO
         ).openPopup();
         markers.addLayer(marker);
     }
