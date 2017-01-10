@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../bin/db.js');
 var loginfunction = require("../bin/login.js");
+var fs = require('fs');
 
 
 /* GET SQL data. */
@@ -11,6 +12,8 @@ var quer1 = "SELECT * FROM test1 LIMIT 10";
 var quer2 = "SELECT om_ouc FROM live_table";
 
 router.get('/', loginfunction.isLoggedIn, function(req, res) {
+    var JsonData = JSON.parse(fs.readFileSync("../public/data/LatLngData.json"));
+    var selection = JsonData.selection;
 
         pool.query(quer1, function(err,rows)
         {
@@ -39,7 +42,8 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
                             {
                                 obj = {db: rows,
                                     db1: rows1,
-                                    ouc: rows2};
+                                    ouc: rows2,
+                                    selection: selection};
                                 res.render('demand', obj);
 
                                 console.log(JSON.stringify(obj));

@@ -151,54 +151,206 @@
             <div class="col-md-3 col-centered" style="background-color:#F8F8F8; text">
                 <h3 class="text-center">Select Fluidity Status</h3>
                 <select class="selectpicker" id="fluidity">
+                    <%if(selection.fluidity=="All"){%>
+                    <option selected>All</option>
+                    <%}else{%>
                     <option>All</option>
-                    <option>OPEN - Non Fluid</option>
-                    <option>OPEN - Fluid</option>
-                    <option>OPEN - New</option>
+                    <%}%>
 
+                    <%if(selection.fluidity=="OPEN - Non Fluid"){%>
+                    <option selected>OPEN - Non Fluid</option>
+                    <%}else{%>
+                    <option>OPEN - Non Fluid</option>
+                    <%}%>
+
+                    <%if(selection.fluidity=="OPEN - Fluid"){%>
+                    <option selected>OPEN - Fluid</option>
+                    <%}else{%>
+                    <option>OPEN - Fluid</option>
+                    <%}%>
+
+                    <%if(selection.fluidity=="OPEN - New"){%>
+                    <option selected>OPEN - New</option>
+                    <%}else{%>
+                    <option>OPEN - New</option>
+                    <%}%>
                 </select>
                 <h3 class="text-center">View Planned Work</h3>
                 <select class="selectpicker" id="planned">
-                        <option>All</option>
-                        <option>Unplanned</option>
-                        <option>Planned</option>
+                    <%if(selection.planned=="All"){%>
+                    <option selected>All</option>
+                    <%}else{%>
+                    <option>All</option>
+                    <%}%>
 
+                    <%if(selection.planned=="Unplanned"){%>
+                    <option selected>Unplanned</option>
+                    <%}else{%>
+                    <option>Unplanned</option>
+                    <%}%>
+
+                    <%if(selection.planned=="Planned"){%>
+                    <option selected>Planned</option>
+                    <%}else{%>
+                    <option>Planned</option>
+                    <%}%>
                 </select>
                 <h3 class="text-center">Select Priority Score</h3>
                 <div class="checkbox">
+                    <% for(var i=0;i<selection.priority.length;i++) {
+                    if(selection.priority[i]=="P1"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority0" name0="P1" checked>P1</label>
+                    <% break}else if(i==selection.priority.length-1 && selection.priority[i]!="P1"){ %>
                     <label class="checkbox-inline"><input type="checkbox" id="priority0" name0="P1">P1</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority1" name1="P5">P5</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority2" name2="P6">P6</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority3" name3="P7">P7</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.priority.length;i++) {
+                    if(selection.priority[i]=="P2"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority1" name1="P2" checked>P2</label>
+                    <% break}else if(i==selection.priority.length-1 && selection.priority[i]!="P2"){ %>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority1" name1="P2">P2</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.priority.length;i++) {
+                    if(selection.priority[i]=="P3"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority2" name2="P3" checked>P3</label>
+                    <% break}else if(i==selection.priority.length-1 && selection.priority[i]!="P3"){ %>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority2" name2="P3">P3</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.priority.length;i++) {
+                    if(selection.priority[i]=="P4"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority3" name3="P4" checked>P4</label>
+                    <% break}else if(i==selection.priority.length-1 && selection.priority[i]!="P4"){ %>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority3" name3="P4">P4</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.priority.length;i++) {
+                    if(selection.priority[i]=="P5"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority4" name4="P5" checked>P5</label>
+                    <% break}else if(i==selection.priority.length-1 && selection.priority[i]!="P5"){ %>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority4" name4="P5">P5</label>
+                    <%continue}else{continue}}%>
                 </div>
                 <div class="radio">
-                    <label class="checkbox-inline"><input type="checkbox" id="priority4" name4="P8">P8</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority5" name5="P9">P9</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority6" name6="P10">P10</label>
-                    <label class="checkbox-inline"><input type="checkbox" id="priority7" name7="URGENT">URGENT</label>
+                    <% for(var i=0;i<selection.priority.length;i++) {
+                    if(selection.priority[i]=="P6"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority5" name5="P6" checked>P6</label>
+                    <% break}else if(i==selection.priority.length-1 && selection.priority[i]!="P6"){ %>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority5" name5="P6">P6</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.priority.length;i++) {
+                    if(selection.priority[i]=="P7"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority6" name6="P7" checked>P7</label>
+                    <% break}else if(i==selection.priority.length-1 && selection.priority[i]!="P7"){ %>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority6" name6="P7">P7</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.priority.length;i++) {
+                    if(selection.priority[i]=="P8"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority7" name7="P8" checked>P8</label>
+                    <% break}else if(i==selection.priority.length-1 && selection.priority[i]!="P8"){ %>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority7" name7="P8">P8</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.priority.length;i++) {
+                    if(selection.priority[i]=="P9"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority8" name8="P9" checked>P9</label>
+                    <% break}else if(i==selection.priority.length-1 && selection.priority[i]!="P9"){ %>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority8" name8="P9">P9</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.priority.length;i++) {
+                    if(selection.priority[i]=="P10"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority9" name9="P10" checked>P10</label>
+                    <% break}else if(i==selection.priority.length-1 && selection.priority[i]!="P10"){ %>
+                    <label class="checkbox-inline"><input type="checkbox" id="priority9" name9="P10">P10</label>
+                    <%continue}else{continue}}%>
                 </div>
                 <h3 class="text-center" >Select Skills to be Mapped</h3>
                 <div class="checkbox">
-                    <label class="checkbox-inline"><input type="checkbox" id="filter0" name0="E-SIDE COPPER JOINTING">E-SIDE COPPER JOINTING</label>
+                   <% for(var i=0;i<selection.skills.length;i++) {
+                            if(selection.skills[i]=="E-SIDE COPPER JOINTING"){%>
+                    <label class="checkbox-inline"> <input type="checkbox" id="filter0" name0="E-SIDE COPPER JOINTING" checked>E-SIDE COPPER JOINTING</label>
+                    <% break}else if(i==selection.skills.length-1 && selection.skills[i]!="E-SIDE COPPER JOINTING"){ %>
+                    <label class="checkbox-inline"> <input type="checkbox" id="filter0" name0="E-SIDE COPPER JOINTING">E-SIDE COPPER JOINTING</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.skills.length;i++) {
+                    if(selection.skills[i]=="D-SIDE COPPER JOINTING"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter1" name1="D-SIDE COPPER JOINTING" checked>D-SIDE COPPER JOINTING</label>
+                    <% break}else if(i==selection.skills.length-1 && selection.skills[i]!="D-SIDE COPPER JOINTING"){ %>
                     <label class="checkbox-inline"><input type="checkbox" id="filter1" name1="D-SIDE COPPER JOINTING">D-SIDE COPPER JOINTING</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.skills.length;i++) {
+                    if(selection.skills[i]=="LIGHT CABLING"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter2" name2="LIGHT CABLING" checked>LIGHT CABLING</label>
+                    <% break}else if(i==selection.skills.length-1 && selection.skills[i]!="LIGHT CABLING"){ %>
                     <label class="checkbox-inline"><input type="checkbox" id="filter2" name2="LIGHT CABLING">LIGHT CABLING</label>
+                    <%continue}else{continue}}%>
                 </div>
                 <div class="radio">
+                    <% for(var i=0;i<selection.skills.length;i++) {
+                    if(selection.skills[i]=="HEAVY CABLING"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter3" name3="HEAVY CABLING" checked>HEAVY CABLING</label>
+                    <% break}else if(i==selection.skills.length-1 && selection.skills[i]!="HEAVY CABLING"){ %>
                     <label class="checkbox-inline"><input type="checkbox" id="filter3" name3="HEAVY CABLING">HEAVY CABLING</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.skills.length;i++) {
+                    if(selection.skills[i]=="PRECISION TEST OFFICER"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter4" name4="PRECISION TEST OFFICER" checked>PRECISION TEST OFFICER</label>
+                    <% break}else if(i==selection.skills.length-1 && selection.skills[i]!="PRECISION TEST OFFICER"){ %>
                     <label class="checkbox-inline"><input type="checkbox" id="filter4" name4="PRECISION TEST OFFICER">PRECISION TEST OFFICER</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.skills.length;i++) {
+                    if(selection.skills[i]=="OVERHEAD CABLING"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter5" name5="OVERHEAD CABLING" checked>OVERHEAD CABLING</label>
+                    <% break}else if(i==selection.skills.length-1 && selection.skills[i]!="OVERHEAD CABLING"){ %>
                     <label class="checkbox-inline"><input type="checkbox" id="filter5" name5="OVERHEAD CABLING">OVERHEAD CABLING</label>
+                    <%continue}else{continue}}%>
                 </div>
                 <div class="radio">
+                    <% for(var i=0;i<selection.skills.length;i++) {
+                    if(selection.skills[i]=="PRESSURE JOINTING"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter6" name6="PRESSURE JOINTING" checked>PRESSURE JOINTING</label>
+                    <% break}else if(i==selection.skills.length-1 && selection.skills[i]!="PRESSURE JOINTING"){ %>
                     <label class="checkbox-inline"><input type="checkbox" id="filter6" name6="PRESSURE JOINTING">PRESSURE JOINTING</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.skills.length;i++) {
+                    if(selection.skills[i]=="OVERHEAD SURVEY"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter7" name7="OVERHEAD SURVEY" checked>OVERHEAD SURVEY</label>
+                    <% break}else if(i==selection.skills.length-1 && selection.skills[i]!="OVERHEAD SURVEY"){ %>
                     <label class="checkbox-inline"><input type="checkbox" id="filter7" name7="OVERHEAD SURVEY">OVERHEAD SURVEY</label>
+                    <%continue}else{continue}}%>
+
+                    <% for(var i=0;i<selection.skills.length;i++) {
+                    if(selection.skills[i]=="OTHER"){%>
+                    <label class="checkbox-inline"><input type="checkbox" id="filter8" name8="OTHER" checked>OTHER</label>
+                    <% break}else if(i==selection.skills.length-1 && selection.skills[i]!="OTHER"){ %>
                     <label class="checkbox-inline"><input type="checkbox" id="filter8" name8="OTHER">OTHER</label>
-                </div>
+                    <%continue}else{continue}}%>
+                    </div>
                 <h3 class="text-center">Enter OUC</h3>
                 <select class="selectpicker" id="oucselection">
-                    <option selected></option>
-                    <% for(var i=0;i<ouc.length;i++) { %>
-                        <option><%=ouc[i].om_ouc %></option>
-                    <% } %>
+
+                    <% for(var i=0;i<ouc.length;i++) {
+                        var flag =0
+                        if(selection.ouc==ouc[i].om_ouc){
+                        flag = 1%>
+                        <option selected><%=ouc[i].om_ouc %></option>
+                    <%}else{%>
+                    <option><%=ouc[i].om_ouc %></option>
+                    <% }}
+                    if(flag==1){%>
+                    <option>All</option>
+                    <%}else{%>
+                    <option selected>All</option>
+                    <%}%>
                 </select>
                 <h3></h3>
                 <div>
@@ -351,5 +503,6 @@
 </footer>
 <script  type="text/javascript" src="/javascripts/leaflet.js"></script>
 <script  type="text/javascript" src="/javascripts/MapJquery.js"></script>
+<script  type="text/javascript" src="/javascripts/onbeforeunload.js"></script>
 </body>
 </html>
