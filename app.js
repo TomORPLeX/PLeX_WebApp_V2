@@ -21,6 +21,7 @@ var adduser =  require('./routes/adduser');
 var deleteuser =  require('./routes/deleteuser');
 var edituser =  require('./routes/edituser');
 var editestimate = require('./routes/editestimate');
+var queryestimatecases = require('./routes/queryestimatecases');
 
 var app = express();
 
@@ -55,12 +56,7 @@ app.use('/adduser', adduser);
 app.use('/deleteuser', deleteuser);
 app.use('/edituser', edituser);
 app.use('/editestimate', editestimate);
-
-/*
-app.get('/user', function(req,res) {
-   res.send(req.cookies.name);
-});
-*/
+app.use('/queryestimatecases', queryestimatecases);
 
 
 app.use('/submit', function(req,res) {

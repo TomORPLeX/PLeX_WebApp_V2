@@ -8,14 +8,6 @@ var quer1 = "SELECT * FROM test1 LIMIT 10";
 
 router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
 
-    var day0 = new Date();
-
-
-    var day1 = day0;
-
-    console.log(day0);
-    console.log(day1);
-
     pool.query(quer1, function(err,rows)
     {
         if(err)
