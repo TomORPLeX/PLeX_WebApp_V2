@@ -13,10 +13,7 @@ function getCookie(cname) {
         }
     }
     return "";
-};
-
-
-
+}
 
 $(document).ready(function() {
 
