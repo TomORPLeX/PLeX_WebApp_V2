@@ -36,6 +36,8 @@ router.use('/', function(req, res, next) {
             res.cookie('username', name, { maxAge: 900000, httpOnly: false});
             res.cookie('loginFlag', loginFlag1, { maxAge: 900000, httpOnly: false});
             res.cookie('adminFlag', adminFlag1, { maxAge: 900000, httpOnly: false});
+            res.cookie('cases','', { maxAge: 900000, httpOnly: false});
+
 
             //res.render('index', { title: 'Welcome '+ req.cookies.username, loginFlag: req.cookies.loginFlag, adminFlag: req.cookies.adminFlag });
             res.redirect('/demand');

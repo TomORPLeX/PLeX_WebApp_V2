@@ -12,7 +12,8 @@ var quer1 = "SELECT * FROM test1 LIMIT 10";
 var quer2 = "SELECT om_ouc FROM live_table";
 
 router.get('/', loginfunction.isLoggedIn, function(req, res) {
-    var JsonData = JSON.parse(fs.readFileSync("../public/data/LatLngData.json"));
+    var tempfilelocation = '../public/data/' +req.cookies.EIN +'_LatLngData.json';
+    var JsonData = JSON.parse(fs.readFileSync(tempfilelocation));
     var selection = JsonData.selection;
 
         pool.query(quer1, function(err,rows)
@@ -43,7 +44,8 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
                                 obj = {db: rows,
                                     db1: rows1,
                                     ouc: rows2,
-                                    selection: selection};
+                                    selection: selection,
+                                    ein: req.cookies.EIN};
                                 res.render('demand', obj);
 
                                 console.log(JSON.stringify(obj));

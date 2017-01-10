@@ -8,6 +8,8 @@ var quer1 = "SELECT * FROM test1 LIMIT 10";
 
 router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
 
+    console.log('in day minus 1');
+
     pool.query(quer1, function(err,rows)
     {
         if(err)
@@ -15,9 +17,9 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
             throw err;
         } else
         {
-            obj = {db: rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag};
+            obj = {'db': rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag, 'cases': req.cookies.cases};
+            console.log(JSON.stringify(obj));
             res.render('dayminus1', obj);
-            console.log(JSON.stringify(rows));
         }
     });
 });

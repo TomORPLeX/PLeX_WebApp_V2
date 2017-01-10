@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var loginfunction = require("../bin/login.js");
 var pool = require('../bin/db.js');
 
-/* GET home page. */
-router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
+router.use('/', function(req, res, next) {
+
     var estimatenum = req.body.estimate;
     console.log('estimate:' +estimatenum);
 
@@ -16,10 +15,10 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
             console.log('error in select query');
             throw err;
         } else {
-            console.log('Queried Cases');
-            obj = {'cases': rows};
-            console.log(JSON.stringify(obj));
-            res.render('dayminus1', obj);
+            res.cookie('cases', rows);
+            console.log('our new cookie: ' +req.cookies.cases);
+
+            res.send('success');
         }
     });
 

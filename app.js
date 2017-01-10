@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var leaf = require('./public/javascripts/test');
 
 var pool = require('./bin/db.js');
 
@@ -182,28 +181,15 @@ app.use('/mapRerender', function (req,res) {
             obj = {LatLngData: rows,
                 selection: data};
             LatLngData = (JSON.stringify(obj));
-            fs.writeFile('../public/data/LatLngData.json', LatLngData);
+            var tempfilelocation = '../public/data/' +req.cookies.EIN +'_LatLngData.json';
+            console.log(tempfilelocation);
+            fs.writeFile(tempfilelocation, LatLngData);
         }
     });
     res.send('success');
 });
 
-//app.use('/mapupdate', function(req,res) {
-//var checkList = {};
-//function myFunction() {
-//console.log(req.body.filter0);
-//console.log(req.body.filter1);
-//for (i = 0; i <9 ; i++){
 
-// req.getElementById("filter"+i).name;
-// console.log(req.getElementById("filter"+i).name);
-//req.pause();
-// res.status = 304;
-//res.send('filters being applied');
-
-// }
-//}
-//});
 
 
 // catch 404 and forward to error handler
