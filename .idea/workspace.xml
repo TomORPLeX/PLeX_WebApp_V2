@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="33407525-ce2f-4bca-b444-ec576d7188c4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/data/LatLngData.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/javascripts/test.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/leaflet.js" afterPath="$PROJECT_DIR$/public/javascripts/leaflet.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/loadestimatecases.js" afterPath="$PROJECT_DIR$/public/javascripts/loadestimatecases.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/dayminus1.js" afterPath="$PROJECT_DIR$/routes/dayminus1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/demand.js" afterPath="$PROJECT_DIR$/routes/demand.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/logincheck.js" afterPath="$PROJECT_DIR$/routes/logincheck.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/queryestimatecases.js" afterPath="$PROJECT_DIR$/routes/queryestimatecases.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/dayminus1.ejs" afterPath="$PROJECT_DIR$/views/dayminus1.ejs" />
-    </list>
+    <list default="true" id="33407525-ce2f-4bca-b444-ec576d7188c4" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -46,8 +34,8 @@
       <file leaf-file-name="leaflet.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascripts/leaflet.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="935">
+              <caret line="55" column="82" lean-forward="true" selection-start-line="55" selection-start-column="82" selection-end-line="55" selection-end-column="82" />
               <folding>
                 <marker date="1484064070760" expanded="true" signature="1027:1033" ph="©" />
               </folding>
@@ -387,12 +375,12 @@
       <workItem from="1483614988118" duration="7852000" />
       <workItem from="1483707786259" duration="288000" />
       <workItem from="1483708122417" duration="16359000" />
-      <workItem from="1484051675237" duration="12335000" />
+      <workItem from="1484051675237" duration="12452000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60992000" />
+    <option name="totallyTimeSpent" value="61109000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -405,9 +393,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1026" y="-383" width="1034" height="1936" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21586345" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21586345" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3294509" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -824,8 +812,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/leaflet.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="935">
+          <caret line="55" column="82" lean-forward="true" selection-start-line="55" selection-start-column="82" selection-end-line="55" selection-end-column="82" />
           <folding>
             <marker date="1484064070760" expanded="true" signature="1027:1033" ph="©" />
           </folding>
