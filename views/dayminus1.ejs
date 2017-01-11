@@ -17,11 +17,11 @@
 </header>
 
 <div class="container">
-    <form id="form1">
+    <form id="form1" action="editestimate" method="post">
     <div class="row" style="background-color:#f8f8f8;">
 
         <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Enter EWOC Estimate</label>
+            <label class="col-sm-2 col-form-label">Enter EWOC Estimate</label>
             <div class="col-sm-10" id="estimatediv">
                 <input type="text" class="form-control" id="estimate" placeholder="example EWOC estimate" name="ewocestimate">
             </div>
@@ -31,22 +31,37 @@
 
                 <div class="form-group row" id="divcases">
                     <label for="exampleSelect2">Select Cases to Edit</label>
-                    <select multiple class="form-control" id="selectcases">
+                    <select multiple class="form-control" name="cases">
                         <% if (cases.length > 0) { %>
-                            <% for(var i=0;i<cases.length;i++) { %>
-                                <option> <%= cases[i].CASE_ID %></option>
+                            <% for(var ii=0;ii<cases.length;ii++) { %>
+
+
+                                    <% if(cases[ii].CASE_ID == formvalues.cases) { %>
+                                        <option selected> <%= cases[ii].CASE_ID %></option>
+                                    <% } else { %>
+                                        <option> <%= cases[ii].CASE_ID %></option>
+                                    <% } %>
+
+
                             <%}%>
                         <%}%>
-
-
                     </select>
                 </div>
 
                 <label class="form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="dso"> DSO
+                    <%   if (formvalues.dso == 'dso') { %>
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="dso" name="dso" checked> DSO
+                    <%} else { %>
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="dso" name="dso"> DSO
+                    <% } %>
                 </label>
+
                 <label class="form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked"> TM Booked
+                    <%    if (formvalues.tmbooked == 'tmbooked') { %>
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" checked> TM Booked
+                    <%} else { %>
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked"> TM Booked
+                    <% } %>
                 </label>
 
                 <br>
@@ -80,7 +95,7 @@
 
                 <div class="form-group row">
                     <label for="Profile">Edit/ Add Skill</label>
-                    <select name="editaddskill">
+                    <select name="addeditskill">
                         <option value="" selected><em>Select From List</em></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -117,20 +132,17 @@
 
             <div class="col-sm-3 col-md-5 col-centered" style="background-color:#f8f8f8;">
                 <label class="form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="addtoshadowplan"> Add to Shadow Plan
-                </label>
-                <label class="form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask"> Un-pin task
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask" name="unpintask"> Un-pin task
                 </label>
                 <div class="form-group row">
-                    <label for="Profile">Enter Estimated Travel To Next Task</label>
+                    <label for="Profile">Estimated Travel To Next Task/ EOD Travel</label>
                     <select name="traveltime">
                         <option value="" selected><em>Select From List</em></option>
-                        <option value="1">10</option>
-                        <option value="2">20</option>
-                        <option value="3">30</option>
-                        <option value="4">40</option>
-                        <option value="5">50</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                         <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
@@ -139,12 +151,12 @@
                 </div>
                 <div class="form-group row">
                     <label for="EIN">Enter Engineer EIN for Task
-                        <input type="number" class="form-control" name="ein" placeholder="600123456">
+                        <input type="number" class="form-control" name="engein" placeholder="600123456">
                     </label>
                 </div>
                 <div class="form-group row">
                     <label for="Profile">Select Task Number</label>
-                    <select name="edittasktime">
+                    <select name="tasknum">
                         <option value="" selected><em>Select From List</em></option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -159,7 +171,7 @@
                 </div>
 
                 <label for="EIN">Select Planner Defined Date(s)
-                    <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'">
+                    <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates">
                 </label>
 
 
@@ -175,7 +187,11 @@
         </div>
     </form>
 </div>
+<% if(plannermessage) { %>
+<p style = "font-size: 2.0em; font-style: italic; text-align:center"> <%= plannermessage %> </p>
+<% } %>
 
+<% if(db) { %>
 <table id="table" >
     <thead>
     <tr>
@@ -191,6 +207,7 @@
     <% } %>
     </tbody>
 </table>
+<% } %>
 
 <footer>
     <% include ./partials/footer %>

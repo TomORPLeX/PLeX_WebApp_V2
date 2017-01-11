@@ -16,8 +16,7 @@ router.use('/', function(req, res, next) {
             throw err;
         } else {
             res.cookie('cases', rows);
-            console.log('our new cookie: ' +req.cookies.cases);
-
+            console.log('our new cookie: ' +JSON.stringify(rows));
             res.send('success');
         }
     });

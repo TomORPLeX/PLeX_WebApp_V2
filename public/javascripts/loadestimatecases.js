@@ -11,7 +11,7 @@ $( "#estimate" ).keyup(function() {
             contentType: 'application/json',
             url: '/queryestimatecases',
             success: function () {
-                alert('Back In ClientSide (loadestimate)');
+                //alert('Back In ClientSide (loadestimate)');
                 $("#divcases").load("dayminus1 #divcases"); //reload div
             }
         });
