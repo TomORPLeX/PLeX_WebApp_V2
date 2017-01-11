@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
     res.clearCookie("username");
     res.clearCookie("loginFlag");
     res.clearCookie("adminFlag");
+    res.clearCookie("cases");
     res.send('');
 });
 
