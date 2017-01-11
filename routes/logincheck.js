@@ -9,8 +9,6 @@ router.use('/', function(req, res, next) {
     var quer1 = "SELECT * FROM users WHERE EIN = '"+EIN+"'";
     var obj = {};
 
-
-
     pool.query(quer1, function(err,rows)
     {
         if(err)
