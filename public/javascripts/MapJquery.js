@@ -58,11 +58,11 @@ $(document).ready(function() {
             type: 'POST',
             data: JSON.stringify(dataString),
             contentType: 'application/json',
-            url: '/mapRerender',
+            url: '/maprerender',
             success: function (data) {
                 setTimeout(function(){
                     window.location.reload(true);
-                }, 100);
+                }, 250);
 
             }
         });

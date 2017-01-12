@@ -54,7 +54,10 @@ router.use('/', function(req, res, next) {
                                             "planned":"All",
                                             "priority":[""],
                                             "skills":[""],
-                                            "ouc":"All"}};
+                                            "ouc":"All"},
+                                "priorityCount":
+                                    [{"Total":"",
+                                        "priority_description":""}]};
             var tempfilelocation = '../public/data/' +EIN +'_LatLngData.json';
             fs.writeFile(tempfilelocation, JSON.stringify(initialJson) );
 

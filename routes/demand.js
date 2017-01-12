@@ -15,6 +15,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
     var tempfilelocation = '../public/data/' +req.cookies.EIN +'_LatLngData.json';
     var JsonData = JSON.parse(fs.readFileSync(tempfilelocation));
     var selection = JsonData.selection;
+    var priorityCount = JsonData.priorityCount;
 
         pool.query(quer1, function(err,rows)
         {
@@ -45,7 +46,8 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
                                     db1: rows1,
                                     ouc: rows2,
                                     selection: selection,
-                                    ein: req.cookies.EIN};
+                                    priorityCount: priorityCount,
+                                    ein: req.cookies.EIN, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag, 'cases': req.cookies.cases};
                                 res.render('demand', obj);
 
                                 console.log(JSON.stringify(obj));
