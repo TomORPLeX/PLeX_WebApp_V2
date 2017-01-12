@@ -42,6 +42,15 @@ router.all('/', function(req,res,next) {
     tasknum = req.body.tasknum;
     dates = req.body.dates;
 
+    var dropdownsjson = {
+        "fluiditydropdown":req.cookies.fluiditycookie,
+        "skillsdropdown":req.cookies.skillscookie
+        //"gangsizedropdown":gangsizedropdown,
+        //"tasktimedropdown":tasktimedropdown,
+        //"traveldropdown":traveldropdown,
+        //"tasknumberdropdown": tasknumberdropdown
+    };
+
     formvalues = {
         "estimatenum":estimatenum,
         "cases":selectedcases,
@@ -57,10 +66,6 @@ router.all('/', function(req,res,next) {
         "tasknum":tasknum,
         "dates":dates
     };
-    console.log(JSON.stringify(formvalues));
-    console.log('selected cases cookie:  '+req.cookies.cases);
-    console.log('cookie.cases[0].CASE_ID:  '+req.cookies.cases[0].CASE_ID);
-
     console.log('selected cases: '+selectedcases +'|'+'All cases: '+JSON.stringify(allcases));
 
     if(selectedcases) {
@@ -103,18 +108,27 @@ router.all('/', function(req,res,next) {
         console.log('update after slice: '+updatequer);
         updatequer = updatequer + "WHERE ESTIMATENUM = '" + estimatenum + "' AND CASE_ID in (" + selectedcases + ");";
         console.log('final query: '+updatequer);
-        obj = {"plannermessage": "Success",
+        obj = {"dropdownsjson":dropdownsjson,
+            "plannermessage": "Success",
             "formvalues": formvalues,
             "cases":allcases,
-            "db":""};
+            "db":"",
+            "loginFlag":req.cookies.loginFlag,
+            "adminFlag":req.cookies.adminFlag};
         res.render('dayminus1', obj);
     } else
     {
         plannermessage = "Please select cases to edit";
-        obj = {"plannermessage": plannermessage,
-                "formvalues": formvalues,
-                "cases":allcases,
-                "db":""};
+        obj = {"dropdownsjson":dropdownsjson,
+            "plannermessage": plannermessage,
+            "formvalues": formvalues,
+            "cases": allcases,
+            "db":"",
+            "loginFlag":req.cookies.loginFlag,
+            "adminFlag":req.cookies.adminFlag
+        };
+
+
         res.render('dayminus1', obj);
     }
 
