@@ -25,10 +25,8 @@ $(document).ready(function() {
     var tempfilelocation = './data/' +temp+'_LatLngData.json';
 
     $.getJSON(tempfilelocation, function (data) {
-        alert('hello');
         L.map('mapid').remove();
         LonLatData = data;
-        alert(JSON.stringify(LonLatData.LatLngData));
 
 
     var mymap = L.map('mapid').setView([51, 0], 5);
