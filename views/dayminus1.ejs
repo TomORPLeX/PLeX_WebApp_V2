@@ -23,7 +23,11 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Enter EWOC Estimate</label>
             <div class="col-sm-10" id="estimatediv">
-                <input type="text" class="form-control" id="estimate" placeholder="example EWOC estimate" name="ewocestimate">
+                <% if(formvalues.estimatenum.length > 0) { %>
+                    <input type="text" class="form-control" id="estimate" name="ewocestimate" value="<%= formvalues.estimatenum %>">
+                <% } else { %>
+                    <input type="text" class="form-control" id="estimate" placeholder="example EWOC estimate" name="ewocestimate">
+                <%}%>
             </div>
         </div>
 
@@ -35,12 +39,14 @@
                         <% if (cases.length > 0) { %>
                             <% for(var ii=0;ii<cases.length;ii++) { %>
 
+                                <%for(var jj =0;jj<10;jj++) {%>
 
-                                    <% if(cases[ii].CASE_ID == formvalues.cases) { %>
+                                    <% if(cases[ii].CASE_ID == formvalues.cases[jj]) { %>
                                         <option selected> <%= cases[ii].CASE_ID %></option>
                                     <% } else { %>
                                         <option> <%= cases[ii].CASE_ID %></option>
                                     <% } %>
+                                <% } %>
 
 
                             <%}%>
@@ -70,10 +76,15 @@
                     <label for="Profile">Edit Fluidity Status</label>
                         <select name="fluiditystatus" >
                             <option value="" selected><em>Select From List</em></option>
-                            <option value="Admin">Open - Non Fluid</option>
-                            <option value="Manager">Otherfluiditystatus</option>
-                            <option value="5DAP">Otherfluiditystatus</option>
-                            <option value="OTD">Otherfluiditystatus</option>
+
+                            <%for(var ll =0;ll<dropdownsjson.fluiditydropdown.length;ll++) { %>
+                                <% if( dropdownsjson.fluiditydropdown[ll].CASE_STATUS == formvalues.fluiditystatus) { %>
+                                    <option value="<%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %>" selected><%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %></option>
+                                <% } else {%>
+                                    <option value="<%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %>"><%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %></option>
+                                <% } %>
+                            <% } %>
+
                         </select>
                 </div>
 
@@ -97,15 +108,16 @@
                     <label for="Profile">Edit/ Add Skill</label>
                     <select name="addeditskill">
                         <option value="" selected><em>Select From List</em></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
+
+                        <%for(var nn =0;nn<dropdownsjson.skillsdropdown.length;nn++) { %>
+                            <% if( dropdownsjson.skillsdropdown[nn].WT_DESCRIPTION == formvalues.skills) { %>
+                                <option value="<%= dropdownsjson.skillsdropdown[nn].WT_DESCRIPTION %>" selected><%= dropdownsjson.skillsdropdown[nn].WT_DESCRIPTION %></option>
+                            <% } else {%>
+                                <option value="<%= dropdownsjson.skillsdropdown[nn].WT_DESCRIPTION %>"><%= dropdownsjson.skillsdropdown[nn].WT_DESCRIPTION %></option>
+                            <% } %>
+                        <% } %>
+
+
                     </select>
                 </div>
 
@@ -131,9 +143,17 @@
             </div>
 
             <div class="col-sm-3 col-md-5 col-centered" style="background-color:#f8f8f8;">
+
                 <label class="form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask" name="unpintask"> Un-pin task
+
+                    <%    if (formvalues.unpintask == 'unpintask') { %>
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask" name="unpintask" checked> Un-pin task
+                    <% } else { %>
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask" name="unpintask"> Un-pin task
+                    <% } %>
+
                 </label>
+
                 <div class="form-group row">
                     <label for="Profile">Estimated Travel To Next Task/ EOD Travel</label>
                     <select name="traveltime">
@@ -149,11 +169,17 @@
                         <option value="9">9</option>
                     </select>
                 </div>
+
                 <div class="form-group row">
                     <label for="EIN">Enter Engineer EIN for Task
-                        <input type="number" class="form-control" name="engein" placeholder="600123456">
+                        <% if(formvalues.engein.length > 0) { %>
+                            <input type="number" class="form-control" name="engein" value="<%=formvalues.engein%>">
+                        <% } else { %>
+                            <input type="number" class="form-control" name="engein" placeholder="Enter engineer EIN" value="">
+                        <% } %>
                     </label>
                 </div>
+
                 <div class="form-group row">
                     <label for="Profile">Select Task Number</label>
                     <select name="tasknum">
@@ -171,7 +197,11 @@
                 </div>
 
                 <label for="EIN">Select Planner Defined Date(s)
-                    <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates">
+                    <% if(formvalues.dates.length > 0) { %>
+                        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates" value = "<%=formvalues.dates%>">
+                    <% } else { %>
+                        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates">
+                    <% } %>
                 </label>
 
 
