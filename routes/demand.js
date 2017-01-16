@@ -49,8 +49,6 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
                                     priorityCount: priorityCount,
                                     ein: req.cookies.EIN, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag, 'cases': req.cookies.cases};
                                 res.render('demand', obj);
-
-                                console.log(JSON.stringify(obj));
                             }
                         });
                     }

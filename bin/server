@@ -73,6 +73,14 @@ function onError(error) {
       console.error(bind + ' is already in use');
       process.exit(1);
       break;
+      case 'ER_PARSE_ERROR':
+        console.error("Tom beacuse we have caught the error in server");
+        //process.exit(1);
+        break;
+      case 'TOM':
+          console.log('caught TOM error');
+          //process.exit(1);
+          break;
     default:
       throw error;
   }

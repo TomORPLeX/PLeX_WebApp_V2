@@ -11,7 +11,7 @@ var pool = require('./bin/db.js');
 var index = require('./routes/index');
 var logincheck = require('./routes/logincheck');
 var demand = require('./routes/demand');
-var dayminus1 = require('./routes/dayminus1');
+var planner = require('./routes/planner');
 var otd = require('./routes/otd');
 var close =  require('./routes/close');
 var logout =  require('./routes/logout');
@@ -23,6 +23,7 @@ var editestimate = require('./routes/editestimate');
 var queryestimatecases = require('./routes/queryestimatecases');
 var submit = require('./routes/submit');
 var maprerender = require('./routes/maprerender');
+var getdatatabledata = require('./routes/getdatatabledata');
 
 var app = express();
 
@@ -48,7 +49,7 @@ app.use(cookieParser());
 app.use('/', index);
 app.use('/logincheck', logincheck);
 app.use('/demand', demand);
-app.use('/dayminus1', dayminus1);
+app.use('/planner', planner);
 app.use('/otd',  otd);
 app.use('/close', close);
 app.use('/logout', logout);
@@ -60,9 +61,7 @@ app.use('/editestimate', editestimate);
 app.use('/queryestimatecases', queryestimatecases);
 app.use('/submit', submit);
 app.use('/maprerender', maprerender);
-
-
-
+app.use('/getdatatabledata', getdatatabledata);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -76,9 +75,26 @@ app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
+    //if (res.locals.message == 'ER_PARSE_ERROR') { console.log('in error handler');}
+
     // render the error page
     res.status(err.status || 500);
     res.render('error');
 });
 
+app.use(function (err, req, res, next) {
+        console.log('In Error Handler');
+        if(err) {
+            console.log('Error:'+err.code );
+            //throw err;
+            res.render('error');
+        } else {
+            return next();
+        }
+    });
+
+
+
 module.exports = app;
+
+//Hiiiiiiiiiiiiiiiiiii
