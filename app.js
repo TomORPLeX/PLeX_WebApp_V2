@@ -1,3 +1,4 @@
+//comment by adam
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,7 +12,7 @@ var pool = require('./bin/db.js');
 var index = require('./routes/index');
 var logincheck = require('./routes/logincheck');
 var demand = require('./routes/demand');
-var dayminus1 = require('./routes/dayminus1');
+var planner = require('./routes/planner');
 var otd = require('./routes/otd');
 var close =  require('./routes/close');
 var logout =  require('./routes/logout');
@@ -48,7 +49,7 @@ app.use(cookieParser());
 app.use('/', index);
 app.use('/logincheck', logincheck);
 app.use('/demand', demand);
-app.use('/dayminus1', dayminus1);
+app.use('/planner', planner);
 app.use('/otd',  otd);
 app.use('/close', close);
 app.use('/logout', logout);

@@ -9,7 +9,7 @@ var fs = require('fs');
 var obj = {};
 
 var quer1 = "SELECT * FROM test1 LIMIT 10";
-var quer2 = "SELECT om_ouc FROM live_table";
+var quer2 = "SELECT DISTINCT om_ouc FROM live_table";
 
 router.get('/', loginfunction.isLoggedIn, function(req, res) {
     var tempfilelocation = '../public/data/' +req.cookies.EIN +'_LatLngData.json';
@@ -27,7 +27,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
             {
                 //obj = {db: rows};
 
-                console.log(JSON.stringify(obj));
+
                 pool.query(quer1, function(err,rows1)
                 {
                     if(err)
@@ -50,7 +50,8 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
                                     ein: req.cookies.EIN, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag, 'cases': req.cookies.cases};
                                 res.render('demand', obj);
 
-                                console.log(JSON.stringify(obj));
+
+
                             }
                         });
                     }

@@ -381,9 +381,7 @@
                     </div>
                 <h3 class="text-center">Enter OUC</h3>
                 <select class="selectpicker" id="oucselection">
-
-                    <% for(var i=0;i<ouc.length;i++) {
-                        var flag =0
+                    <%var flag =0; for(var i=0;i<ouc.length;i++) {
                         if(selection.ouc==ouc[i].om_ouc){
                         flag = 1%>
                         <option selected><%=ouc[i].om_ouc %></option>

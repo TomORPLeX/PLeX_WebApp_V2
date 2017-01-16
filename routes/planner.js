@@ -41,10 +41,10 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
         "formvalues": formvalues,
         "cases": req.cookies.cases,
         "db":"",
-        "loginflag":req.cookies.loginFlag,
-        "adminflag":req.cookies.adminFlag
+        "loginFlag":req.cookies.loginFlag,
+        "adminFlag":req.cookies.adminFlag
     };
-    res.render('dayminus1', obj);
+    res.render('planner', obj);
 });
 
 module.exports = router;

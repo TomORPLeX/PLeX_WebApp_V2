@@ -12,7 +12,7 @@ $( "#estimate" ).keyup(function() {
             url: '/queryestimatecases',
             success: function () {
                 //alert('Back In ClientSide (loadestimate)');
-                $("#divcases").load("dayminus1 #divcases"); //reload div
+                $("#divcases").load("planner #divcases"); //reload div
             }
         });
     }
