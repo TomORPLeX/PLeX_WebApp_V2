@@ -9,7 +9,6 @@ body {
   color: #FFFFFF;
 }
 
-
 h3 {
   color: #FFFFFF;
 }
@@ -19,7 +18,20 @@ div.containerTableDemand{
   height: 200px;
   overflow-x: auto;
   overflow-y: auto;
+}
 
+#tablecontainer{
+  position: relative;
+  border: 1px solid black;
+  overflow: hidden;
+  width: 95%;
+  height: 550px;
+}
+
+#scrollable {
+  overflow-x: auto;
+  width: 99.5%;
+  height: 568px;
 }
 
 /* centered columns styles */

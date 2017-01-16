@@ -8,7 +8,10 @@ router.all('/', function (req, res, next) {
 
     var data = req.body;
     var LatLngData;
+<<<<<<< HEAD
 
+=======
+>>>>>>> tom4
 
     var fluidityStatusFlag = 0;
     var skillsFilter = [];
@@ -28,7 +31,10 @@ router.all('/', function (req, res, next) {
         console.log(data.skills[i]);
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> tom4
     if (data.fluidity == "All") {
         fluidityStatusFlag = 1;
         fluidityStatus = "";
@@ -82,6 +88,7 @@ router.all('/', function (req, res, next) {
 
     dataString = fluidityStatus + plannedWork + priorityScore + skillsFilter + oucSelection;
 
+    //Filter out jobs in execute
     var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, WT_DESCRIPTION, CASE_STATUS, PRIORITY_DESCRIPTION, EXCH, CASE_ID, CUST_EST_NO  FROM live_table " + dataString + ";";
     var quer6 = "SELECT COUNT(*) as Total, priority_description FROM live_table " + dataString + "group by priority_description;";
 
@@ -94,7 +101,11 @@ router.all('/', function (req, res, next) {
                 if (err) {
                     return;
                 } else {
+<<<<<<< HEAD
 
+=======
+                    //console.log(JSON.stringify(rows));
+>>>>>>> tom4
                     obj = {
                         LatLngData: rows,
                         selection: data,

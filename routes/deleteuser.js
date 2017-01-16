@@ -7,7 +7,7 @@ var deletequer = "";
 var selectquer = "";
 var obj = {};
 
-router.all('/', function(req,res,next) {
+router.all('/',function(req,res,next) {
     console.log('Removing user from database');
 
     delein = req.body.delein;
@@ -20,7 +20,7 @@ router.all('/', function(req,res,next) {
     else
     {
         console.log('EIN to delete entered');
-        deletequer = 'DELETE FROM users WHERE EIN ='+delein+';';
+        deletequer = "DELETE * FROM users WHERE EIN ='"+delein+"';";
         selectquer = 'SELECT * FROM users ORDER BY ADDED_DATE DESC;';
         console.log('Delete Query is [ ' + deletequer+ ' ]');
         console.log('Select Query is [ ' + selectquer+ ' ]');
@@ -28,7 +28,8 @@ router.all('/', function(req,res,next) {
         pool.query(deletequer, function (err, rows) {
             if (err) {
                 delusermessage = 'Invalid EIN';
-                throw err;
+                console.log(err.code);
+                throw new Error('TOM');
             } else {
                 console.log('Database Updated');
                 pool.query(selectquer, function (err, rows) {
