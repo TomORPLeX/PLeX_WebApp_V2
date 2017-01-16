@@ -8,8 +8,7 @@ router.all('/', function (req, res, next) {
 
     var data = req.body;
     var LatLngData;
-    console.log('body: ' + JSON.stringify(data));
-    console.log(data.fluidity);
+
 
     var fluidityStatusFlag = 0;
     var skillsFilter = [];
@@ -20,9 +19,6 @@ router.all('/', function (req, res, next) {
     var dataString = [];
     var obj = {};
 
-    console.log(data.priority[0]);
-    console.log(data.skills[3]);
-
     for (var i = 0; i < data.priority.length; i++) {
         priorityScore[i] = "'" + data.priority[i] + "'";
     }
@@ -32,8 +28,6 @@ router.all('/', function (req, res, next) {
         console.log(data.skills[i]);
     }
 
-    console.log(JSON.stringify(priorityScore));
-    console.log(JSON.stringify(skillsFilter));
 
     if (data.fluidity == "All") {
         fluidityStatusFlag = 1;
@@ -90,18 +84,17 @@ router.all('/', function (req, res, next) {
 
     var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, WT_DESCRIPTION, CASE_STATUS, PRIORITY_DESCRIPTION, EXCH, CASE_ID, CUST_EST_NO  FROM live_table " + dataString + ";";
     var quer6 = "SELECT COUNT(*) as Total, priority_description FROM live_table " + dataString + "group by priority_description;";
-    console.log(quer6);
+
 
     pool.query(quer5, function (err, rows) {
         if (err) {
-            throw err;
+            return;
         } else {
             pool.query(quer6, function (err, rows1) {
                 if (err) {
-                    throw err;
+                    return;
                 } else {
-                    console.log('new data displayed');
-                    console.log(JSON.stringify(rows));
+
                     obj = {
                         LatLngData: rows,
                         selection: data,
@@ -109,7 +102,6 @@ router.all('/', function (req, res, next) {
                     };
                     LatLngData = (JSON.stringify(obj));
                     var tempfilelocation = '../public/data/' + req.cookies.EIN + '_LatLngData.json';
-                    console.log(tempfilelocation);
                     fs.writeFile(tempfilelocation, LatLngData);
                 }
             });
