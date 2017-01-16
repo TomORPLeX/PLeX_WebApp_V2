@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Day-1</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
@@ -9,6 +10,14 @@
     <script src="javascripts/jquery.js"></script>
     <link rel="stylesheet" href="build/kalendae.css" type="text/css" charset="utf-8">
     <script src="build/kalendae.standalone.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascripts/plannerdatatable.js" type="text/javascript" charset="utf-8"></script>
+    <script src="javascripts/animatescroll.js" type="text/javascript" charset="utf-8"></script>
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
+
 </head>
 
 <body>
@@ -36,21 +45,20 @@
                 <div class="form-group row" id="divcases">
                     <label for="exampleSelect2">Select Cases to Edit</label>
                     <select multiple class="form-control" name="cases">
+
                         <% if (cases.length > 0) { %>
                             <% for(var ii=0;ii<cases.length;ii++) { %>
 
-                                <%for(var jj =0;jj<10;jj++) {%>
-
-                                    <% if(cases[ii].CASE_ID == formvalues.cases[jj]) { %>
+                                    <% if(formvalues.cases.includes(cases[ii].CASE_ID)) { %>
                                         <option selected> <%= cases[ii].CASE_ID %></option>
                                     <% } else { %>
                                         <option> <%= cases[ii].CASE_ID %></option>
                                     <% } %>
-                                <% } %>
 
 
                             <%}%>
                         <%}%>
+
                     </select>
                 </div>
 
@@ -180,7 +188,7 @@
                     </label>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row" id="randomdiv">
                     <label for="Profile">Select Task Number</label>
                     <select name="tasknum">
                         <option value="" selected><em>Select From List</em></option>
@@ -196,11 +204,11 @@
                     </select>
                 </div>
 
-                <label for="EIN">Select Planner Defined Date(s)
+                <label for="EIN" name="datewrap">Select Planner Defined Date(s)
                     <% if(formvalues.dates.length > 0) { %>
                         <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates" value = "<%=formvalues.dates%>">
                     <% } else { %>
-                        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates">
+                        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " name="dates">
                     <% } %>
                 </label>
 
@@ -239,11 +247,24 @@
 </table>
 <% } %>
 
+<div id = "outertablecontainer" class="outertablecontainer">
+    <div id = "tablecontainer" class="tablecontainer">
+        <div id="scrollable" class="scrollable">
+            <table id="datatableplanner" class="table table-striped hover"></table>
+        </div>
+    </div>
+</div>
+
+<div class="scrollbuttons">
+    <button type="submit" class="btn btn-primary" onClick="scrollacross()">Scroll To Next Day</button>
+</div>
+
 <footer>
     <% include ./partials/footer %>
 </footer>
 
 <script src="javascripts/loadestimatecases.js" type="text/javascript" charset="utf-8"></script>
+<script src="javascripts/plannerdatatable.js" type="text/javascript" charset="utf-8"></script>
 
 </body>
 </html>

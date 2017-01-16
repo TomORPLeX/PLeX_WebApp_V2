@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
       res.render('index', { title: 'Please Log In'});
   } else
   {
-      res.render('index', { title: 'Please Log In', 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag  });
+      res.render('index', { title: 'Welcome '+req.cookies.name, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag  });
   }
 });
 

@@ -24,6 +24,7 @@ var editestimate = require('./routes/editestimate');
 var queryestimatecases = require('./routes/queryestimatecases');
 var submit = require('./routes/submit');
 var maprerender = require('./routes/maprerender');
+var getdatatabledata = require('./routes/getdatatabledata');
 
 var app = express();
 
@@ -61,9 +62,7 @@ app.use('/editestimate', editestimate);
 app.use('/queryestimatecases', queryestimatecases);
 app.use('/submit', submit);
 app.use('/maprerender', maprerender);
-
-
-
+app.use('/getdatatabledata', getdatatabledata);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -77,9 +76,26 @@ app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
+    //if (res.locals.message == 'ER_PARSE_ERROR') { console.log('in error handler');}
+
     // render the error page
     res.status(err.status || 500);
     res.render('error');
 });
 
+app.use(function (err, req, res, next) {
+        console.log('In Error Handler');
+        if(err) {
+            console.log('Error:'+err.code );
+            //throw err;
+            res.render('error');
+        } else {
+            return next();
+        }
+    });
+
+
+
 module.exports = app;
+
+//Hiiiiiiiiiiiiiiiiiii

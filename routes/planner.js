@@ -81,7 +81,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
                         "adminFlag":req.cookies.adminFlag
                     };
                     console.log("obj passed into dayminus1: \n"+JSON.stringify(obj)+"\n");
-                    res.render('dayminus1', obj);
+                    res.render('planner', obj);
                 }
             });
 

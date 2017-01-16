@@ -115,7 +115,7 @@ router.all('/', function(req,res,next) {
             "db":"",
             "loginFlag":req.cookies.loginFlag,
             "adminFlag":req.cookies.adminFlag};
-        res.render('dayminus1', obj);
+        res.render('planner', obj);
     } else
     {
         plannermessage = "Please select cases to edit";
@@ -129,7 +129,7 @@ router.all('/', function(req,res,next) {
         };
 
 
-        res.render('dayminus1', obj);
+        res.render('planner', obj);
     }
 
     //call update function
