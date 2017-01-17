@@ -13,6 +13,8 @@
     <script src="javascripts/plannerdatatable.js" type="text/javascript" charset="utf-8"></script>
     <script src="javascripts/animatescroll.js" type="text/javascript" charset="utf-8"></script>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
@@ -209,7 +211,9 @@
     </form>
 </div>
 <% if(plannermessage) { %>
-<p style = "font-size: 2.0em; font-style: italic; text-align:center"> <%= plannermessage %> </p>
+<div class="alert alert-danger text-center" id="alert1">
+    <p> <%= plannermessage %> </p>
+</div>
 <% } %>
 <br><br>
 
@@ -230,7 +234,7 @@
 </footer>
 
 <script src="javascripts/loadestimatecases.js" type="text/javascript" charset="utf-8"></script>
-<script src="javascripts/plannerdatatable.js" type="text/javascript" charset="utf-8"></script>
+
 
 </body>
 </html>
