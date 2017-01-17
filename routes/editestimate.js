@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../bin/db.js');
 
-var selectquer = "";
 var updatequer = "";
 
 var obj = {};
@@ -24,6 +23,10 @@ var engein = "";
 var tasknum = "";
 var dates = "";
 
+var gangsizedropdown = [{"ASSUMED_GANG_SIZE":1},{"ASSUMED_GANG_SIZE":2},{"ASSUMED_GANG_SIZE":3},{"ASSUMED_GANG_SIZE":4},{"ASSUMED_GANG_SIZE":5},{"ASSUMED_GANG_SIZE":6}];
+var traveldropdown = [{"PLANNED_TT_DURATION":10},{"PLANNED_TT_DURATION":"20"},{"PLANNED_TT_DURATION":"30"},{"PLANNED_TT_DURATION":"40"},{"PLANNED_TT_DURATION":"50"},{"PLANNED_TT_DURATION":"60"},{"PLANNED_TT_DURATION":"70"},{"PLANNED_TT_DURATION":"80"},{"PLANNED_TT_DURATION":"90"},{"PLANNED_TT_DURATION":"100"},{"PLANNED_TT_DURATION":"110"},{"PLANNED_TT_DURATION":"120"},{"PLANNED_TT_DURATION":"130"},{"PLANNED_TT_DURATION":"140"},{"PLANNED_TT_DURATION":"150"}];
+var tasknumberdropdown = [{"TASK_NUMBER":1},{"TASK_NUMBER":2},{"TASK_NUMBER":3},{"TASK_NUMBER":4},{"TASK_NUMBER":5},{"TASK_NUMBER":6}];
+
 router.all('/', function(req,res,next) {
     console.log('Editing Estimate');
 
@@ -35,7 +38,7 @@ router.all('/', function(req,res,next) {
     fluiditystatus = req.body.fluiditystatus;
     gangsize = req.body.gangsize;
     skills = req.body.addeditskill;
-    tasktime = req.body.edittasktime;
+    tasktime = req.body.tasktime;
     unpintask = req.body.unpintask;
     travel = req.body.traveltime;
     engein = req.body.engein;
@@ -44,11 +47,10 @@ router.all('/', function(req,res,next) {
 
     var dropdownsjson = {
         "fluiditydropdown":req.cookies.fluiditycookie,
-        "skillsdropdown":req.cookies.skillscookie
-        //"gangsizedropdown":gangsizedropdown,
-        //"tasktimedropdown":tasktimedropdown,
-        //"traveldropdown":traveldropdown,
-        //"tasknumberdropdown": tasknumberdropdown
+        "skillsdropdown":req.cookies.skillscookie,
+        "gangsizedropdown":gangsizedropdown,
+        "traveldropdown":traveldropdown,
+        "tasknumberdropdown": tasknumberdropdown
     };
 
     formvalues = {
@@ -66,10 +68,10 @@ router.all('/', function(req,res,next) {
         "tasknum":tasknum,
         "dates":dates
     };
-    console.log('selected cases: '+selectedcases +'|'+'All cases: '+JSON.stringify(allcases));
+    //console.log('selected cases: '+selectedcases +'|'+'All cases: '+JSON.stringify(allcases));
 
     if(selectedcases) {
-        updatequer = "UPDATE live_table SET";
+        updatequer = "UPDATE live_workstack SET";
         if (dso) {
             updatequer = updatequer + " DSO_BOOKED = '" + dso + "' ,";
         }
@@ -103,19 +105,40 @@ router.all('/', function(req,res,next) {
         if (dates) {
             updatequer = updatequer + " dates = '" + dates + "' ,";
         }
-        console.log('update before slice: '+updatequer);
+        //console.log('update before slice: '+updatequer);
         updatequer = updatequer.slice(",", -1);
-        console.log('update after slice: '+updatequer);
-        updatequer = updatequer + "WHERE ESTIMATENUM = '" + estimatenum + "' AND CASE_ID in (" + selectedcases + ");";
-        console.log('final query: '+updatequer);
-        obj = {"dropdownsjson":dropdownsjson,
-            "plannermessage": "Success",
-            "formvalues": formvalues,
-            "cases":allcases,
-            "db":"",
-            "loginFlag":req.cookies.loginFlag,
-            "adminFlag":req.cookies.adminFlag};
-        res.render('planner', obj);
+        //console.log('update after slice: '+updatequer);
+        updatequer = updatequer + "WHERE ESTIMATENUMBER = '" + estimatenum + "' AND CASE_ID in ('" + selectedcases + "');";
+        console.log('update query: '+updatequer);
+        var selectquer = "SELECT * FROM live-workstack WHERE ESTIMATENUMBER LIKE '"+estimatenum +"' AND CASE_ID in ('" + selectedcases +"');";
+        console.log('select query: '+selectquer);
+
+        pool.query(updatequer, function (err, rows) {
+            if (err) {
+                console.log('error in update query');
+                throw err;
+            } else {
+                console.log('Database Updated');
+                pool.query(selectquer, function (err, rows) {
+                    if (err) {
+                        console.log('Error in select query');
+                        throw err;
+                    } else {
+                        obj = {"dropdownsjson":dropdownsjson,
+                            "plannermessage": "Success",
+                            "formvalues": formvalues,
+                            "cases":allcases,
+                            "db":"",
+                            "loginFlag":req.cookies.loginFlag,
+                            "adminFlag":req.cookies.adminFlag};
+                            res.render('planner', obj);
+                    }
+                });
+            }
+        });
+
+
+
     } else
     {
         plannermessage = "Please select cases to edit";
@@ -128,7 +151,7 @@ router.all('/', function(req,res,next) {
             "adminFlag":req.cookies.adminFlag
         };
 
-
+        console.log("form values: "+JSON.stringify(obj.formvalues));
         res.render('planner', obj);
     }
 

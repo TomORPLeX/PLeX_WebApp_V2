@@ -6,7 +6,7 @@ function ConnectDB() {
         host: "10.52.204.247",
         user: "nsusr",
         password: "N5p1A2",
-        database: "test",
+        database: "plex",
         connectionLimit: 10,
         multipleStatements: true
     });

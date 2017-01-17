@@ -27,10 +27,10 @@
 
 <div class="container">
     <form id="form1" action="editestimate" method="post">
-    <div class="row" style="background-color:#f8f8f8;">
+    <div class="row">
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Enter EWOC Estimate</label>
+            <label class="col-md-2 col-form-label">Enter EWOC Estimate</label>
             <div class="col-sm-10" id="estimatediv">
                 <% if(formvalues.estimatenum.length > 0) { %>
                     <input type="text" class="form-control" id="estimate" name="ewocestimate" value="<%= formvalues.estimatenum %>">
@@ -40,27 +40,24 @@
             </div>
         </div>
 
-        <div class="col-md-5 col-centered" style="background-color:#f8f8f8;">
-
-                <div class="form-group row" id="divcases">
-                    <label for="exampleSelect2">Select Cases to Edit</label>
-                    <select multiple class="form-control" name="cases">
-
-                        <% if (cases.length > 0) { %>
-                            <% for(var ii=0;ii<cases.length;ii++) { %>
-
-                                    <% if(formvalues.cases.includes(cases[ii].CASE_ID)) { %>
-                                        <option selected> <%= cases[ii].CASE_ID %></option>
-                                    <% } else { %>
-                                        <option> <%= cases[ii].CASE_ID %></option>
-                                    <% } %>
 
 
-                            <%}%>
-                        <%}%>
+        <div class="form-group row-centered" id="divcases">
+            <label for="exampleSelect2">Select Cases to Edit</label>
+            <select multiple class="form-control input-large" name="cases">
+                <% if (cases.length > 0) { %>
+                    <% for(var ii=0;ii<cases.length;ii++) { %>
+                            <% if(formvalues.cases.includes(cases[ii].CASE_ID)) { %>
+                                <option selected> <%= cases[ii].CASE_ID %></option>
+                            <% } else { %>
+                                <option> <%= cases[ii].CASE_ID %></option>
+                            <% } %>
+                    <%}%>
+                <%}%>
+            </select>
+        </div>
 
-                    </select>
-                </div>
+        <div class="col-lg-5 col-centered" name="col1">
 
                 <label class="form-check-inline">
                     <%   if (formvalues.dso == 'dso') { %>
@@ -100,15 +97,13 @@
                     <label for="Profile">Gang Size</label>
                     <select name="gangsize">
                         <option value="" selected><em>Select From List</em></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
+                        <%for(var nn =0;nn<dropdownsjson.gangsizedropdown.length;nn++) { %>
+                            <% if( dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE == formvalues.gangsize) { %>
+                                <option value="<%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%>" selected><em><%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%></em></option>
+                            <% } else { %>
+                                <option value="<%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%>"><em><%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%></em></option>
+                        <% } %>
+                        <% } %>
                     </select>
                 </div>
 
@@ -118,63 +113,52 @@
                         <option value="" selected><em>Select From List</em></option>
 
                         <%for(var nn =0;nn<dropdownsjson.skillsdropdown.length;nn++) { %>
-                            <% if( dropdownsjson.skillsdropdown[nn].WT_DESCRIPTION == formvalues.skills) { %>
-                                <option value="<%= dropdownsjson.skillsdropdown[nn].WT_DESCRIPTION %>" selected><%= dropdownsjson.skillsdropdown[nn].WT_DESCRIPTION %></option>
+                            <% if( dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL == formvalues.skills) { %>
+                                <option value="<%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %>" selected><%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %></option>
                             <% } else {%>
-                                <option value="<%= dropdownsjson.skillsdropdown[nn].WT_DESCRIPTION %>"><%= dropdownsjson.skillsdropdown[nn].WT_DESCRIPTION %></option>
+                                <option value="<%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %>"><%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %></option>
                             <% } %>
                         <% } %>
 
-
                     </select>
                 </div>
 
-                <div class="form-group row">
-                    <label for="Profile">Edit Task Time</label>
-                    <select name="edittasktime">
-                        <option value="" selected><em>Select From List</em></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                    </select>
-                </div>
+            <div class="form-group row">
+                <label for="tasktime">Enter Estimated Task Time (Mins)
+                    <% if(formvalues.tasktime.length > 0) { %>
+                    <input type="number" class="form-control" name="tasktime" value="<%=formvalues.tasktime%>">
+                    <% } else { %>
+                    <input type="number" class="form-control" name="tasktime" placeholder="Enter Task Time" value="">
+                    <% } %>
+                </label>
             </div>
-
-            <div class="col-md-2 col-centered" style="background-color:#f8f8f8;">
 
             </div>
 
-            <div class="col-sm-3 col-md-5 col-centered" style="background-color:#f8f8f8;">
+            <div class="col-sm-1 col-centered" name="col2">
 
+            </div>
+
+            <div class="col-lrg-5 col-centered" name="col3">
                 <label class="form-check-inline">
-
                     <%    if (formvalues.unpintask == 'unpintask') { %>
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask" name="unpintask" checked> Un-pin task
                     <% } else { %>
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask" name="unpintask"> Un-pin task
                     <% } %>
-
                 </label>
 
                 <div class="form-group row">
                     <label for="Profile">Estimated Travel To Next Task/ EOD Travel</label>
                     <select name="traveltime">
                         <option value="" selected><em>Select From List</em></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
+                        <%for(var mm =0;mm<dropdownsjson.traveldropdown.length;mm++) { %>
+                            <% if( dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION == formvalues.travel) { %>
+                                <option value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>" selected><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
+                            <% } else { %>
+                                <option value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>"><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
+                            <% } %>
+                        <% } %>
                     </select>
                 </div>
 
@@ -192,15 +176,13 @@
                     <label for="Profile">Select Task Number</label>
                     <select name="tasknum">
                         <option value="" selected><em>Select From List</em></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
+                        <%for(var oo =0;oo<dropdownsjson.tasknumberdropdown.length;oo++) { %>
+                            <% if( dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER == formvalues.tasknum) { %>
+                                <option value="<%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%>" selected><em><%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%></em></option>
+                            <% } else { %>
+                                <option value="<%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%>"><em><%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%></em></option>
+                            <% } %>
+                        <% } %>
                     </select>
                 </div>
 
@@ -228,24 +210,7 @@
 <% if(plannermessage) { %>
 <p style = "font-size: 2.0em; font-style: italic; text-align:center"> <%= plannermessage %> </p>
 <% } %>
-
-<% if(db) { %>
-<table id="table" >
-    <thead>
-    <tr>
-        <th>OBJID</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% for(var i=0;i<db.length;i++) { %>
-    <tr>
-        <!--td><%= db[i].OBJID %></td-->
-        <td><%- JSON.stringify(db[i]) %></td> <br>
-    </tr>
-    <% } %>
-    </tbody>
-</table>
-<% } %>
+<br><br>
 
 <div id = "outertablecontainer" class="outertablecontainer">
     <div id = "tablecontainer" class="tablecontainer">

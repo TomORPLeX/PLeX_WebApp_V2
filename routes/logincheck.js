@@ -29,7 +29,7 @@ router.use('/', function(req, res, next) {
                 res.cookie('username', name, {maxAge: 900000, httpOnly: false});
                 res.cookie('loginFlag', loginFlag1, {maxAge: 900000, httpOnly: false});
                 res.cookie('adminFlag', adminFlag1, {maxAge: 900000, httpOnly: false});
-                res.cookie('cases', '', {maxAge: 900000, httpOnly: false});
+                res.cookie('cases', '', {httpOnly: false});
                 //create temp file for map
                 var initialJson = {
                     "LatLngData": [{

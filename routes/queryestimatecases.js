@@ -7,7 +7,7 @@ router.use('/', function(req, res, next) {
     var estimatenum = req.body.estimate;
     console.log('estimate:' +estimatenum);
 
-    selectquer = 'SELECT CASE_ID FROM live_table WHERE CUST_EST_NO LIKE \'' +estimatenum +'\';';
+    selectquer = 'SELECT CASE_ID FROM live_workstack WHERE ESTIMATENUMBER LIKE \'' +estimatenum +'\';';
     console.log(selectquer);
 
     pool.query(selectquer, function (err, rows) {
