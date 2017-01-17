@@ -43,12 +43,12 @@ $(document).ready(function() {
 
         var marker = L.marker([LonLatData.LatLngData[i].LAT, LonLatData.LatLngData[i].LON]);
         marker.bindPopup("<b>Skill: </b><br>" + LonLatData.LatLngData[i].PRIMARY_SKILL +
-                "<br><b>Type: </b><br>" + LonLatData.LatLngData[i].WT_DESCRIPTION + " " + LonLatData.LatLngData[i].SUB_DESCRIPTION +
+                "<br><b>Type: </b><br>" + LonLatData.LatLngData[i].JOBDESCRIPTION + " " + LonLatData.LatLngData[i].SUB_DESCRIPTION +
                 "<br><b>Case Status: </b><br>" + LonLatData.LatLngData[i].CASE_STATUS +
-                "<br><b>Priority: </b><br>" + LonLatData.LatLngData[i].PRIORITY_DESCRIPTION +
-                "<br><b>Exchange: </b><br>" + LonLatData.LatLngData[i].EXCH +
+                "<br><b>Priority: </b><br>" + LonLatData.LatLngData[i].HL_PRIORITY_SCORE +
+                "<br><b>Exchange: </b><br>" + LonLatData.LatLngData[i].EXCHANGE +
                 "<br><b>Case ID: </b><br>" + LonLatData.LatLngData[i].CASE_ID +
-                "<br><b>Estimate: </b><br>" + LonLatData.LatLngData[i].CUST_EST_NO
+                "<br><b>Estimate: </b><br>" + LonLatData.LatLngData[i].ESTIMATENUMBER
         ).openPopup();
         markers.addLayer(marker);
     }

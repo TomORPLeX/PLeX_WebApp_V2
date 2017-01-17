@@ -8,11 +8,6 @@ router.all('/', function (req, res, next) {
 
     var data = req.body;
     var LatLngData;
-<<<<<<< HEAD
-
-=======
->>>>>>> tom4
-
     var fluidityStatusFlag = 0;
     var skillsFilter = [];
     var fluidityStatus;
@@ -30,11 +25,6 @@ router.all('/', function (req, res, next) {
         skillsFilter[i] = "'" + data.skills[i] + "'";
         console.log(data.skills[i]);
     }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> tom4
     if (data.fluidity == "All") {
         fluidityStatusFlag = 1;
         fluidityStatus = "";
@@ -48,9 +38,9 @@ router.all('/', function (req, res, next) {
         plannedWorkFlag = 1;
         plannedWork = "";
     } else if (fluidityStatusFlag == 1) {
-        plannedWork = "WHERE planned_work" + data.planned;
+        plannedWork = "WHERE web_planned_engineers " + data.planned;
     } else {
-        plannedWork = " AND planned_work" + data.planned;
+        plannedWork = " AND web_planned_engineers " + data.planned;
     }
 
     var priorityScoreFlag = 0;
@@ -58,10 +48,10 @@ router.all('/', function (req, res, next) {
     if (data.priority.length < 1) {
         priorityScoreFlag = 1;
         priorityScore = "";
-    } else if (fluidityStatusFlag == 1) {
-        priorityScore = "WHERE priority_description IN (" + priorityScore + ")";
+    } else if (plannedWorkFlag == 1) {
+        priorityScore = "WHERE HL_PRIORITY_SCORE IN (" + priorityScore + ")";
     } else {
-        priorityScore = " AND priority_description IN (" + priorityScore + ")";
+        priorityScore = " AND HL_PRIORITY_SCORE IN (" + priorityScore + ")";
     }
 
     var skillsFilterFlag = 0;
@@ -89,23 +79,18 @@ router.all('/', function (req, res, next) {
     dataString = fluidityStatus + plannedWork + priorityScore + skillsFilter + oucSelection;
 
     //Filter out jobs in execute
-    var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, WT_DESCRIPTION, CASE_STATUS, PRIORITY_DESCRIPTION, EXCH, CASE_ID, CUST_EST_NO  FROM live_table " + dataString + ";";
-    var quer6 = "SELECT COUNT(*) as Total, priority_description FROM live_table " + dataString + "group by priority_description;";
-
+    var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, HL_PRIORITY_SCORE, CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER  FROM live_workstack " + dataString + ";";
+    var quer6 = "SELECT COUNT(*) as Total, priority_description FROM live_workstack " + dataString + "group by priority_description;";
+    console.log(quer5);
 
     pool.query(quer5, function (err, rows) {
         if (err) {
-            return;
+            throw err;
         } else {
             pool.query(quer6, function (err, rows1) {
                 if (err) {
-                    return;
+                    throw err;
                 } else {
-<<<<<<< HEAD
-
-=======
-                    //console.log(JSON.stringify(rows));
->>>>>>> tom4
                     obj = {
                         LatLngData: rows,
                         selection: data,

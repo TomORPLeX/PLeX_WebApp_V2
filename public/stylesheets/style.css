@@ -1,7 +1,25 @@
 body {
   margin:0px;
   padding:0px;
+  padding-top:60px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#queryform{
+  background-color: white;
+  border-radius: 15px;
+  margin: 0 40px 0;
+  padding: 5px;
+  padding-top: 5px;
+}
+#alert{
+  display: none;
+  margin:10px;
+  padding:5px;
+}
+.navbar .nav > li > a{
+  font-family:    Verdana, Geneva, sans-serif;
+  font-size:      14px;
 }
 .navbar-custom {
   background-color: #F39C12;
@@ -28,6 +46,10 @@ div.containerTableDemand{
   height: 550px;
 }
 
+#priority-panels{
+  margin:10px;
+  padding:5px;
+}
 #scrollable {
   overflow-x: auto;
   width: 99.5%;
@@ -56,6 +78,7 @@ div.containerTableDemand{
   border-color: #5cb85c;
   color: white;
   background-color: #5cb85c;
+  border-radius: 5px;
 }
 .panel-green > a {
   color: #5cb85c;
@@ -70,6 +93,7 @@ div.containerTableDemand{
   border-color: #d9534f;
   color: white;
   background-color: #d9534f;
+  border-radius: 5px;
 }
 .panel-red > a {
   color: #d9534f;
@@ -84,6 +108,7 @@ div.containerTableDemand{
   border-color: #f0ad4e;
   color: white;
   background-color: #f0ad4e;
+  border-radius: 5px;
 }
 .panel-yellow > a {
   color: #f0ad4e;
@@ -98,6 +123,7 @@ div.containerTableDemand{
   border-color: #F39C12;
   color: white;
   background-color: #F39C12;
+  border-radius: 5px;
 }
 .panel-orange  > a {
   color: #F39C12;
@@ -112,6 +138,8 @@ div.containerTableDemand{
   border-color: #111111;
   color: white;
   background-color: #111111;
+  border-radius: 5px;
+  border-radius: 5px;
 }
 .panel-black  > a {
   color: #111111;
@@ -126,6 +154,7 @@ div.containerTableDemand{
   border-color: #3D9970;
   color: white;
   background-color: #3D9970;
+  border-radius: 5px;
 }
 .panel-greeny  > a {
   color: #3D9970;
@@ -140,6 +169,7 @@ div.containerTableDemand{
   border-color: #00A65A;
   color: white;
   background-color: #00A65A;
+  border-radius: 5px;
 }
 .panel-lightGreen  > a {
   color: #00A65A;
