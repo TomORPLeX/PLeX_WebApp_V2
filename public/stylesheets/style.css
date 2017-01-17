@@ -3,8 +3,13 @@ body {
   padding:0px;
   padding-top:60px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: lightgrey;
 }
-
+@media (min-width: 1200px) {
+  .container{
+    max-width: 870px;
+  }
+}
 #queryform{
   background-color: white;
   border-radius: 15px;
@@ -37,13 +42,37 @@ div.containerTableDemand{
   overflow-x: auto;
   overflow-y: auto;
 }
-
+#estimatecontainer{
+  background-color: white;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding: 0px;
+  padding-top: 0px;
+  margin-top: 0px;
+  margin-right: 250px;
+  margin-left: 350px;
+  margin-bottom: 0px;
+}
+#estimatecontainerheader{
+  padding: 5px;
+  padding-top: 15px;
+  text-align:center;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  max-width: 870px;
+}
 #tablecontainer{
   position: relative;
   border: 1px solid black;
   overflow: hidden;
   width: 95%;
   height: 550px;
+  margin-top: 0px;
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-bottom: 0px;
 }
 
 #priority-panels{
