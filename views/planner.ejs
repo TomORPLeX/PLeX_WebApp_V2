@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Sarpanch" rel="stylesheet">
 
+
 </head>
 
 <body>
@@ -26,13 +27,15 @@
     <% include ./partials/header %>
 </header>
 
-<div class="container">
-    <form id="form1" action="editestimate" method="post">
-    <div class="row">
+<div id="estimatecontainer" class="container">
+    <h3  id="estimatecontainerheader" style="background-color: #428BCA">Edit EWOC Case</h3>
 
+    <form id="form1" action="editestimate" method="post">
         <div class="form-group row">
-            <label class="col-md-2 col-form-label">Enter EWOC Estimate</label>
-            <div class="col-sm-10" id="estimatediv">
+            <div class="form-group col-md-offset-2 col-md-2">
+            <label> Enter EWOC Estimate</label>
+            </div>
+            <div class="form-group col-md-6" id="estimatediv">
                 <% if(formvalues.estimatenum.length > 0) { %>
                     <input type="text" class="form-control" id="estimate" name="ewocestimate" value="<%= formvalues.estimatenum %>">
                 <% } else { %>
@@ -43,8 +46,13 @@
 
 
 
-        <div class="form-group row-centered" id="divcases">
-            <label for="exampleSelect2">Select Cases to Edit</label>
+
+
+        <div class="form-group row" id="divcases">
+            <div class="form-group col-md-offset-2 col-md-offset-2 col-md-2">
+                <label for="exampleSelect2">Select Cases to Edit</label>
+            </div>
+            <div class="form-group  col-md-6">
             <select multiple class="form-control input-large" name="cases">
                 <% if (cases.length > 0) { %>
                     <% for(var ii=0;ii<cases.length;ii++) { %>
@@ -56,59 +64,72 @@
                     <%}%>
                 <%}%>
             </select>
+            </div>
         </div>
 
-        <div class="col-lg-5 col-centered" name="col1">
-
-                <label class="form-check-inline">
-                    <%   if (formvalues.dso == 'dso') { %>
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="dso" name="dso" checked> DSO
-                    <%} else { %>
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="dso" name="dso"> DSO
+        <div class="form-group row">
+            <div class="form-group col-md-offset-1 col-md-3">
+                <label for="Profile">Estimated Travel To Next Task/ EOD Travel</label>
+                <select name="traveltime">
+                    <option value="" selected><em>Select From List</em></option>
+                    <%for(var mm =0;mm<dropdownsjson.traveldropdown.length;mm++) { %>
+                    <% if( dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION == formvalues.travel) { %>
+                    <option value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>" selected><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
+                    <% } else { %>
+                    <option value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>"><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
                     <% } %>
-                </label>
-
-                <label class="form-check-inline">
-                    <%    if (formvalues.tmbooked == 'tmbooked') { %>
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" checked> TM Booked
-                    <%} else { %>
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked"> TM Booked
                     <% } %>
-                </label>
+                </select>
+            </div>
+            <div class="form-group col-md-offset-1 col-md-2" id="randomdiv">
+                <label for="Profile">Select Task Number</label>
+                <select name="tasknum">
+                    <option value="" selected><em>Select From List</em></option>
+                    <%for(var oo =0;oo<dropdownsjson.tasknumberdropdown.length;oo++) { %>
+                    <% if( dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER == formvalues.tasknum) { %>
+                    <option value="<%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%>" selected><em><%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%></em></option>
+                    <% } else { %>
+                    <option value="<%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%>"><em><%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%></em></option>
+                    <% } %>
+                    <% } %>
+                </select>
+            </div>
 
-                <br>
 
-                <div class="form-group row">
-                    <label for="Profile">Edit Fluidity Status</label>
-                        <select name="fluiditystatus" >
-                            <option value="" selected><em>Select From List</em></option>
-
-                            <%for(var ll =0;ll<dropdownsjson.fluiditydropdown.length;ll++) { %>
-                                <% if( dropdownsjson.fluiditydropdown[ll].CASE_STATUS == formvalues.fluiditystatus) { %>
-                                    <option value="<%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %>" selected><%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %></option>
-                                <% } else {%>
-                                    <option value="<%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %>"><%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %></option>
-                                <% } %>
-                            <% } %>
-
-                        </select>
-                </div>
-
-                <div class="form-group row">
-                    <label for="Profile">Gang Size</label>
-                    <select name="gangsize">
+            <div class="form-group col-md-2">
+                <label for="Profile">Edit Fluidity Status</label>
+                    <select name="fluiditystatus" >
                         <option value="" selected><em>Select From List</em></option>
-                        <%for(var nn =0;nn<dropdownsjson.gangsizedropdown.length;nn++) { %>
-                            <% if( dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE == formvalues.gangsize) { %>
-                                <option value="<%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%>" selected><em><%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%></em></option>
-                            <% } else { %>
-                                <option value="<%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%>"><em><%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%></em></option>
-                        <% } %>
-                        <% } %>
-                    </select>
-                </div>
 
-                <div class="form-group row">
+                        <%for(var ll =0;ll<dropdownsjson.fluiditydropdown.length;ll++) { %>
+                            <% if( dropdownsjson.fluiditydropdown[ll].CASE_STATUS == formvalues.fluiditystatus) { %>
+                                <option value="<%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %>" selected><%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %></option>
+                            <% } else {%>
+                                <option value="<%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %>"><%= dropdownsjson.fluiditydropdown[ll].CASE_STATUS %></option>
+                            <% } %>
+                        <% } %>
+
+                    </select>
+            </div>
+
+
+            <div class="form-group col-md-2">
+                <label for="Profile">Gang Size<br><br></label>
+                <select name="gangsize">
+                    <option value="" selected><em>Select From List</em></option>
+                    <%for(var nn =0;nn<dropdownsjson.gangsizedropdown.length;nn++) { %>
+                        <% if( dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE == formvalues.gangsize) { %>
+                            <option value="<%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%>" selected><em><%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%></em></option>
+                        <% } else { %>
+                            <option value="<%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%>"><em><%= dropdownsjson.gangsizedropdown[nn].ASSUMED_GANG_SIZE%></em></option>
+                    <% } %>
+                    <% } %>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+                <div class="form-group col-md-offset-1 col-md-2">
                     <label for="Profile">Edit/ Add Skill</label>
                     <select name="addeditskill">
                         <option value="" selected><em>Select From List</em></option>
@@ -124,7 +145,7 @@
                     </select>
                 </div>
 
-            <div class="form-group row">
+            <div class="form-group col-md-offset-2 col-md-3">
                 <label for="tasktime">Enter Estimated Task Time (Mins)
                     <% if(formvalues.tasktime.length > 0) { %>
                     <input type="number" class="form-control" name="tasktime" value="<%=formvalues.tasktime%>">
@@ -134,78 +155,68 @@
                 </label>
             </div>
 
+            <div class="form-group col-md-3">
+                <label for="EIN">Enter Engineer EIN for Task <br><br>
+                    <% if(formvalues.engein.length > 0) { %>
+                    <input type="number" class="form-control" name="engein" value="<%=formvalues.engein%>">
+                    <% } else { %>
+                    <input type="number" class="form-control" name="engein" placeholder="Enter engineer EIN" value="">
+                    <% } %>
+                </label>
             </div>
+        </div>
 
-            <div class="col-sm-1 col-centered" name="col2">
-
-            </div>
-
-            <div class="col-lrg-5 col-centered" name="col3">
+        <div class="form-group row">
+            <div class="form-group col-md-offset-1 col-md-2">
                 <label class="form-check-inline">
                     <%    if (formvalues.unpintask == 'unpintask') { %>
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask" name="unpintask" checked> Un-pin task
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask" name="unpintask" checked><br> Un-pin task
                     <% } else { %>
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask" name="unpintask"> Un-pin task
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unpintask" name="unpintask"><br> Un-pin task
                     <% } %>
                 </label>
-
-                <div class="form-group row">
-                    <label for="Profile">Estimated Travel To Next Task/ EOD Travel</label>
-                    <select name="traveltime">
-                        <option value="" selected><em>Select From List</em></option>
-                        <%for(var mm =0;mm<dropdownsjson.traveldropdown.length;mm++) { %>
-                            <% if( dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION == formvalues.travel) { %>
-                                <option value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>" selected><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
-                            <% } else { %>
-                                <option value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>"><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
-                            <% } %>
-                        <% } %>
-                    </select>
-                </div>
-
-                <div class="form-group row">
-                    <label for="EIN">Enter Engineer EIN for Task
-                        <% if(formvalues.engein.length > 0) { %>
-                            <input type="number" class="form-control" name="engein" value="<%=formvalues.engein%>">
-                        <% } else { %>
-                            <input type="number" class="form-control" name="engein" placeholder="Enter engineer EIN" value="">
-                        <% } %>
-                    </label>
-                </div>
-
-                <div class="form-group row" id="randomdiv">
-                    <label for="Profile">Select Task Number</label>
-                    <select name="tasknum">
-                        <option value="" selected><em>Select From List</em></option>
-                        <%for(var oo =0;oo<dropdownsjson.tasknumberdropdown.length;oo++) { %>
-                            <% if( dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER == formvalues.tasknum) { %>
-                                <option value="<%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%>" selected><em><%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%></em></option>
-                            <% } else { %>
-                                <option value="<%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%>"><em><%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%></em></option>
-                            <% } %>
-                        <% } %>
-                    </select>
-                </div>
-
+            </div>
+            <div class="form-group col-md-2">
+                <label class="form-check-inline">
+                    <%   if (formvalues.dso == 'dso') { %>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="dso" name="dso" checked><br> DSO
+                    <%} else { %>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="dso" name="dso"><br> DSO
+                    <% } %>
+                </label>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="form-check-inline">
+                    <%    if (formvalues.tmbooked == 'tmbooked') { %>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" checked><br> TM Booked
+                    <%} else { %>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked"><br> TM Booked
+                    <% } %>
+                </label>
+            </div>
+            <div class="form-group col-md-offset-1 col-md-2">
                 <label for="EIN" name="datewrap">Select Planner Defined Date(s)
                     <% if(formvalues.dates.length > 0) { %>
-                        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates" value = "<%=formvalues.dates%>">
+                    <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates" value = "<%=formvalues.dates%>">
                     <% } else { %>
-                        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " name="dates">
+                    <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " name="dates">
                     <% } %>
                 </label>
-
-
-
             </div>
 
-            <div class="form-group row">
-                <div class="offset-sm-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">Submit Changes</button>
-                </div>
-            </div>
 
         </div>
+
+
+
+
+
+            <div class="form-group row">
+                <div class="form-group col-md-offset-5 col-md-4">
+                    <button type="submit" class="btn btn-primary">Submit Changes</button>
+                </div>
+
+            </div>
     </form>
 </div>
 <% if(plannermessage) { %>
@@ -213,13 +224,12 @@
 <% } %>
 <br><br>
 
-<div id = "outertablecontainer" class="outertablecontainer">
+
     <div id = "tablecontainer" class="tablecontainer">
         <div id="scrollable" class="scrollable">
             <table id="datatableplanner" class="table table-striped hover"></table>
         </div>
     </div>
-</div>
 
 <div class="scrollbuttons">
     <button type="submit" class="btn btn-primary" onClick="scrollacross()">Scroll To Next Day</button>

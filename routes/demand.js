@@ -8,13 +8,8 @@ var fs = require('fs');
 /* GET SQL data. */
 var obj = {};
 
-<<<<<<< HEAD
-var quer1 = "SELECT * FROM workstack LIMIT 10";
-var quer2 = "SELECT DISTINCT om_ouc FROM workstack";
-=======
 var quer1 = "SELECT * FROM live_workstack LIMIT 10";
 var quer2 = "SELECT DISTINCT om_ouc FROM live_workstack";
->>>>>>> adam
 
 router.get('/', loginfunction.isLoggedIn, function(req, res) {
     var tempfilelocation = '../public/data/' +req.cookies.EIN +'_LatLngData.json';
@@ -54,10 +49,6 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
                                     priorityCount: priorityCount,
                                     ein: req.cookies.EIN, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag, 'cases': req.cookies.cases};
                                 res.render('demand', obj);
-<<<<<<< HEAD
-
-=======
->>>>>>> adam
                             }
                         });
                     }

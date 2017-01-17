@@ -8,10 +8,6 @@ router.all('/', function (req, res, next) {
 
     var data = req.body;
     var LatLngData;
-<<<<<<< HEAD
-
-=======
->>>>>>> adam
     var fluidityStatusFlag = 0;
     var skillsFilter = [];
     var fluidityStatus;
@@ -29,10 +25,6 @@ router.all('/', function (req, res, next) {
         skillsFilter[i] = "'" + data.skills[i] + "'";
         console.log(data.skills[i]);
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> adam
     if (data.fluidity == "All") {
         fluidityStatusFlag = 1;
         fluidityStatus = "";
