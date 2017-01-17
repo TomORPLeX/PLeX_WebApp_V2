@@ -128,7 +128,7 @@ router.all('/', function(req,res,next) {
                             "plannermessage": "Success",
                             "formvalues": formvalues,
                             "cases":allcases,
-                            "db":"",
+                            "db":rows,
                             "loginFlag":req.cookies.loginFlag,
                             "adminFlag":req.cookies.adminFlag};
                             res.render('planner', obj);
