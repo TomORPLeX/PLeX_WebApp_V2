@@ -4,7 +4,7 @@ var pool = require('../bin/db.js');
 var loginfunction = require("../bin/login.js");
 var fs = require('fs');
 
-router.all('/', function (req, res, next) {
+router.all('/', loginfunction.isLoggedIn, function (req, res, next) {
 
     var data = req.body;
     var LatLngData;
@@ -25,10 +25,6 @@ router.all('/', function (req, res, next) {
         skillsFilter[i] = "'" + data.skills[i] + "'";
         console.log(data.skills[i]);
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> af2cf75941ae805192c42e1460e682bd49debc1b
     if (data.fluidity == "All") {
         fluidityStatusFlag = 1;
         fluidityStatus = "";
