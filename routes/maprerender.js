@@ -25,10 +25,6 @@ router.all('/', function (req, res, next) {
         skillsFilter[i] = "'" + data.skills[i] + "'";
         console.log(data.skills[i]);
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> af2cf75941ae805192c42e1460e682bd49debc1b
     if (data.fluidity == "All") {
         fluidityStatusFlag = 1;
         fluidityStatus = "";

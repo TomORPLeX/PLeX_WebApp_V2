@@ -71,7 +71,7 @@
 
         <div class="form-group row">
             <div class="form-group col-md-offset-1 col-md-3">
-                <label for="Profile">Estimated Travel To Next Task/ EOD Travel</label>
+                <label for="Profile">Travel To Next Task</label>
                 <select name="traveltime">
                     <option value="" selected><em>Select From List</em></option>
                     <%for(var mm =0;mm<dropdownsjson.traveldropdown.length;mm++) { %>
@@ -83,6 +83,21 @@
                     <% } %>
                 </select>
             </div>
+
+            <div class="form-group col-md-offset-1 col-md-3">
+                <label for="Profile">EOD Travel</label>
+                <select name="eodtravel">
+                    <option value="" selected><em>Select From List</em></option>
+                    <%for(var mm =0;mm<dropdownsjson.traveldropdown.length;mm++) { %>
+                    <% if( dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION == formvalues.eodtravel) { %>
+                        <option value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>" selected><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
+                    <% } else { %>
+                        <option value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>"><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
+                    <% } %>
+                    <% } %>
+                </select>
+            </div>
+
             <div class="form-group col-md-offset-1 col-md-2" id="randomdiv">
                 <label for="Profile">Select Task Number</label>
                 <select name="tasknum">
@@ -190,9 +205,18 @@
             <div class="form-group col-md-2">
                 <label class="form-check-inline">
                     <%    if (formvalues.tmbooked == 'tmbooked') { %>
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" checked><br> TM Booked
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" checked><br> Dependencies
                     <%} else { %>
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked"><br> TM Booked
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked"><br> Dependencies
+                    <% } %>
+                </label>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="form-check-inline">
+                    <%    if (formvalues.flagtofluidity == 'flagtofluidity') { %>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="flagtofluidity" name="flagtofluidity" checked><br> Flag To Fluidity
+                    <%} else { %>
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="flagtofluidity" name="flagtofluidity"><br> Flag To Fluidity
                     <% } %>
                 </label>
             </div>
@@ -217,6 +241,9 @@
                 <div class="form-group col-md-offset-5 col-md-4">
                     <button type="submit" class="btn btn-primary">Submit Changes</button>
                 </div>
+                <div class="form-group col-md-offset-5 col-md-4">
+                    <button type="reset" value="Reset" class="btn btn-default">Reset Form</button>
+                </div>
 
             </div>
     </form>
@@ -239,12 +266,20 @@
     <button type="submit" class="btn btn-primary" onClick="scrollacross()">Scroll To Next Day</button>
 </div>
 
+
+<!--div class="resultstable">
+
+    <ul class="list-group">
+        <% for(var i=0;i<db.length;i++) { %>
+            <li class="list-group-item"><%- JSON.stringify(db[i]) %></li>
+        <% } %>
+    </ul>
+
+</div-->
+
 <footer>
     <% include ./partials/footer %>
 </footer>
-
 <script src="javascripts/loadestimatecases.js" type="text/javascript" charset="utf-8"></script>
-
-
 </body>
 </html>

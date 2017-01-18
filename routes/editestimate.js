@@ -20,9 +20,11 @@ var skills = "";
 var tasktime = "";
 var unpintask = "";
 var travel = "";
+var eodtravel="";
 var engein = "";
 var tasknum = "";
 var dates = "";
+var flagtofluidity ="";
 
 var gangsizedropdown = [{"ASSUMED_GANG_SIZE":1},{"ASSUMED_GANG_SIZE":2},{"ASSUMED_GANG_SIZE":3},{"ASSUMED_GANG_SIZE":4},{"ASSUMED_GANG_SIZE":5},{"ASSUMED_GANG_SIZE":6}];
 var traveldropdown = [{"PLANNED_TT_DURATION":10},{"PLANNED_TT_DURATION":"20"},{"PLANNED_TT_DURATION":"30"},{"PLANNED_TT_DURATION":"40"},{"PLANNED_TT_DURATION":"50"},{"PLANNED_TT_DURATION":"60"},{"PLANNED_TT_DURATION":"70"},{"PLANNED_TT_DURATION":"80"},{"PLANNED_TT_DURATION":"90"},{"PLANNED_TT_DURATION":"100"},{"PLANNED_TT_DURATION":"110"},{"PLANNED_TT_DURATION":"120"},{"PLANNED_TT_DURATION":"130"},{"PLANNED_TT_DURATION":"140"},{"PLANNED_TT_DURATION":"150"}];
@@ -42,9 +44,11 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     tasktime = req.body.tasktime;
     unpintask = req.body.unpintask;
     travel = req.body.traveltime;
+    eodtravel = req.body.eodtravel;
     engein = req.body.engein;
     tasknum = req.body.tasknum;
     dates = req.body.dates;
+    flagtofluidity = req.body.flagtofluidity;
 
     var dropdownsjson = {
         "fluiditydropdown":req.cookies.fluiditycookie,
@@ -65,9 +69,11 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         "tasktime":tasktime,
         "unpintask":unpintask,
         "travel":travel,
+        "eodtravel":eodtravel,
         "engein":engein,
         "tasknum":tasknum,
-        "dates":dates
+        "dates":dates,
+        "flagtofluidity":flagtofluidity
     };
     //console.log('selected cases: '+selectedcases +'|'+'All cases: '+JSON.stringify(allcases));
     var str = "Updated Row (EST_NUM[" + estimatenum +"], CASE_ID[" + selectedcases +"]): ";
@@ -75,20 +81,30 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         console.log("selected cases"+selectedcases+" length: "+selectedcases.length);
         updatequer = "UPDATE live_workstack SET";
         if (dso) {
-            updatequer = updatequer + " DSO_BOOKED = '" + dso + "' ,";
             updatequer = updatequer + " WEB_DSO_BOOKED = '" + dso + "' ,";
-            str = str + "DSO_BOOKED='Y' ";
+            updatequer = updatequer + " WEB_SYSTEM_DEFINED_PRIORITY = '3.1' ,";
+            updatequer = updatequer + " SYSTEM_DEFINED_PRIORITY = '3.1' ,";
+            updatequer = updatequer + " PRIORITY_DESCRIPTION = 'Urgent' ,";
+
+            str = str + "DSO_BOOKED=Y ";
+        }
+        if (flagtofluidity) {
+            updatequer = updatequer + " FLAG_TO_FLUIDITY = '" + flagtofluidity + "' ,";
+
+            str = str + "DSO_BOOKED=Y ";
         }
         if (tmbooked) {
-            updatequer = updatequer + " TM_BOOKED = '" + tmbooked + "' ,";
-            updatequer = updatequer + " WEB_TM_BOOKED = '" + tmbooked + "' ,";
-            str = str + "TM Booked = Y ";
+            updatequer = updatequer + " WEB_DEPENDENCIES_BOOKED = '" + tmbooked + "' ,";
+            updatequer = updatequer + " WEB_SYSTEM_DEFINED_PRIORITY = '1.5' ,";
+            updatequer = updatequer + " SYSTEM_DEFINED_PRIORITY = '1.5' ,";
+            updatequer = updatequer + " PRIORITY_DESCRIPTION = 'P1' ,";
+            str = str + "Dependancies=Y ";
         }
         if (fluiditystatus) {
             updatequer = updatequer + " CASE_STATUS = '" + fluiditystatus + "' ,";
             updatequer = updatequer + " WEB_CASE_STATUS = 1 ,";
             str = str + "Fluidity Status = "+ fluiditystatus +" ";
-    }
+        }
         if (gangsize) {
             updatequer = updatequer + " ASSUMED_GANG_SIZE = '" + gangsize + "' ,";
             updatequer = updatequer + " WEB_ASSUMED_GANG_SIZE = '" + gangsize + "' ,";
@@ -149,7 +165,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                             "plannermessage": str,
                             "formvalues": formvalues,
                             "cases":allcases,
-                            "db":"",
+                            "db":rows,
                             "loginFlag":req.cookies.loginFlag,
                             "adminFlag":req.cookies.adminFlag};
                             res.render('planner', obj);

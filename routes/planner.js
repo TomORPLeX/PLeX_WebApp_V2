@@ -19,9 +19,11 @@ var skills = "";
 var tasktime = "";
 var unpintask = "";
 var travel = "";
+var eodtravel ="";
 var engein = "";
 var tasknum = "";
 var dates = "";
+var flagtofluidity ="";
 
 var formvalues = {
     "estimatenum":estimatenum,
@@ -34,9 +36,11 @@ var formvalues = {
     "tasktime":tasktime,
     "unpintask":unpintask,
     "travel":travel,
+    "eodtravel":eodtravel,
     "engein":engein,
     "tasknum":tasknum,
-    "dates":dates
+    "dates":dates,
+    "flagtofluidity":flagtofluidity
 };
 
 var fluiditydropdown = "";
@@ -73,7 +77,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
                         "traveldropdown":traveldropdown,
                         "tasknumberdropdown": tasknumberdropdown
                     };
-                    console.log('dropdownsjson:\n'+JSON.stringify(dropdownsjson));
+                    //console.log('dropdownsjson:\n'+JSON.stringify(dropdownsjson));
                     obj = {"dropdownsjson":dropdownsjson,
                         "plannermessage": plannermessage,
                         "formvalues": formvalues,

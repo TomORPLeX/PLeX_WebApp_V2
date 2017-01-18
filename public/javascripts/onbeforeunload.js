@@ -3,7 +3,7 @@ window.onbeforeunload = function() {
     $.ajax({
         type: 'GET',
         async: false,
-        url: '/close'
+        url: '/logout'
         });
     return"leaving site";
 };
