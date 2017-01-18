@@ -81,7 +81,7 @@ router.all('/', loginfunction.isLoggedIn, function (req, res, next) {
     //Filter out jobs in execute
     var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, HL_PRIORITY_SCORE, CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER  FROM live_workstack " + dataString + ";";
     var quer6 = "SELECT COUNT(*) as Total, priority_description FROM live_workstack " + dataString + "group by priority_description;";
-    console.log(quer5);
+    //console.log(quer5);
 
     pool.query(quer5, function (err, rows) {
         if (err) {

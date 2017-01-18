@@ -84,7 +84,7 @@ function onError(error) {
         break;
       case 'TOM':
           console.log('caught TOM error');
-          //process.exit(1);
+          process.exit(1);
           break;
     default:
       throw error;
