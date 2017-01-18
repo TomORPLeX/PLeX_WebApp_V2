@@ -93,9 +93,9 @@ $(document).ready(function() {
             'ouc':oucSelection
         };
 
-        alert(dataString);
-        alert(JSON.stringify(dataString));
-        console.log(JSON.stringify(dataString));
+        //alert(dataString);
+        //alert(JSON.stringify(dataString));
+        //console.log(JSON.stringify(dataString));
         if (0 < skillsFilter.length && 0 < priorityScore.length ) {
             // do stuff
             $.ajax({

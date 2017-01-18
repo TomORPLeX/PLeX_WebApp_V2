@@ -22,7 +22,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
             if(err)
             {
                 console.log("error here");
-                throw err;
+                return;
             } else
             {
                 //obj = {db: rows};
@@ -32,14 +32,14 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
                 {
                     if(err)
                     {
-                        throw err;
+                        return;
                     } else
                     {
                         pool.query(quer2, function(err,rows2)
                         {
                             if(err)
                             {
-                                throw err;
+                                return;
                             } else
                             {
                                 obj = {db: rows,
@@ -48,12 +48,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
                                     selection: selection,
                                     priorityCount: priorityCount,
                                     ein: req.cookies.EIN, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag, 'cases': req.cookies.cases};
-<<<<<<< HEAD
                                     res.render('demand', obj);
-=======
-                                res.render('demand', obj);
-
->>>>>>> 73d0cf83f8041ac750a325b6d9620d9d6be0c38f
                             }
                         });
                     }

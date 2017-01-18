@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../bin/db.js');
 var fs = require('fs');
+var loginfunction = require("../bin/login.js");
 
 router.use('/', function(req, res, next) {
 
