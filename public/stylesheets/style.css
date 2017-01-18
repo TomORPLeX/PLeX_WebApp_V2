@@ -211,3 +211,9 @@ div.containerTableDemand{
 .panel-lightGreen  > a:hover {
   color: #00A65A;
 }
+
+.resultstable {
+  width:20%;
+  height:60%;
+  border: 3px solid black;
+}
