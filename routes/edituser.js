@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../bin/db.js');
+var loginfunction = require("../bin/login.js");
+
 
 var editname ="";
 var editein ="";
@@ -10,7 +12,7 @@ var selectquer = "";
 var updatequer = "";
 var obj = {};
 
-router.all('/', function(req,res,next) {
+router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     console.log('Editing User');
     editname = req.body.editname;
     editein = req.body.editein;

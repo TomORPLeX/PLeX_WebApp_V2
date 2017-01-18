@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var pool = require('../bin/db.js');
 var selectquer = "";
+var loginfunction = require("../bin/login.js");
 
-router.all('/', function(req, res, next) {
+
+router.all('/', loginfunction.isLoggedIn, function(req, res, next) {
     selectquer = "SELECT * FROM live_workstack;";
     pool.query(selectquer, function (err, rows) {
         if (err) {

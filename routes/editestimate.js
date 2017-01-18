@@ -77,6 +77,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     };
     //console.log('selected cases: '+selectedcases +'|'+'All cases: '+JSON.stringify(allcases));
     var str = "Updated Row (EST_NUM[" + estimatenum +"], CASE_ID[" + selectedcases +"]): ";
+    var selectcolumns = "";
+    var selectcolcount=0;
     if(selectedcases) {
         console.log("selected cases"+selectedcases+" length: "+selectedcases.length);
         updatequer = "UPDATE live_workstack SET";
@@ -85,13 +87,15 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             updatequer = updatequer + " WEB_SYSTEM_DEFINED_PRIORITY = '3.1' ,";
             updatequer = updatequer + " SYSTEM_DEFINED_PRIORITY = '3.1' ,";
             updatequer = updatequer + " PRIORITY_DESCRIPTION = 'Urgent' ,";
-
             str = str + "DSO_BOOKED=Y ";
+            selectcolumns = selectcolumns + " WEB_DSO_BOOKED, WEB_SYSTEM_DEFINED_PRIORITY, PRIORITY_DESCRIPTION,";
+            selectcolcount = selectcolcount + 3;
         }
         if (flagtofluidity) {
             updatequer = updatequer + " FLAG_TO_FLUIDITY = '" + flagtofluidity + "' ,";
-
-            str = str + "DSO_BOOKED=Y ";
+            str = str + "FlagToFluidity=Y ";
+            selectcolumns = selectcolumns + " FLAG_TO_FLUIDITY,";
+            selectcolcount++;
         }
         if (tmbooked) {
             updatequer = updatequer + " WEB_DEPENDENCIES_BOOKED = '" + tmbooked + "' ,";
@@ -99,55 +103,79 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             updatequer = updatequer + " SYSTEM_DEFINED_PRIORITY = '1.5' ,";
             updatequer = updatequer + " PRIORITY_DESCRIPTION = 'P1' ,";
             str = str + "Dependancies=Y ";
+            selectcolumns = selectcolumns + " WEB_DEPENDENCIES_BOOKED, PRIORITY_DESCRIPTION, WEB_SYSTEM_DEFINED_PRIORITY,";
+            selectcolcount = selectcolcount + 3;
         }
         if (fluiditystatus) {
             updatequer = updatequer + " CASE_STATUS = '" + fluiditystatus + "' ,";
             updatequer = updatequer + " WEB_CASE_STATUS = 1 ,";
             str = str + "Fluidity Status = "+ fluiditystatus +" ";
+            selectcolumns = selectcolumns + " CASE_STATUS,";
+            selectcolcount++;
         }
         if (gangsize) {
             updatequer = updatequer + " ASSUMED_GANG_SIZE = '" + gangsize + "' ,";
             updatequer = updatequer + " WEB_ASSUMED_GANG_SIZE = '" + gangsize + "' ,";
             str = str + "Gang Size = "+ gangsize +" ";
+            selectcolumns = selectcolumns + " ASSUMED_GANG_SIZE,";
+            selectcolcount++;
         }
         if (skills) {
             updatequer = updatequer + " PRIMARY_SKILL = '" + skills + "' ,";
             updatequer = updatequer + " WEB_PRIMARY_SKILL = '" + skills + "' ,";
             str = str + "Primary Skill = "+ skills+" ";
+            selectcolumns = selectcolumns + " PRIMARY_SKILL,";
+            selectcolcount++;
         }
         if (tasktime) {
             updatequer = updatequer + " PLANNED_TT_DURATION = '" + tasktime + "' ,";
             updatequer = updatequer + " WEB_PLANNED_TT_DURATION = '" + tasktime + "' ,";
             str = str + "Task Time = "+ tasktime +" ";
+            selectcolumns = selectcolumns + " PLANNED_TT_DURATION,";
+            selectcolcount++;
         }
         if (unpintask) {
             updatequer = updatequer + " WEB_PLANNED_ENGINEERS = '' ,";
             str = str + "Job removed from engineer "+engein+" ";
+            selectcolumns = selectcolumns + " WEB_PLANNED_ENGINEERS,";
+            selectcolcount++;
         }
         if (travel) {
             updatequer = updatequer + " WEB_ENG_TRAVEL_TIME = '" + travel + "' ,";
             str = str + "Travel = "+ travel+" ";
+            selectcolumns = selectcolumns + " WEB_ENG_TRAVEL_TIME,";
+            selectcolcount++;
+        }
+        if (eodtravel) {
+            updatequer = updatequer + " EOD_TRAVEL = '" + eodtravel + "' ,";
+            str = str + "EOD Travel = "+ eodtravel+" ";
+            selectcolumns = selectcolumns + " EOD_TRAVEL,";
+            selectcolcount++;
         }
         if (engein) {
             updatequer = updatequer + " WEB_PLANNED_ENGINEERS = '" + engein + "' ,";
             str = str + "Task pinned to = "+ engein+" ";
+            selectcolumns = selectcolumns + " WEB_PLANNED_ENGINEERS,";
+            selectcolcount++;
         }
         if (tasknum) {
             updatequer = updatequer + " WEB_TASK_NUMBER = '" + tasknum + "' ,";
             str = str + "Task Num = "+ tasknum+" ";
+            selectcolumns = selectcolumns + " WEB_TASK_NUMBER,";
+            selectcolcount++;
         }
         if (dates) {
             updatequer = updatequer + " WEB_PLANNED_DATE = '" + dates + "' ,";
             str = str + "Date(s) planned = "+ dates+" ";
+            selectcolumns = selectcolumns + " WEB_PLANNED_DATE,";
+            selectcolcount++;
         }
-        //add EIN to MOD_UIN column
         updatequer = updatequer +" MOD_UIN = '"+req.cookies.EIN+"';";
-        //console.log('update before slice: '+updatequer);
+
         updatequer = updatequer.slice(",", -1);
-        //console.log('update after slice: '+updatequer);
+        selectcolumns = selectcolumns.slice(",", -1);
         updatequer = updatequer + " WHERE ESTIMATENUMBER = '" + estimatenum + "' AND CASE_ID in ('" + selectedcases + "');";
-        console.log('update query: '+updatequer);
-        var selectquer = "SELECT * FROM live_workstack WHERE ESTIMATENUMBER LIKE '"+estimatenum +"' AND CASE_ID in ('" + selectedcases +"');";
+        var selectquer = "SELECT"+selectcolumns+" FROM live_workstack WHERE ESTIMATENUMBER LIKE '"+estimatenum +"' AND CASE_ID in ('" + selectedcases +"');";
         console.log('select query: '+selectquer);
 
         pool.query(updatequer, function (err, rows) {
@@ -161,11 +189,13 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         console.log('Error in select query');
                         throw err;
                     } else {
+                        console.log("rows: "+JSON.stringify(rows));
                         obj = {"dropdownsjson":dropdownsjson,
                             "plannermessage": str,
                             "formvalues": formvalues,
                             "cases":allcases,
                             "db":rows,
+                            "rowsize": selectcolcount,
                             "loginFlag":req.cookies.loginFlag,
                             "adminFlag":req.cookies.adminFlag};
                             res.render('planner', obj);

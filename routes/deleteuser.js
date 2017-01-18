@@ -1,13 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../bin/db.js');
+var loginfunction = require("../bin/login.js");
+
 
 var delein ="";
 var deletequer = "";
 var selectquer = "";
 var obj = {};
 
-router.all('/',function(req,res,next) {
+router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
     console.log('Removing user from database');
 
     delein = req.body.delein;

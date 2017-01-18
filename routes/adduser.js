@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../bin/db.js');
+var loginfunction = require("../bin/login.js");
+
 
 var addname ="";
 var addein ="";
@@ -10,7 +12,7 @@ var selectquer = "";
 var insertquer = "";
 var obj = {};
 
-router.all('/', function(req,res,next) {
+router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     console.log('Adding user to database');
     addname = req.body.name;
     addein = req.body.ein;

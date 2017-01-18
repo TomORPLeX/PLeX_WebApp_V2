@@ -83,6 +83,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
                         "formvalues": formvalues,
                         "cases": req.cookies.cases,
                         "db":"",
+                        "rowsize":0,
                         "loginFlag":req.cookies.loginFlag,
                         "adminFlag":req.cookies.adminFlag
                     };

@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var pool = require('../bin/db.js');
+var loginfunction = require("../bin/login.js");
 
-router.use('/', function(req, res, next) {
+
+router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
 
     var estimatenum = req.body.estimate;
     console.log('estimate:' +estimatenum);
