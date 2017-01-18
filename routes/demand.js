@@ -4,7 +4,6 @@ var pool = require('../bin/db.js');
 var loginfunction = require("../bin/login.js");
 var fs = require('fs');
 
-
 /* GET SQL data. */
 var obj = {};
 
@@ -17,49 +16,21 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
     var selection = JsonData.selection;
     var priorityCount = JsonData.priorityCount;
 
-        pool.query(quer1, function(err,rows)
-        {
-            if(err)
-            {
-                console.log("error here");
-                return;
-            } else
-            {
-                //obj = {db: rows};
-
-
-                pool.query(quer1, function(err,rows1)
-                {
-                    if(err)
-                    {
-                        return;
-                    } else
-                    {
                         pool.query(quer2, function(err,rows2)
                         {
                             if(err)
                             {
-                                return;
+                                throw err;
                             } else
                             {
-                                obj = {db: rows,
-                                    db1: rows1,
-                                    ouc: rows2,
+                                obj = {ouc: rows2,
                                     selection: selection,
                                     priorityCount: priorityCount,
                                     ein: req.cookies.EIN, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag, 'cases': req.cookies.cases};
                                     res.render('demand', obj);
-<<<<<<< HEAD
 
-=======
->>>>>>> 4a34f2b7d06ebbef46231e6f7c3fcf1ca8a6aec3
                             }
                         });
-                    }
-                });
-            }
-        });
-
 });
 
 module.exports = router;

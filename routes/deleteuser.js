@@ -31,7 +31,7 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
             if (err) {
                 delusermessage = 'Invalid EIN';
                 console.log(err.code);
-                throw new Error('TOM');
+                throw err;
             } else {
                 console.log('Database Updated');
                 pool.query(selectquer, function (err, rows) {
