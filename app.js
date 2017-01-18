@@ -79,16 +79,6 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-app.use(function (err, req, res, next) {
-        console.log('In Error Handler');
-        if(err) {
-            console.log('Error:'+err.code );
-            //throw err;
-            res.render('error');
-        } else {
-            return next();
-        }
-    });
 
 
 

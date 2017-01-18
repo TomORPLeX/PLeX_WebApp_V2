@@ -8,54 +8,35 @@ var fs = require('fs');
 /* GET SQL data. */
 var obj = {};
 
-var quer1 = "SELECT * FROM live_workstack LIMIT 10";
+//var quer1 = "SELECT * FROM live_workstack LIMIT 10";
 var quer2 = "SELECT DISTINCT om_ouc FROM live_workstack";
 
-router.get('/', loginfunction.isLoggedIn, function(req, res) {
+router.get('/', loginfunction.isLoggedIn, function(err,req, res) {
+    console.log(req.cookies.EIN );
     var tempfilelocation = '../public/data/' +req.cookies.EIN +'_LatLngData.json';
     var JsonData = JSON.parse(fs.readFileSync(tempfilelocation));
     var selection = JsonData.selection;
     var priorityCount = JsonData.priorityCount;
 
-        pool.query(quer1, function(err,rows)
+
+    pool.query(quer2, function(err,rows2)
+    {
+        if(err)
         {
-            if(err)
-            {
-                console.log("error here");
-                return;
-            } else
-            {
-                //obj = {db: rows};
-
-
-                pool.query(quer1, function(err,rows1)
-                {
-                    if(err)
-                    {
-                        return;
-                    } else
-                    {
-                        pool.query(quer2, function(err,rows2)
-                        {
-                            if(err)
-                            {
-                                return;
-                            } else
-                            {
-                                obj = {db: rows,
-                                    db1: rows1,
-                                    ouc: rows2,
-                                    selection: selection,
-                                    priorityCount: priorityCount,
-                                    ein: req.cookies.EIN, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag, 'cases': req.cookies.cases};
-                                    res.render('demand', obj);
-                            }
-                        });
-                    }
-                });
-            }
-        });
-
+            throw err;
+        } else
+        {
+            obj = {ouc: rows2,
+                selection: selection,
+                priorityCount: priorityCount,
+                ein: req.cookies.EIN,
+                'username': req.cookies.username,
+                'loginFlag': req.cookies.loginFlag,
+                'adminFlag': req.cookies.adminFlag,
+                'cases': req.cookies.cases};
+                res.render('demand', obj);
+        }
+    });
 });
 
 module.exports = router;

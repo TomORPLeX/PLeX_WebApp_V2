@@ -10,7 +10,7 @@ router.all('/', function(req, res, next) {
             throw err;
         } else {
             obj = {db: rows};
-            console.log(JSON.stringify(obj.db));
+            //console.log(JSON.stringify(obj.db));
             res.send(JSON.stringify(obj.db));
         }
     });
