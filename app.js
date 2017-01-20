@@ -79,12 +79,6 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> adam1
-
 module.exports = app;
 
 //Hiiiiiiiiiiiiiiiiiii
