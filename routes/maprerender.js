@@ -4,7 +4,7 @@ var pool = require('../bin/db.js');
 var loginfunction = require("../bin/login.js");
 var fs = require('fs');
 
-router.all('/', loginfunction.isLoggedIn, function (req, res, next) {
+router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
 
     var data = req.body;
     var LatLngData;
@@ -23,7 +23,7 @@ router.all('/', loginfunction.isLoggedIn, function (req, res, next) {
 
     for (i = 0; i < data.skills.length; i++) {
         skillsFilter[i] = "'" + data.skills[i] + "'";
-        console.log(data.skills[i]);
+        //console.log(data.skills[i]);
     }
     if (data.fluidity == "All") {
         fluidityStatusFlag = 1;
@@ -34,10 +34,13 @@ router.all('/', loginfunction.isLoggedIn, function (req, res, next) {
 
     var plannedWorkFlag = 0;
 
-    if (data.planned == "All") {
+    if (data.planned == "All" && fluidityStatusFlag == 1) {
         plannedWorkFlag = 1;
         plannedWork = "";
-    } else if (fluidityStatusFlag == 1) {
+    } else if (data.planned == "All" && fluidityStatusFlag == 0) {
+        plannedWorkFlag = 0;
+        plannedWork = "";
+    }else if (fluidityStatusFlag == 1) {
         plannedWork = "WHERE web_planned_engineers " + data.planned;
     } else {
         plannedWork = " AND web_planned_engineers " + data.planned;
@@ -49,9 +52,9 @@ router.all('/', loginfunction.isLoggedIn, function (req, res, next) {
         priorityScoreFlag = 1;
         priorityScore = "";
     } else if (plannedWorkFlag == 1) {
-        priorityScore = "WHERE HL_PRIORITY_SCORE IN (" + priorityScore + ")";
+        priorityScore = "WHERE hl_priority_score IN (" + priorityScore + ")";
     } else {
-        priorityScore = " AND HL_PRIORITY_SCORE IN (" + priorityScore + ")";
+        priorityScore = " AND hl_priority_score IN (" + priorityScore + ")";
     }
 
     var skillsFilterFlag = 0;
@@ -65,15 +68,15 @@ router.all('/', loginfunction.isLoggedIn, function (req, res, next) {
         skillsFilter = " AND primary_skill IN (" + skillsFilter + ")";
     }
 
-    var oucSelectionFlag = 0;
+    //var oucSelectionFlag = 0;
 
     if (data.ouc == "All") {
-        oucSelectionFlag = 1;
+        //oucSelectionFlag = 1;
         oucSelection = "";
     } else if (skillsFilterFlag == 1) {
-        oucSelection = "WHERE OM_OUC= '" + data.ouc + "'";
+        oucSelection = "WHERE om_ouc= '" + data.ouc + "'";
     } else {
-        oucSelection = " AND OM_OUC= '" + data.ouc + "'";
+        oucSelection = " AND om_ouc= '" + data.ouc + "'";
     }
 
     dataString = fluidityStatus + plannedWork + priorityScore + skillsFilter + oucSelection;
@@ -81,15 +84,17 @@ router.all('/', loginfunction.isLoggedIn, function (req, res, next) {
     //Filter out jobs in execute
     var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, HL_PRIORITY_SCORE, CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER  FROM live_workstack " + dataString + ";";
     var quer6 = "SELECT COUNT(*) as Total, priority_description FROM live_workstack " + dataString + "group by priority_description;";
-    //console.log(quer5);
+    console.log(quer5);
 
-    pool.query(quer5, function (err, rows) {
+    pool.query(quer5, function (err,rows) {
         if (err) {
-            throw err;
+            err.status=503;
+            return next(err);
         } else {
             pool.query(quer6, function (err, rows1) {
                 if (err) {
-                    throw err;
+                    err.status=503;
+                    return next(err);
                 } else {
                     obj = {
                         LatLngData: rows,
@@ -99,11 +104,11 @@ router.all('/', loginfunction.isLoggedIn, function (req, res, next) {
                     LatLngData = (JSON.stringify(obj));
                     var tempfilelocation = '../public/data/' + req.cookies.EIN + '_LatLngData.json';
                     fs.writeFile(tempfilelocation, LatLngData);
+                    res.send('success');
                 }
             });
         }
     });
-    res.send('success');
 });
 
 module.exports = router;

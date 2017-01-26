@@ -15,7 +15,8 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
     pool.query(selectquer, function (err, rows) {
         if (err) {
             console.log('error in select query');
-            throw err;
+            err.status=503;
+            return next(err);
         } else {
             res.cookie('cases', rows);
             console.log('our new cookie: ' +JSON.stringify(rows));

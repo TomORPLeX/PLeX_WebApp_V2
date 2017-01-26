@@ -13,7 +13,6 @@ var index = require('./routes/index');
 var logincheck = require('./routes/logincheck');
 var demand = require('./routes/demand');
 var planner = require('./routes/planner');
-var otd = require('./routes/otd');
 var logout =  require('./routes/logout');
 var admin =  require('./routes/admin');
 var adduser =  require('./routes/adduser');
@@ -49,7 +48,6 @@ app.use('/', index);
 app.use('/logincheck', logincheck);
 app.use('/demand', demand);
 app.use('/planner', planner);
-app.use('/otd',  otd);
 app.use('/logout', logout);
 app.use('/admin', admin);
 app.use('/adduser', adduser);
@@ -73,11 +71,20 @@ app.use(function(err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     //if (res.locals.message == 'ER_PARSE_ERROR') { console.log('in error handler');}
-
+    console.log('in error app.js');
     // render the error page
     res.status(err.status || 500);
     res.render('error');
 });
+
+//process.on("uncaughtException", function(err,error, req, res, next) {
+  //  // set locals, only providing error in development
+    //console.log('caught exception: '+err);
+    //res.status(err.status || 500);
+    //if (err){
+//        res.redirect('error');
+    //}
+//});
 
 module.exports = app;
 

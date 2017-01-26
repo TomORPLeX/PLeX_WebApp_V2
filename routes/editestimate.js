@@ -181,13 +181,15 @@ router.all('/', loginfunction.isLoggedIn, function(err,req,res,next) {
         pool.query(updatequer, function (err, rows) {
             if (err) {
                 console.log('error in update query');
-                throw err;
+                err.status=503;
+                return next(err);
             } else {
                 console.log('Database Updated');
                 pool.query(selectquer, function (err, rows) {
                     if (err) {
                         console.log('Error in select query');
-                        throw err;
+                        err.status=503;
+                        return next(err);
                     } else {
                         console.log("rows: "+JSON.stringify(rows));
                         obj = {"dropdownsjson":dropdownsjson,

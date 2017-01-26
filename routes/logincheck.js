@@ -4,15 +4,21 @@ var pool = require('../bin/db.js');
 var fs = require('fs');
 var loginfunction = require("../bin/login.js");
 
-router.use('/', function(req, res, next) {
+router.use('/', function( req, res, next) {
 
     var EIN = req.body.EIN;
     var quer1 = "SELECT * FROM users WHERE EIN = '"+EIN+"'";
     var obj = {};
+    var tempfilelocation = '../public/data/' + EIN + '_LatLngData.json';
 
     if(EIN.length == 9) {
         pool.query(quer1, function (err, rows) {
-            if (rows.length > 0) {
+            if (err)
+            {
+                err.status=503;
+                return next(err);
+            }
+            else if (rows.length > 0) {
                 obj = {db: rows};
 
                 var name = obj.db[0].NAME;
@@ -33,6 +39,7 @@ router.use('/', function(req, res, next) {
                 res.cookie('profile', profile, {maxAge: 900000, httpOnly: false});
                 res.cookie('cases', '', {httpOnly: false});
                 //create temp file for map
+                //TODO: distinguish user type and change file structure?
                 var initialJson = {
                     "LatLngData": [{
                         "LON": "",
@@ -57,7 +64,7 @@ router.use('/', function(req, res, next) {
                         "priority_description": ""
                     }]
                 };
-                var tempfilelocation = '../public/data/' + EIN + '_LatLngData.json';
+
                 fs.writeFile(tempfilelocation, JSON.stringify(initialJson));
 
                 //res.render('index', { title: 'Welcome '+ req.cookies.username, loginFlag: req.cookies.loginFlag, adminFlag: req.cookies.adminFlag });

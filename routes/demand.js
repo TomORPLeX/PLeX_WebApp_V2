@@ -8,9 +8,9 @@ var fs = require('fs');
 var obj = {};
 
 //var quer1 = "SELECT * FROM live_workstack LIMIT 10";
-var quer2 = "SELECT DISTINCT om_ouc FROM live_workstack";
+var quer1 = "SELECT DISTINCT om_ouc FROM live_workstack ORDER BY om_ouc";
 
-router.get('/', loginfunction.isLoggedIn, function(req, res) {
+router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
     console.log(req.cookies.EIN );
     var tempfilelocation = '../public/data/' +req.cookies.EIN +'_LatLngData.json';
     var JsonData = JSON.parse(fs.readFileSync(tempfilelocation));
@@ -18,11 +18,12 @@ router.get('/', loginfunction.isLoggedIn, function(req, res) {
     var priorityCount = JsonData.priorityCount;
 
 
-    pool.query(quer2, function(err,rows2)
+    pool.query(quer1, function(err,rows2)
     {
         if(err)
         {
-            throw err;
+            err.status=503;
+            return next(err);
         } else
         {
             obj = {ouc: rows2,

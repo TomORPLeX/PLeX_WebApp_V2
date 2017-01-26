@@ -49,13 +49,15 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         pool.query(insertquer, function (err, rows) {
             if (err) {
                 console.log('error in insert query');
-                throw err;
+                err.status=503;
+                return next(err);
             } else {
                 console.log('Database Updated');
                 pool.query(selectquer, function (err, rows) {
                     if (err) {
                         console.log('Error in select query');
-                        throw err;
+                        err.status=503;
+                        return next(err);
                     } else {
                         obj = {db: rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag};
                         addusermessage = 'Added User: [OUC: '+addouc+' Name: '+addname+' EIN: '+addein+' Profile: '+addprofile+' ]';
