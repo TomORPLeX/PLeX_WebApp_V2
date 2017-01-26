@@ -32,7 +32,7 @@ server.on('listening', onListening);
 process.on("uncaughtException", function(err, req, res, next) {
     // set locals, only providing error in development
     console.log("IN ERROR HANDLER");
-    res.redirect('/');
+    //res.redirect('/');
 });
 
 /**
