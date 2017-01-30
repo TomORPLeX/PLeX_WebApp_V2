@@ -31,11 +31,11 @@
                     if the problem persists, please contact the chief chimp via the "Contact Support" button below!
                 </div>
                 <div class="error-actions">
-                    <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
-                        Take Me Home </a><a href="" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
+                    <a onclick="goBack()" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-arrow-left"></span> Go Back </a>
+                    <a href="/" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span> Take Me Home </a>
+                    <a href="" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contact Support </a>
                 </div>
-                <!--TODO: add go back to previous page button-->
-                <div><%=error.stack%></div><!--for developers-->
+                <!--<div><%=error.stack%></div><!--for developers-->
             </div>
         </div>
     </div>
@@ -43,5 +43,6 @@
 <footer>
     <% include ./partials/footer %>
 </footer>
+<script  type="text/javascript" src="/javascripts/goback.js"></script>
 </body>
 </html>

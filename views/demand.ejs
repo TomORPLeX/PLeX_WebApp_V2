@@ -401,6 +401,26 @@
                     <%}%>
                 </div>
 
+                <!--TODO:change option name and add to post query in MapJquery.js and add to query in maprerender.js -->
+                <h4 class="text-center">Execution Status</h4>
+                <select class="selectpicker" id="planned">
+                    <%if(selection.planned=="All"){%>
+                    <option selected name="All">All</option>
+                    <%}else{%>
+                    <option name="All">All</option>
+                    <%}%>
+                    <%if(selection.planned=="is null "){%>
+                    <option selected name="is null ">Unplanned</option>
+                    <%}else{%>
+                    <option name="is null ">Unplanned</option>
+                    <%}%>
+                    <%if(selection.planned=="is not null "){%>
+                    <option selected name="is not null ">Planned</option>
+                    <%}else{%>
+                    <option name="is not null ">Planned</option>
+                    <%}%>
+                </select>
+
                 <h4 class="text-center">Enter OUC</h4>
                 <select class="selectpicker" id="oucselection">
                     <%var flag =0; for(var i=0;i<ouc.length;i++) {
