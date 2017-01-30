@@ -9,10 +9,11 @@ router.all('/', loginfunction.isLoggedIn, function(req, res, next) {
     selectquer = "SELECT * FROM live_workstack;";
     pool.query(selectquer, function (err, rows) {
         if (err) {
-            throw err;
+            err.status=503;
+            return next(err);
         } else {
             obj = {db: rows};
-            console.log(JSON.stringify(obj.db));
+            //console.log(JSON.stringify(obj.db));
             res.send(JSON.stringify(obj.db));
         }
     });

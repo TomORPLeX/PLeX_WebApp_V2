@@ -30,7 +30,7 @@ var gangsizedropdown = [{"ASSUMED_GANG_SIZE":1},{"ASSUMED_GANG_SIZE":2},{"ASSUME
 var traveldropdown = [{"PLANNED_TT_DURATION":10},{"PLANNED_TT_DURATION":"20"},{"PLANNED_TT_DURATION":"30"},{"PLANNED_TT_DURATION":"40"},{"PLANNED_TT_DURATION":"50"},{"PLANNED_TT_DURATION":"60"},{"PLANNED_TT_DURATION":"70"},{"PLANNED_TT_DURATION":"80"},{"PLANNED_TT_DURATION":"90"},{"PLANNED_TT_DURATION":"100"},{"PLANNED_TT_DURATION":"110"},{"PLANNED_TT_DURATION":"120"},{"PLANNED_TT_DURATION":"130"},{"PLANNED_TT_DURATION":"140"},{"PLANNED_TT_DURATION":"150"}];
 var tasknumberdropdown = [{"TASK_NUMBER":1},{"TASK_NUMBER":2},{"TASK_NUMBER":3},{"TASK_NUMBER":4},{"TASK_NUMBER":5},{"TASK_NUMBER":6}];
 
-router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
+router.all('/', loginfunction.isLoggedIn, function(err,req,res,next) {
     console.log('Editing Estimate');
 
     estimatenum = req.body.ewocestimate;
@@ -181,13 +181,15 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         pool.query(updatequer, function (err, rows) {
             if (err) {
                 console.log('error in update query');
-                throw err;
+                err.status=503;
+                return next(err);
             } else {
                 console.log('Database Updated');
                 pool.query(selectquer, function (err, rows) {
                     if (err) {
                         console.log('Error in select query');
-                        throw err;
+                        err.status=503;
+                        return next(err);
                     } else {
                         console.log("rows: "+JSON.stringify(rows));
                         obj = {"dropdownsjson":dropdownsjson,

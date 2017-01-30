@@ -71,12 +71,20 @@ app.use(function(err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     //if (res.locals.message == 'ER_PARSE_ERROR') { console.log('in error handler');}
-
+    console.log('in error app.js');
     // render the error page
     res.status(err.status || 500);
     res.render('error');
 });
 
+//process.on("uncaughtException", function(err,error, req, res, next) {
+  //  // set locals, only providing error in development
+    //console.log('caught exception: '+err);
+    //res.status(err.status || 500);
+    //if (err){
+//        res.redirect('error');
+    //}
+//});
 
 module.exports = app;
 

@@ -18,7 +18,6 @@ router.get('/', function(req, res, next) {
         if(err == null) {
             fs.unlinkSync(tempfilelocation);
         } else if(err.code == 'ENOENT') {
-            // file does not exist
            return;
         } else {
             return;

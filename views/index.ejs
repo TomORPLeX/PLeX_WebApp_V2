@@ -12,24 +12,33 @@
 <header>
     <% include ./partials/header %>
 </header>
-<h1><%= title %></h1>
-609117246
-609138982
-<%if (loginFlag == 0) { %>
-<form class="form-inline" action="/logincheck" method="post" >
-  <div class="form-group">
-    <label for="EIN">EIN</label>
-    <input type="text" class="form-control" id="exampleInputName2" placeholder="Enter 9 digit EIN" name="EIN">    </div>
-  <button type="submit" class="btn btn-primary">Login</button>
-</form>
-<%}%>
+<div class="rows rows-centered">
+  <div class="rows  col-md-offset-5 col-md- col-md-offset-5">
+      <h1><%= title %></h1>
+      609117246
+      609138982
+      <%if (loginFlag == 0) { %>
+      <form class="form-inline" action="/logincheck" method="post" >
+        <div class="form-group">
+          <label for="EIN">EIN</label>
+          <input type="text" class="form-control" id="exampleInputName2" placeholder="Enter 9 digit EIN" name="EIN">    </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
 
-<%if (loginFailedMessage) { %>
-  <p style="font-size: 2.0em; font-style: italic"> <%- loginFailedMessage %></p>
-<%}%>
+  </div>
+</div>
 
+<div class="rows rows-centered">
+  <div class="rows  col-md-offset-5 col-md- col-md-offset-5">
+      <%}%>
 
-<footer>
+      <%if (loginFailedMessage) { %>
+    <p style="font-size: 1.5em; font-style: italic; padding-top: 15px"> <%- loginFailedMessage %></p>
+      <%}%>
+  </div>
+</div>
+
+<footer style="padding-top: 15px">
     <% include ./partials/footer %>
 </footer>
 </body>

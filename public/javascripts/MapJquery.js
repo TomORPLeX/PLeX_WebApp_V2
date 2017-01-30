@@ -108,11 +108,13 @@ $(document).ready(function() {
                         window.location.reload(true);
                     }, 250);
 
-                }
+                },
+            error: function (request, status, error) {
+                window.location.replace("/error");
+            }
             });
         }else{
             $("#alert").show();
         }
-
     });
 });
