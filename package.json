@@ -11,13 +11,13 @@
     "debug": "~2.2.0",
     "ejs": "~2.5.2",
     "express": "~4.14.0",
+    "forever": "0.15.3",
     "fs": "0.0.1-security",
+    "kalendae": "0.6.1",
     "leaflet": "1.0.2",
     "leaflet.markercluster": "1.0.0",
     "morgan": "~1.7.0",
     "mysql": "2.12.0",
-    "serve-favicon": "~2.3.0",
-    "kalendae": "0.6.1",
-    "forever":"0.15.3"
+    "serve-favicon": "~2.3.0"
   }
 }

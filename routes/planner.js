@@ -13,11 +13,9 @@ var estimatenum = "";
 //var cases = "";
 var dso = "";
 var tmbooked = "";
-var fluiditystatus = "";
-var gangsize = "";
 var skills = "";
 var tasktime = "";
-var unpintask = "";
+var keystonetask = "";
 var travel = "";
 var eodtravel ="";
 var engein = "";
@@ -30,11 +28,9 @@ var formvalues = {
     "dso":dso,
     "cases":cases,
     "tmbooked":tmbooked,
-    "fluiditystatus":fluiditystatus,
-    "gangsize":gangsize,
     "skills":skills,
     "tasktime":tasktime,
-    "unpintask":unpintask,
+    "keystonetask":keystonetask,
     "travel":travel,
     "eodtravel":eodtravel,
     "engein":engein,
