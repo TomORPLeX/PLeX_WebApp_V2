@@ -14,11 +14,9 @@ var selectedcases = "";
 var allcases = "";
 var dso = "";
 var tmbooked = "";
-var fluiditystatus = "";
-var gangsize = "";
 var skills = "";
 var tasktime = "";
-var unpintask = "";
+var keystonetask = "";
 var travel = "";
 var eodtravel="";
 var engein = "";
@@ -38,11 +36,9 @@ router.all('/', loginfunction.isLoggedIn, function(err,req,res,next) {
     selectedcases = req.body.cases;
     dso = req.body.dso;
     tmbooked = req.body.tmbooked;
-    fluiditystatus = req.body.fluiditystatus;
-    gangsize = req.body.gangsize;
     skills = req.body.addeditskill;
     tasktime = req.body.tasktime;
-    unpintask = req.body.unpintask;
+    keystonetask = req.body.keystonetask;
     travel = req.body.traveltime;
     eodtravel = req.body.eodtravel;
     engein = req.body.engein;
@@ -63,11 +59,9 @@ router.all('/', loginfunction.isLoggedIn, function(err,req,res,next) {
         "cases":selectedcases,
         "dso":dso,
         "tmbooked":tmbooked,
-        "fluiditystatus":fluiditystatus,
-        "gangsize":gangsize,
         "skills":skills,
         "tasktime":tasktime,
-        "unpintask":unpintask,
+        "keystonetask":keystonetask,
         "travel":travel,
         "eodtravel":eodtravel,
         "engein":engein,
@@ -111,13 +105,6 @@ router.all('/', loginfunction.isLoggedIn, function(err,req,res,next) {
             updatequer = updatequer + " WEB_CASE_STATUS = 1 ,";
             str = str + "Fluidity Status = "+ fluiditystatus +" ";
             selectcolumns = selectcolumns + " CASE_STATUS,";
-            selectcolcount++;
-        }
-        if (gangsize) {
-            updatequer = updatequer + " ASSUMED_GANG_SIZE = '" + gangsize + "' ,";
-            updatequer = updatequer + " WEB_ASSUMED_GANG_SIZE = '" + gangsize + "' ,";
-            str = str + "Gang Size = "+ gangsize +" ";
-            selectcolumns = selectcolumns + " ASSUMED_GANG_SIZE,";
             selectcolcount++;
         }
         if (skills) {
@@ -175,7 +162,7 @@ router.all('/', loginfunction.isLoggedIn, function(err,req,res,next) {
         updatequer = updatequer.slice(",", -1);
         selectcolumns = selectcolumns.slice(",", -1);
         updatequer = updatequer + " WHERE ESTIMATENUMBER = '" + estimatenum + "' AND CASE_ID in ('" + selectedcases + "');";
-        var selectquer = "SELECT"+selectcolumns+" FROM live_workstack WHERE ESTIMATENUMBER LIKE '"+estimatenum +"' AND CASE_ID in ('" + selectedcases +"');";
+        var selectquer = "SELECT"+selectcolumns+" FROM live_workstack a INNER JOIN eng_case_table b ON a.case_id = b.case_id WHERE ESTIMATENUMBER LIKE '"+estimatenum +"' AND CASE_ID in ('" + selectedcases +"');";
         console.log('select query: '+selectquer);
 
         pool.query(updatequer, function (err, rows) {
