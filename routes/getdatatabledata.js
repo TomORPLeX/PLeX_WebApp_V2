@@ -6,7 +6,7 @@ var loginfunction = require("../bin/login.js");
 
 
 router.all('/', loginfunction.isLoggedIn, function(req, res, next) {
-    selectquer = "SELECT * FROM live_workstack;";
+    selectquer = "SELECT * FROM live_workstack LIMIT 100;";
     pool.query(selectquer, function (err, rows) {
         if (err) {
             err.status=503;
