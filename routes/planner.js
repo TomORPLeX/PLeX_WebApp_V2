@@ -14,7 +14,8 @@ var estimatenum = "";
 var dso = "";
 var tmbooked = "";
 var skills = "";
-var tasktime = "";
+var starttime = "";
+var finishtime = "";
 var keystonetask = "";
 var travel = "";
 var eodtravel ="";
@@ -22,6 +23,31 @@ var engein = "";
 var tasknum = "";
 var dates = "";
 var flagtofluidity ="";
+var engein2="";
+var tasknum2="";
+var eodtravel2="";
+var travel2="";
+var dates2="";
+var engein3="";
+var tasknum3="";
+var eodtravel3="";
+var travel3="";
+var dates3="";
+var engein4="";
+var tasknum4="";
+var eodtravel4="";
+var travel4="";
+var dates4="";
+var engein5="";
+var tasknum5="";
+var eodtravel5="";
+var travel5="";
+var dates5="";
+var engein6="";
+var tasknum6="";
+var eodtravel6="";
+var travel6="";
+var dates6="";
 
 var formvalues = {
     "estimatenum":estimatenum,
@@ -29,14 +55,40 @@ var formvalues = {
     "cases":cases,
     "tmbooked":tmbooked,
     "skills":skills,
-    "tasktime":tasktime,
+    "starttime":starttime,
+    "finishtime":finishtime,
     "keystonetask":keystonetask,
     "travel":travel,
     "eodtravel":eodtravel,
     "engein":engein,
     "tasknum":tasknum,
     "dates":dates,
-    "flagtofluidity":flagtofluidity
+    "flagtofluidity":flagtofluidity,
+    "engein2":engein2,
+    "tasknum2":tasknum2,
+    "eodtravel2":eodtravel2,
+    "travel2":travel2,
+    "dates2":dates2,
+    "engein3":engein3,
+    "tasknum3":tasknum3,
+    "eodtravel3":eodtravel3,
+    "travel3":travel3,
+    "dates3":dates3,
+    "engein4":engein4,
+    "tasknum4":tasknum4,
+    "eodtravel4":eodtravel4,
+    "travel4":travel4,
+    "dates4":dates4,
+    "engein5":engein5,
+    "tasknum5":tasknum5,
+    "eodtravel5":eodtravel5,
+    "travel5":travel5,
+    "dates5":dates5,
+    "engein6":engein6,
+    "tasknum6":tasknum6,
+    "eodtravel6":eodtravel6,
+    "travel6":travel6,
+    "dates6":dates6
 };
 
 var fluiditydropdown = "";
