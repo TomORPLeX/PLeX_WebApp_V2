@@ -14,6 +14,8 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
     var plannedWork;
     var priorityScore = [];
     var oucSelection;
+    var execStatusSelection;
+    var qFlagSelection;
     var dataString = [];
     var obj = {};
 
@@ -41,9 +43,9 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
         plannedWorkFlag = 0;
         plannedWork = "";
     }else if (fluidityStatusFlag == 1) {
-        plannedWork = "WHERE web_planned_engineers " + data.planned;
+        plannedWork = "WHERE web_planned_flag " + data.planned;
     } else {
-        plannedWork = " AND web_planned_engineers " + data.planned;
+        plannedWork = " AND web_planned_flag " + data.planned;
     }
 
     var priorityScoreFlag = 0;
@@ -52,9 +54,9 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
         priorityScoreFlag = 1;
         priorityScore = "";
     } else if (plannedWorkFlag == 1) {
-        priorityScore = "WHERE hl_priority_score IN (" + priorityScore + ")";
+        priorityScore = "WHERE web_system_defined_priority IN (" + priorityScore + ")";
     } else {
-        priorityScore = " AND hl_priority_score IN (" + priorityScore + ")";
+        priorityScore = " AND web_system_defined_priority IN (" + priorityScore + ")";
     }
 
     var skillsFilterFlag = 0;
@@ -68,21 +70,44 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
         skillsFilter = " AND primary_skill IN (" + skillsFilter + ")";
     }
 
+    var execStatusFlag = 0;
+
+    if (data.execStatus == "All") {
+        execStatusFlag = 1;
+        execStatusSelection = "";
+    } else if (skillsFilterFlag == 1) {
+        execStatusSelection = "WHERE JIN_STATUS= '" + data.execStatus + "'";
+    } else {
+        execStatusSelection = " AND JIN_STATUS= '" + data.execStatus + "'";
+    }
+
+    var qFlagFlag = 0;
+
+    if (data.qFlag == "All" && execStatusFlag == 1) {
+        qFlagFlag = 1;
+        qFlagSelection = "";
+    } else if (data.qFlag == "All" && execStatusFlag == 0) {
+        qFlagFlag = 0;
+        qFlagSelection = "";
+    } else {
+        qFlagSelection = " AND queue_flag= '" + data.qFlag + "'";
+    }
+
     //var oucSelectionFlag = 0;
 
     if (data.ouc == "All") {
         //oucSelectionFlag = 1;
         oucSelection = "";
-    } else if (skillsFilterFlag == 1) {
+    } else if (qFlagFlag == 1) {
         oucSelection = "WHERE om_ouc= '" + data.ouc + "'";
     } else {
         oucSelection = " AND om_ouc= '" + data.ouc + "'";
     }
 
-    dataString = fluidityStatus + plannedWork + priorityScore + skillsFilter + oucSelection;
+    dataString = fluidityStatus + plannedWork + priorityScore + skillsFilter + execStatusSelection + qFlagSelection + oucSelection;
 
     //Filter out jobs in execute
-    var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, HL_PRIORITY_SCORE, CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER  FROM live_workstack " + dataString + ";";
+    var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, web_system_defined_priority, CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER  FROM live_workstack " + dataString + ";";
     var quer6 = "SELECT COUNT(*) as Total, priority_description FROM live_workstack " + dataString + "group by priority_description;";
     console.log(quer5);
 
@@ -102,6 +127,7 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
                         priorityCount: rows1
                     };
                     LatLngData = (JSON.stringify(obj));
+                    console.log(LatLngData);
                     var tempfilelocation = '../public/data/' + req.cookies.EIN + '_LatLngData.json';
                     fs.writeFile(tempfilelocation, LatLngData);
                     res.send('success');
