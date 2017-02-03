@@ -9,7 +9,7 @@ router.use('/', function( req, res, next) {
     var EIN = req.body.EIN;
     var quer1 = "SELECT * FROM users WHERE EIN = '"+EIN+"'";
     var obj = {};
-    var tempfilelocation = '../public/data/' + EIN + '_LatLngData.json';
+
 
     if(EIN.length == 9) {
         pool.query(quer1, function (err, rows) {
@@ -25,6 +25,7 @@ router.use('/', function( req, res, next) {
                 var EIN = obj.db[0].EIN;
                 var OUC = obj.db[0].OUC;
                 var profile = obj.db[0].PROFILE;
+                var tempfilelocation = '../public/data/' + EIN + '_LatLngData.json';
 
                 if (profile == 'Admin') {
                     var adminFlag1 = 1;

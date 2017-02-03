@@ -7,6 +7,8 @@ $(document).ready(function() {
     var priorityScore = [];
     var oucSelection;
     var dataString = [];
+    var qFlag;
+    var execStatus;
 
     $('#select_all_skill').change(function() {
         for (i = 0; i < 9; i++) {
@@ -84,12 +86,16 @@ $(document).ready(function() {
         fluidityStatus = $('#fluidity').find(":selected").text();
         plannedWork = $('#planned').find(":selected").attr('name');
         oucSelection = $('#oucselection').find(":selected").text();
+        execStatus = $('#execStatus').find(":selected").text();
+        qFlag = $('#qFlag').find(":selected").text();
 
         dataString = {
             'fluidity':fluidityStatus,
             'planned':plannedWork,
             'priority':priorityScore,
             'skills':skillsFilter,
+            'execStatus':execStatus,
+            'qFlag':qFlag,
             'ouc':oucSelection
         };
 

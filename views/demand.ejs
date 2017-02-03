@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title> Demand EJS File</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, intial-scale=1">
+    <title> Demand EJS File</title>
+
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://fonts.googleapis.com/css?family=Sarpanch" rel="stylesheet"><!--brand text-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
-    <script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Sarpanch" rel="stylesheet"><!--brand text-->
-
-    <script src="javascripts/demanddatatable.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Sarpanch" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body style="background-color: lightgrey;">
 <header>
@@ -63,15 +60,11 @@
                     <div class="col-xs-9 text-center">
                         <% var urgValue = 0
                         for(var i=0;i<priorityCount.length;i++) {
-                        if(priorityCount[i].priority_description=="P2"||priorityCount[i].priority_description=="P3"||priorityCount[i].priority_description=="P4"){
-                        urgValue = urgValue+priorityCount[i].Total%>
-                        <% }else if(i==priorityCount.length-1){
-                        var flagUrg = 1;%>
+                        if(priorityCount[i].priority_description=="Urgent"){%>
+                        <div class="huge"><%=priorityCount[i].Total%></div>
+                        <% break}else if(i==priorityCount.length-1 && priorityCount[i].priority_description!="Urgent"){ %>
                         <div class="huge">0</div>
-                        <%}else{continue}}
-                        if(flagUrg!==1){%>
-                        <div class="huge"><%=urgValue%></div>
-                        <%}%>
+                        <%}else{continue}}%>
                         <div>Urgent</div>
                     </div>
                 </div>
@@ -403,21 +396,55 @@
 
                 <!--TODO:change option name and add to post query in MapJquery.js and add to query in maprerender.js -->
                 <h4 class="text-center">Execution Status</h4>
-                <select class="selectpicker" id="planned">
-                    <%if(selection.planned=="All"){%>
+                <select class="selectpicker" id="execStatus">
+                    <%if(selection.execStatus=="All"){%>
                     <option selected name="All">All</option>
                     <%}else{%>
                     <option name="All">All</option>
                     <%}%>
-                    <%if(selection.planned=="is null "){%>
-                    <option selected name="is null ">Unplanned</option>
+                    <%if(selection.execStatus=="AWI"){%>
+                    <option selected name="AWI">AWI</option>
                     <%}else{%>
-                    <option name="is null ">Unplanned</option>
+                    <option name="AWI">AWI</option>
                     <%}%>
-                    <%if(selection.planned=="is not null "){%>
-                    <option selected name="is not null ">Planned</option>
+                    <%if(selection.execStatus=="ISS"){%>
+                    <option selected name="ISS">ISS</option>
                     <%}else{%>
-                    <option name="is not null ">Planned</option>
+                    <option name="ISS">ISS</option>
+                    <%}%>
+                    <%if(selection.execStatus=="EXC"){%>
+                    <option selected name="EXC">EXC</option>
+                    <%}else{%>
+                    <option name="EXC">EXC</option>
+                    <%}%>
+                    <%if(selection.execStatus=="FUR"){%>
+                    <option selected name="FUR">FUR</option>
+                    <%}else{%>
+                    <option name="FUR">FUR</option>
+                    <%}%>
+                </select>
+
+                <h4 class="text-center">Queue Flag</h4>
+                <select class="selectpicker" id="qFlag">
+                    <%if(selection.qFlag=="All"){%>
+                    <option selected name="All">All</option>
+                    <%}else{%>
+                    <option name="All">All</option>
+                    <%}%>
+                    <%if(selection.qFlag=="A"){%>
+                    <option selected name="A">A</option>
+                    <%}else{%>
+                    <option name="A">A</option>
+                    <%}%>
+                    <%if(selection.qFlag=="F"){%>
+                    <option selected name="F">F</option>
+                    <%}else{%>
+                    <option name="F">F</option>
+                    <%}%>
+                    <%if(selection.qFlag=="R"){%>
+                    <option selected name="R">R</option>
+                    <%}else{%>
+                    <option name="R">R</option>
                     <%}%>
                 </select>
 
@@ -453,6 +480,9 @@
 <footer>
     <% include ./partials/footer %>
 </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
+<script src="http://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
 <script  type="text/javascript" src="/javascripts/leaflet.js"></script>
 <script  type="text/javascript" src="/javascripts/MapJquery.js"></script>
 <script  type="text/javascript" src="/javascripts/onbeforeunload.js"></script>
