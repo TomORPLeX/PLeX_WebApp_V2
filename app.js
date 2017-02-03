@@ -22,6 +22,7 @@ var editestimate = require('./routes/editestimate');
 var queryestimatecases = require('./routes/queryestimatecases');
 var maprerender = require('./routes/maprerender');
 var getdatatabledata = require('./routes/getdatatabledata');
+var querycasedata = require ('./routes/querycasedata');
 
 var app = express();
 
@@ -57,6 +58,7 @@ app.use('/editestimate', editestimate);
 app.use('/queryestimatecases', queryestimatecases);
 app.use('/maprerender', maprerender);
 app.use('/getdatatabledata', getdatatabledata);
+app.use('/querycasedata', querycasedata);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

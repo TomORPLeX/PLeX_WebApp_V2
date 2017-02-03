@@ -34,12 +34,12 @@
 
 <div class="container" id="estimatecontainer">
 <h3 id="estimatecontainerheader" style="background-color: #428BCA">Edit EWOC Case</h3>
-<form id="form1" action="editestimate" method="post">
+<form id="form1" action="editestimate" method="post" name="form1">
 <div class="form-group row">
-    <div class="form-group col-md-offset-2 col-md-2">
-    <label> Enter EWOC Estimate</label>
+    <div class="form-group col-md-offset-1 col-lg-3">
+        <label> Enter EWOC Estimate:</label>
     </div>
-    <div class="form-group col-md-6" id="estimatediv" style="padding-bottom: 0px;">
+    <div class="form-group col-md-7" id="estimatediv" style="padding-bottom: 0px;">
         <% if(formvalues.estimatenum.length > 0) { %>
             <input type="text" class="form-control" id="estimate" name="ewocestimate" value="<%= formvalues.estimatenum %>">
         <% } else { %>
@@ -50,11 +50,11 @@
 
 
 <div class="form-group row" id="divcases">
-    <div class="form-group col-md-offset-2 col-md-offset-2 col-md-2">
-        <label for="exampleSelect2">Select Cases to Edit</label>
+    <div class="form-group col-md-offset-1 col-md-offset-1 col-lg-3">
+        <label for="exampleSelect2"><br>Select Cases to Edit:</label>
     </div>
-    <div class="form-group  col-md-6">
-    <select multiple class="form-control input-large" name="cases" style="padding: 0px">
+    <div class="form-group col-md-7">
+    <select multiple class="form-control input-large" name="cases" id="cases" style="padding: 0px">
         <% if (cases.length > 0) { %>
             <% for(var ii=0;ii<cases.length;ii++) { %>
                     <% if(formvalues.cases.includes(cases[ii].CASE_ID)) { %>
@@ -65,6 +65,7 @@
             <%}%>
         <%}%>
     </select>
+    <i>Hold Ctrl to select multiple</i>
     </div>
 </div>
 
@@ -229,6 +230,6 @@
 <script src="javascripts/loadestimatecases.js" type="text/javascript" charset="utf-8"></script>
 <script src="javascripts/addengtoform.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/workplanneronebeforeunload.js"></script>
-
+<script type="text/javascript" src="/javascripts/loadformdata.js"></script>
 </body>
 </html>
