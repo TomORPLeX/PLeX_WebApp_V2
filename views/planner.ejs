@@ -32,12 +32,12 @@
 
 <div class="container" id="estimatecontainer">
 <h3 id="estimatecontainerheader" style="background-color: #428BCA">Edit EWOC Case</h3>
-<form id="form1" action="editestimate" method="post">
+<form id="form1" action="editestimate" method="post" name="form1">
 <div class="form-group row">
-    <div class="form-group col-md-offset-2 col-md-2">
-    <label> Enter EWOC Estimate</label>
+    <div class="form-group col-md-offset-1 col-lg-3">
+        <label> Enter EWOC Estimate:</label>
     </div>
-    <div class="form-group col-md-6" id="estimatediv" style="padding-bottom: 0px;">
+    <div class="form-group col-md-7" id="estimatediv" style="padding-bottom: 0px;">
         <% if(formvalues.estimatenum.length > 0) { %>
             <input type="text" class="form-control" id="estimate" name="ewocestimate" value="<%= formvalues.estimatenum %>">
         <% } else { %>
@@ -48,11 +48,11 @@
 
 
 <div class="form-group row" id="divcases">
-    <div class="form-group col-md-offset-2 col-md-offset-2 col-md-2">
-        <label for="exampleSelect2">Select Cases to Edit</label>
+    <div class="form-group col-md-offset-1 col-md-offset-1 col-lg-3">
+        <label for="exampleSelect2"><br>Select Cases to Edit:</label>
     </div>
-    <div class="form-group  col-md-6">
-    <select multiple class="form-control input-large" name="cases" style="padding: 0px">
+    <div class="form-group col-md-7">
+    <select multiple class="form-control input-large" name="cases" id="cases" style="padding: 0px">
         <% if (cases.length > 0) { %>
             <% for(var ii=0;ii<cases.length;ii++) { %>
                     <% if(formvalues.cases.includes(cases[ii].CASE_ID)) { %>
@@ -63,6 +63,7 @@
             <%}%>
         <%}%>
     </select>
+    <i>Hold Ctrl to select multiple</i>
     </div>
 </div>
 
@@ -108,7 +109,7 @@
 </div>
 
 <div class="form-group row">
-    <div class="form-group col-md-offset-1 col-md-4">
+    <div class="form-group col-md-4">
         <label style="padding: 0px" for="Profile">Edit/ Add Skill</label>
         <select name="addeditskill" class="form-control">
             <option style="padding: 0px" value="" selected><em>Select From List</em></option>
@@ -123,14 +124,22 @@
         </select>
     </div>
 
-    <div class="form-group col-md-offset-1 col-md-4">
-        <label style="padding: 0px" for="tasktime">Enter Estimated Task Time (Mins)</label>
-            <% if(formvalues.tasktime.length > 0) { %>
-            <input style="padding: 0px" type="number" class="form-control" name="tasktime" value="<%=formvalues.tasktime%>">
+    <div class="form-group col-md-offset-3 col-md-2">
+        <label style="padding: 0px" for="starttime">Enter Start Time</label>
+            <% if(formvalues.starttime.length > 0) { %>
+            <input style="padding: 0px" type="number" class="form-control" name="tasktime" value="<%=formvalues.starttime%>">
             <% } else { %>
             <input  style="padding: 0px"type="number" class="form-control" name="tasktime" placeholder="Enter Task Time" value="">
             <% } %>
+    </div>
 
+    <div class="form-group col-md-2">
+        <label style="padding: 0px" for="finishtime">Enter Finish Time</label>
+        <% if(formvalues.starttime.length > 0) { %>
+        <input style="padding: 0px" type="number" class="form-control" name="tasktime" value="<%=formvalues.finishtime%>">
+        <% } else { %>
+        <input  style="padding: 0px"type="number" class="form-control" name="tasktime" placeholder="Enter Task Time" value="">
+        <% } %>
     </div>
 
 
@@ -138,67 +147,30 @@
 
 
 <div id="engrows">
-    <div class="form-group row" id="engrow1">
-        <div class="form-group col-md-3">
-            <label for="EIN">Enter Engineer EIN for Task</label><br><br>
-                <% if(formvalues.engein.length > 0) { %>
-                <input style="padding: 0px" type="number" class="form-control" name="engein" value="<%=formvalues.engein%>">
-                <% } else { %>
-                <input style="padding: 0px" type="number" class="form-control" name="engein" placeholder="Enter engineer EIN" value="">
-                <% } %>
-        </div>
 
-        <div class="form-group col-md-2">
-            <label style="padding: 0px" for="Profile">Select Task Number</label>
-            <select name="tasknum" class="form-control">
-                <option value="" selected><em>Select From List</em></option>
-                <%for(var oo =0;oo<dropdownsjson.tasknumberdropdown.length;oo++) { %>
-                <% if( dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER == formvalues.tasknum) { %>
-                <option value="<%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%>" selected><em><%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%></em></option>
-                <% } else { %>
-                <option value="<%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%>"><em><%=dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER%></em></option>
-                <% } %>
-                <% } %>
-            </select>
-        </div>
 
-        <div class="form-group col-md-2">
-            <label style="padding: 0px" for="Profile">Travel To Next Task</label>
-            <select name="traveltime" class="form-control">
-                <option value="" selected><em>Select From List</em></option>
-                <%for(var mm =0;mm<dropdownsjson.traveldropdown.length;mm++) { %>
-                <% if( dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION == formvalues.travel) { %>
-                <option value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>" selected><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
-                <% } else { %>
-                <option value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>"><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
-                <% } %>
-                <% } %>
-            </select>
-        </div>
+    <!-- var engcount = 0 -->
+    <%//if (JSON results have a 2nd engineer OR AddEng2Flag Button has been clicked ) { %>
+    <%// engcount = 2 %>
+    <% include ./partials/engrow1 %>
+    <% include ./partials/engrow2 %>
+    <% include ./partials/engrow3 %>
+    <% include ./partials/engrow4 %>
+    <% include ./partials/engrow5 %>
+    <% include ./partials/engrow6 %>
 
-        <div class="form-group col-md-2" id="randomdiv">
-            <label style="padding: 0px" for="Profile">EOD Travel<br><br></label>
-            <select name="eodtravel" class="form-control">
-                <option style="padding: 0px" value="" selected><em>Select From List</em></option>
-                <%for(var mm =0;mm<dropdownsjson.traveldropdown.length;mm++) { %>
-                <% if( dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION == formvalues.eodtravel) { %>
-                <option style="padding: 0px" value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>" selected><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
-                <% } else { %>
-                <option style="padding: 0px" value="<%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%>"><em><%=dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION%></em></option>
-                <% } %>
-                <% } %>
-            </select>
-        </div>
+    <!--} -->
 
-        <div class="form-group col-md-2">
-            <label style="padding: 0px" for="EIN" name="datewrap">Select Planner Defined Date(s)</label>
-                <% if(formvalues.dates.length > 0) { %>
-                <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates" value = "<%=formvalues.dates%>">
-                <% } else { %>
-                <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " name="dates">
-                <% } %>
-        </div>
-    </div>
+    <!--if (JSON results have a 3rd engineer OR 3ndEngFlag = 1) { -->
+    <!-- include ./partials/engrow3 -->
+    <!--} -->
+    <!--if (JSON results have a 4th engineer) { -->
+    <!-- include ./partials/engrow4 -->
+    <!--} -->
+    <!--if (JSON results have a 5th engineer) { -->
+    <!-- include ./partials/engrow5 -->
+    <!--} -->
+
 </div>
 
 <div class="form-group row">
@@ -215,7 +187,6 @@
         <button type="reset" value="Reset" class="btn btn-default">Reset Form</button>
     </div>
 </div>
-
 
 </form>
 </div>
@@ -259,5 +230,6 @@
 <script type="text/javascript" src="/javascripts/workplanneronebeforeunload.js"></script>
 <script src="javascripts/plannerdatatable.js" type="text/javascript" charset="utf-8"></script>
 <script src="javascripts/animatescroll.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/javascripts/loadformdata.js"></script>
 </body>
 </html>

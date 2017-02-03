@@ -6,6 +6,9 @@ var loginfunction = require("../bin/login.js");
 
 router.use('/', function( req, res, next) {
 
+    var url1 = req.baseUrl;
+    console.log("REQ: "+url1);
+
     var EIN = req.body.EIN;
     var quer1 = "SELECT * FROM users WHERE EIN = '"+EIN+"'";
     var obj = {};
@@ -33,11 +36,11 @@ router.use('/', function( req, res, next) {
 
                 var loginFlag1 = 1;
 
-                res.cookie('EIN', EIN, {maxAge: 900000, httpOnly: false});
-                res.cookie('username', name, {maxAge: 900000, httpOnly: false});
-                res.cookie('loginFlag', loginFlag1, {maxAge: 900000, httpOnly: false});
-                res.cookie('adminFlag', adminFlag1, {maxAge: 900000, httpOnly: false});
-                res.cookie('profile', profile, {maxAge: 900000, httpOnly: false});
+                res.cookie('EIN', EIN, { httpOnly: false});
+                res.cookie('username', name, { httpOnly: false});
+                res.cookie('loginFlag', loginFlag1, { httpOnly: false});
+                res.cookie('adminFlag', adminFlag1, { httpOnly: false});
+                res.cookie('profile', profile, { httpOnly: false});
                 res.cookie('cases', '', {httpOnly: false});
                 //create temp file for map
                 //TODO: distinguish user type and change file structure?
