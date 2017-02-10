@@ -42,6 +42,8 @@ router.use('/', function( req, res, next) {
                 res.cookie('adminFlag', adminFlag1, { httpOnly: false});
                 res.cookie('profile', profile, { httpOnly: false});
                 res.cookie('cases', '', {httpOnly: false});
+                res.cookie('latLonCook','LatLng(54.00011, 0.00001)', {httpOnly: false});
+                res.cookie('scale','5', {httpOnly: false});
                 //create temp file for map
                 //TODO: distinguish user type and change file structure?
                 var initialJson = {

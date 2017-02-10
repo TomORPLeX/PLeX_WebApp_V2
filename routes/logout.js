@@ -9,7 +9,10 @@ router.get('/', function(req, res, next) {
     res.clearCookie("username");
     res.clearCookie("loginFlag");
     res.clearCookie("adminFlag");
+    res.clearCookie("profile");
     res.clearCookie("cases");
+    res.clearCookie("latLonCook");
+    res.clearCookie("scale");
 
     loginFlag = 0;
     console.log('loggedOut');

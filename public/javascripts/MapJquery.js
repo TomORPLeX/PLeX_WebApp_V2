@@ -10,7 +10,11 @@ $(document).ready(function() {
     var qFlag;
     var execStatus;
 
+
+
     $('#select_all_skill').change(function() {
+
+
         for (i = 0; i < 9; i++) {
 
             if ($("#filter" + i).is(":checked") && $('#select_all_skill').is(":checked")) {
@@ -29,7 +33,7 @@ $(document).ready(function() {
                 continue;
             }
         }
-    });
+    } );
 
     $('#select_all_priority').change(function() {
         for (i = 0; i < 10; i++) {

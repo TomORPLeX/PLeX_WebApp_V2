@@ -31,7 +31,7 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
         fluidityStatusFlag = 1;
         fluidityStatus = "";
     } else {
-        fluidityStatus = "WHERE case_status= '" + data.fluidity + "'";
+        fluidityStatus = "WHERE Final_status= '" + data.fluidity + "'";
     }
 
     var plannedWorkFlag = 0;
@@ -65,9 +65,17 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
         skillsFilterFlag = 1;
         skillsFilter = "";
     } else if (priorityScoreFlag == 1) {
-        skillsFilter = "WHERE primary_skill IN (" + skillsFilter + ")";
+        if (data.skills.length == 9) {
+            skillsFilter = "WHERE (web_primary_skill IN (" + skillsFilter + ") or web_primary_skill is null)";
+        }else{
+            skillsFilter = "WHERE web_primary_skill IN (" + skillsFilter + ")";
+        }
     } else {
-        skillsFilter = " AND primary_skill IN (" + skillsFilter + ")";
+        if(data.skills.length == 9) {
+            skillsFilter = " AND (web_primary_skill IN (" + skillsFilter + ")  or web_primary_skill is null)";
+        }else{
+            skillsFilter = " AND web_primary_skill IN (" + skillsFilter + ")";
+        }
     }
 
     var execStatusFlag = 0;
@@ -98,18 +106,16 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
     if (data.ouc == "All") {
         //oucSelectionFlag = 1;
         oucSelection = "";
-    } else if (qFlagFlag == 1) {
-        oucSelection = "WHERE om_ouc= '" + data.ouc + "'";
-    } else {
+    }else {
         oucSelection = " AND om_ouc= '" + data.ouc + "'";
     }
 
     dataString = fluidityStatus + plannedWork + priorityScore + skillsFilter + execStatusSelection + qFlagSelection + oucSelection;
 
     //Filter out jobs in execute
-    var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, web_system_defined_priority, CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER  FROM live_workstack " + dataString + ";";
-    var quer6 = "SELECT COUNT(*) as Total, priority_description FROM live_workstack " + dataString + "group by priority_description;";
-    console.log(quer5);
+    var quer5 = "SELECT  LON, LAT, WEB_PRIMARY_SKILL AS PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, web_system_defined_priority, FINAL_STATUS as CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER, CASE_OBJID, QUEUE_ID FROM live_workstack " + dataString + ";";
+    var quer6 = "SELECT COUNT(*) as Total, priority_description as priority_description FROM live_workstack " + dataString + "group by priority_description;";
+    //console.log(quer5);
 
     pool.query(quer5, function (err,rows) {
         if (err) {
@@ -127,7 +133,6 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
                         priorityCount: rows1
                     };
                     LatLngData = (JSON.stringify(obj));
-                    console.log(LatLngData);
                     var tempfilelocation = '../public/data/' + req.cookies.EIN + '_LatLngData.json';
                     fs.writeFile(tempfilelocation, LatLngData);
                     res.send('success');
