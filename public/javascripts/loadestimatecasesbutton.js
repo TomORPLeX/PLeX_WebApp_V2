@@ -1,6 +1,4 @@
-var casesLoadedFlag = 0;
-$( "#estimate" ).keyup(function() {
-
+document.getElementById("getcasesbutton").onclick = function () {
     var estimate2 = document.getElementById('estimate').value;
     var obj = {'estimate': estimate2};
 
@@ -13,10 +11,6 @@ $( "#estimate" ).keyup(function() {
             success: function (data) {
                 var mulSelect = document.getElementById('cases');
                 var numcases = Object.keys(data).length;
-
-                //$('#cases').empty();
-
-                alert('emptymulselect');
                 if (casesLoadedFlag == 0) {
                     for (var i = 0; i < numcases; i++) {
                         var opt = document.createElement('option');
@@ -29,6 +23,4 @@ $( "#estimate" ).keyup(function() {
             }
         });
     }
-});
-
-
+};

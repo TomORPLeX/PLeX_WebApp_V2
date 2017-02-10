@@ -6,9 +6,9 @@ exports.isLoggedIn = function (req,res,next) {
     var profile = req.cookies.profile;
 
     if(req.cookies.loginFlag== 1) {
-        console.log('Logged In');
-        console.log("profile:" + profile);
-        console.log("base URL: "+url1);
+        //console.log('Logged In');
+        //console.log("profile:" + profile);
+        //console.log("base URL: "+url1);
         if (profile == 'Admin'){
             return next();
         }
@@ -33,7 +33,7 @@ exports.isLoggedIn = function (req,res,next) {
             }
         }
     } else {
-        console.log('Not Logged In');
+        //console.log('Not Logged In');
         res.redirect('/');
     }
 };
