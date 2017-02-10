@@ -167,7 +167,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             updatecase = updatecase + " PRIORITY_DESCRIPTION = 'Urgent' ,";
             str = str + "DSO_BOOKED=Y ";
             selectcolumns = selectcolumns + " WEB_DSO_BOOKED, WEB_SYSTEM_DEFINED_PRIORITY, PRIORITY_DESCRIPTION,";
-            selectcolcount = selectcolcount + 3;
+            selectcolcount = selectcolcount + 2;
         }
         if (flagtofluidity) {
             updatecase = updatecase + " FLAG_TO_FLUIDITY = '" + flagtofluidity + "' ,";
@@ -182,7 +182,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = 'P1' ,";
             str = str + "Dependancies=Y ";
             selectcolumns = selectcolumns + " WEB_DEPENDENCIES_BOOKED, WEB_PRIORITY_DESCRIPTION, WEB_SYSTEM_DEFINED_PRIORITY,";
-            selectcolcount = selectcolcount + 3;
+            selectcolcount = selectcolcount + 2;
         }
         if(keystonetask){
                                 /// what to do here?
@@ -209,28 +209,30 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 
 
         // engineer specific form info
-        var insertorupdate="";
-        pool.query('SELECT distinct PLANNED_ENGINEER FROM live_plexplanner WHERE CASE_ID LIKE \''+cases+'\' AND PLANNED_ENGINEER IN (\''+engein+'\', \''+engein2'\', \''+engein3+'\', \''){
 
-            //LOGIC: get array of all eins hat exisits for htat case. if rows = 0 then all engs are inserted. Otheriwise, check if each ein is in the array, if yes then update else insert.
-
-            if err {
-
-            } else {
-                if rows > 0 {
-                    insertrorupdate = update;
-                }else {
-                    insertrorupdate = insert;
-                }
-            }
-        }
-
-        if (insert)
-        {
-            var insert query
-        }
-
+        //LOGIC: get array of all eins hat exisits for htat case. if rows = 0 then all engs are inserted. Otheriwise, check if each ein is in the array, if yes then update else insert.
         // TODO: check if that case_id & EIN exisit in plexplanner, if yes then update, if no then insert. DO this for each engineer.
+
+        var insertorupdate1="";
+        var insertorupdate2="";
+        var insertorupdate3="";
+        var insertorupdate4="";
+        var insertorupdate5="";
+        var insertorupdate6="";
+
+        var select_existing_engs = 'SELECT distinct PLANNED_ENGINEER FROM live_plexplanner WHERE CASE_ID LIKE \''+cases+'\' AND PLANNED_ENGINEER IN (\''+engein+'\', \''+engein2+'\', \''+engein3+'\', \''+engein4+'\', \''+engein4+'\', \''+engine6+'\');';
+        console.log(select_existing_engs);
+        pool.query(select_existing_engs, function(err,rows )
+        {
+            if (err) {
+                console.log('error in select2 query');
+                err.status=503;
+                return next(err);
+            } else {
+                console.log(JSON.stringify(rows));
+            }
+        });
+
         if (engein) {
             updatequer2 = updatequer2 + " WEB_PLANNED_ENGINEERS = '" + engein + "' ,";
             str = str + "Task pinned to = "+ engein+" ";
@@ -314,6 +316,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             "formvalues": formvalues,
             "cases": allcases,
             "db":"",
+            "rowsize": selectcolcount,
             "loginFlag":req.cookies.loginFlag,
             "adminFlag":req.cookies.adminFlag
         };
@@ -352,11 +355,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     selectedcases = "";
     dso = "";
     tmbooked = "";
-    fluiditystatus = "";
-    gangsize = "";
     skills = "";
-    tasktime = "";
-    unpintask = "";
     travel = "";
     engein = "";
     tasknum = "";
