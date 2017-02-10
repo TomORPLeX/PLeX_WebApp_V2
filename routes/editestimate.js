@@ -210,25 +210,25 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 
         // engineer specific form info
         var insertorupdate="";
-        pool.query('SELECT distinct PLANNED_ENGINEER FROM live_plexplanner WHERE CASE_ID LIKE \''+cases+'\' AND PLANNED_ENGINEER IN (\''+engein+'\', \''+engein2'\', \''+engein3+'\', \''){
+//        pool.query('SELECT distinct PLANNED_ENGINEER FROM live_plexplanner WHERE CASE_ID LIKE \''+cases+'\' AND PLANNED_ENGINEER IN (\''+engein+'\', \''+engein2'\', \''+engein3+'\', \''){
 
             //LOGIC: get array of all eins hat exisits for htat case. if rows = 0 then all engs are inserted. Otheriwise, check if each ein is in the array, if yes then update else insert.
 
-            if err {
+          //  if err {
 
-            } else {
-                if rows > 0 {
-                    insertrorupdate = update;
-                }else {
-                    insertrorupdate = insert;
-                }
-            }
-        }
+          //  } else {
+         //       if rows > 0 {
+           //         insertrorupdate = update;
+          //      }else {
+           //         insertrorupdate = insert;
+           //     }
+           // }
+      //  }
 
-        if (insert)
-        {
-            var insert query
-        }
+       // if (insert)
+       // {
+       //     var insert query
+       // }
 
         // TODO: check if that case_id & EIN exisit in plexplanner, if yes then update, if no then insert. DO this for each engineer.
         if (engein) {
