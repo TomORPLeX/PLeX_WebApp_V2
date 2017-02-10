@@ -29,10 +29,6 @@ $("#navbar-header").ready(function() {
                     row[9] = parsed[i].QUEUE_NAME;
                     row[10] = parsed[i].PRIORITY_DESCRIPTION;
                     row[11] = parsed[i].ASSUMED_GANG_SIZE;
-                    row[12] = parsed[i].DURATION;
-                    row[13] = parsed[i].CASE_MINS_PLANNED;
-                    row[14] = parsed[i].CASE_MINS_REMAINING;
-                    row[15] = parsed[i].PLANNED_TT_DURATION;
 
                     array[i] = row;
                     row = [];
@@ -52,12 +48,7 @@ $("#navbar-header").ready(function() {
                         {title: "QUEUE_ID"},
                         {title: "QUEUE_NAME"},
                         {title: "PRIORITY"},
-                        {title: "ASSUMED_GANG_SIZE"},
-                        {title: "DURATION"},
-                        {title: "CASE_MINS_PLANNED"},
-                        {title: "CASE_MINS_REMAINING"},
-                        {title: "PLANNED_TT_DURATION"}
-
+                        {title: "ASSUMED_GANG_SIZE"}
                 ]
                 });
                 //$("#divcases").load("planner #tablecontainer"); //reload div

@@ -1,14 +1,14 @@
 <div class="form-group row" id="engrow6" style="padding: 0px">
     <div class="form-group col-md-3">
         <% if(formvalues.engein6.length > 0) { %>
-        <input style="padding: 0px" type="number" class="form-control" name="engein6" value="<%=formvalues.engein6%>">
+        <input style="padding: 0px" type="number" class="form-control" name="engein6" id="engein6" value="<%=formvalues.engein6%>">
         <% } else { %>
-        <input style="padding: 0px" type="number" class="form-control" name="engein6" placeholder="Enter engineer EIN" value="">
+        <input style="padding: 0px" type="number" class="form-control" name="engein6" id="engein6" placeholder="Enter engineer EIN" value="">
         <% } %>
     </div>
 
     <div class="form-group col-md-2">
-        <select name="tasknum6" class="form-control">
+        <select name="tasknum6" id="tasknum6" class="form-control">
             <option value="" selected><em>Select From List</em></option>
             <%for(var oo =0;oo<dropdownsjson.tasknumberdropdown.length;oo++) { %>
             <% if( dropdownsjson.tasknumberdropdown[oo].TASK_NUMBER == formvalues.tasknum6) { %>
@@ -21,7 +21,7 @@
     </div>
 
     <div class="form-group col-md-2">
-        <select name="traveltime6" class="form-control">
+        <select name="traveltime6" id="traveltime6" class="form-control">
             <option value="" selected><em>Select From List</em></option>
             <%for(var mm =0;mm<dropdownsjson.traveldropdown.length;mm++) { %>
             <% if( dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION == formvalues.travel6) { %>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="form-group col-md-2" id="randomdiv">
-        <select name="eodtravel6" class="form-control">
+        <select name="eodtravel6" id="eodtravel6" class="form-control">
             <option style="padding: 0px" value="" selected><em>Select From List</em></option>
             <%for(var mm =0;mm<dropdownsjson.traveldropdown.length;mm++) { %>
             <% if( dropdownsjson.traveldropdown[mm].PLANNED_TT_DURATION == formvalues.eodtravel6) { %>
@@ -48,9 +48,9 @@
 
     <div class="form-group col-md-2">
         <% if(formvalues.dates6.length > 0) { %>
-        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates6" value = "<%=formvalues.dates6%>">
+        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates6" id="dates6" value = "<%=formvalues.dates6%>">
         <% } else { %>
-        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " name="dates6">
+        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " name="dates6" id="dates6">
         <% } %>
     </div>
 </div>

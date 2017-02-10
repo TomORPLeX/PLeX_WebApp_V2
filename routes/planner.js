@@ -98,7 +98,7 @@ var traveldropdown = ""; //runquery(selectquer1+'TT_REMAINING'+selectquer2); //n
 var tasknumberdropdown = ""; // runquery(selectquer1+'TT_REMAINING'+selectquer2); //needs editing when real table done
 
 router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
-    pool.query(selectquer1+'CASE_STATUS'+selectquer2, function (err, rows) {
+    pool.query(selectquer1+'FINAL_STATUS'+selectquer2, function (err, rows) {
         if (err) {
             console.log('error in select query');
             throw err;

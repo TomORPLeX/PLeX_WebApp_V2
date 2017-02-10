@@ -9,7 +9,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
     var estimatenum = req.body.estimate;
     console.log('estimate:' +estimatenum);
 
-    selectquer = 'SELECT CASE_ID FROM live_workstack WHERE ESTIMATENUMBER LIKE \'' +estimatenum +'\';';
+    var selectquer = 'SELECT CASE_ID FROM live_workstack WHERE ESTIMATENUMBER LIKE \'' +estimatenum +'\';';
     console.log(selectquer);
 
     pool.query(selectquer, function (err, rows) {
@@ -18,9 +18,9 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
             err.status=503;
             return next(err);
         } else {
-            res.cookie('cases', rows);
-            console.log('our new cookie: ' +JSON.stringify(rows));
-            res.send('success');
+            //res.cookie('cases', rows);
+            console.log('All Cases: ' +JSON.stringify(rows));
+            res.send(rows);
         }
     });
 
