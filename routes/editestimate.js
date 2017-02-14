@@ -214,30 +214,10 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             selectcolcount++;
         }
 
-
-<<<<<<< HEAD
-
-
-        //LOGIC: get array of all eins hat exisits for htat case. if rows = 0 then all engs are inserted. Otheriwise, check if each ein is in the array, if yes then update else insert.
-        // TODO: check if that case_id & EIN exisit in plexplanner, if yes then update, if no then insert. DO this for each engineer.
-
-        var insertorupdate1="";
-        var insertorupdate2="";
-        var insertorupdate3="";
-        var insertorupdate4="";
-        var insertorupdate5="";
-        var insertorupdate6="";
-
-        var select_existing_engs = 'SELECT distinct PLANNED_ENGINEER FROM live_plexplanner WHERE CASE_ID LIKE \''+cases+'\' AND PLANNED_ENGINEER IN (\''+engein+'\', \''+engein2+'\', \''+engein3+'\', \''+engein4+'\', \''+engein4+'\', \''+engine6+'\');';
-        console.log(select_existing_engs);
-        pool.query(select_existing_engs, function(err,rows )
-        {
-=======
         // delete all case data from engineer table.
         var deleteexisting = 'DELETE FROM live_plexplanner WHERE CASE_ID LIKE \'' + selectedcases + '\';';
         console.log(deleteexisting);
         pool.query(deleteexisting, function (err, rows) {
->>>>>>> 0150caf95e155c8a5c3071015cff0e8292229231
             if (err) {
                 console.log('error in delete query');
                 err.status = 503;
