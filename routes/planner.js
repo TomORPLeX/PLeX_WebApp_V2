@@ -130,7 +130,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
                     obj = {"dropdownsjson":dropdownsjson,
                         "plannermessage": "test message", //plannermessage,
                         "formvalues": formvalues,
-                        "cases": req.cookies.cases,
+                        "cases": "",
                         "db":"",
                         "rowsize":0,
                         "loginFlag":req.cookies.loginFlag,

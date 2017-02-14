@@ -129,7 +129,6 @@ document.getElementById("divcases").onclick = function ()
                 if(values.formvalues.dates6 != null){
                     document.getElementById("dates6").value = values.formvalues.dates6;
                 }
-
             },
             error: function (request, status, error) {
                 window.location.replace("/error");

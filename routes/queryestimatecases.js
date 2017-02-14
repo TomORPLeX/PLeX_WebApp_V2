@@ -18,7 +18,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
             err.status=503;
             return next(err);
         } else {
-            //res.cookie('cases', rows);
+            res.cookie('cases', rows);
             console.log('All Cases: ' +JSON.stringify(rows));
             res.send(rows);
         }

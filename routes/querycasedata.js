@@ -4,7 +4,7 @@ var pool = require('../bin/db.js');
 var loginfunction = require("../bin/login.js");
 
 function dateconverter(uglydate) {
-    var nicedate = uglydate.getDay() + uglydate.getMonth() + uglydate.getYear();
+    //var nicedate = uglydate.getDay() + uglydate.getMonth() + uglydate.getYear();
     var nicedate2 = uglydate.toLocaleDateString("en-GB");
     return nicedate2;
 }
@@ -70,7 +70,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
             skills = rows[0].WEB_PRIMARY_SKILL;
             starttime = rows[0].WEB_SPECIFIC_START_TIME;
             finishtime = rows[0].WEB_SPECIFIC_END_TIME;
-            console.log('formvalue.skills: '+skills);
+            //console.log('formvalue.skills: '+skills);
 
             var selectquer2 = 'SELECT CASE_ID, PLANNED_ENGINEER, count(*) as Num from live_plexplanner WHERE CASE_ID LIKE \''+cases+'\' GROUP BY CASE_ID, PLANNED_ENGINEER ORDER BY CASE_ID, PLANNED_ENGINEER;';
             console.log(selectquer2);
