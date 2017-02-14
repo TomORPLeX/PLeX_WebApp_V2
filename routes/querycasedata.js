@@ -72,12 +72,12 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
             finishtime = rows[0].WEB_SPECIFIC_END_TIME;
             console.log('formvalue.skills: '+skills);
 
-            var selectquer2 = 'SELECT CASE_ID, PLANNED_ENGINEER, count(*) as Num from live_plexplanner WHERE CASE_ID LIKE \''+cases+'\' GROUP BY CASE_ID, PLANNED_ENGINEER;';
+            var selectquer2 = 'SELECT CASE_ID, PLANNED_ENGINEER, count(*) as Num from live_plexplanner WHERE CASE_ID LIKE \''+cases+'\' GROUP BY CASE_ID, PLANNED_ENGINEER ORDER BY CASE_ID, PLANNED_ENGINEER;';
             console.log(selectquer2);
             //query to find out the number of engineers currently assigned to the job
             pool.query(selectquer2, function (err, rows) {
                 if (err) {
-                    console.log('error in select2 query');
+                    console.log('error in select2 query:' +selectquer2);
                     err.status=503;
                     return next(err);
                 } else {
@@ -85,7 +85,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
                     console.log('numengs: '+numengs);
                     var daysforeng =  [];
                     for(var n=0;n<numengs;n++){
-                        daysforeng[n] = rows[0].Num;
+                        daysforeng[n] = rows[n].Num;
                     }
                     console.log('days for each eng: '+daysforeng);
 
@@ -116,12 +116,13 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
                                     } else {
                                         datestring = datestring + cleandate;
                                     }
-                                    rowindex=rowindex+1;
                                 }
                                 console.log('datestring: '+datestring);
                                 console.log('rowindex: '+rowindex);
                                 dates = datestring;
-
+                                rowindex = rowindex + daysforeng[0];
+                                console.log('rowindex after eng 1: '+rowindex);
+                                var maxrowindex;
                                 if(numengs>1) {
                                     for (var j = 2; j < numengs+ 1; j++) {   // numengs+1 [ +2 -1 = 1], + 2 because starting at 2 and -1 because we have set eng1 above
                                         eval('engein' + j + ' = rows[' + rowindex + '].PLANNED_ENGINEER');
@@ -129,7 +130,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
                                         eval('travel' + j + ' = rows[' + rowindex + '].ENG_TRAVEL_TIME');
                                         eval('eodtravel' + j + ' = rows[' + rowindex + '].EOD_TRAVEL');
                                         var datestring2 = "";
-                                        var maxrowindex = rowindex + daysforeng[j-2];
+                                        maxrowindex = rowindex + daysforeng[j-1];
                                         for (var kk = rowindex; kk < maxrowindex; kk++) {
                                             var cleandate2 = dateconverter(rows[kk].PLANNED_DATE);
                                             if (kk < maxrowindex - 1) {
@@ -139,9 +140,9 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
                                             }
                                         }
                                         console.log('datestring2: ' + datestring2);
-                                        console.log('rowindex after eng('+j+'): ' + rowindex);
-                                        eval('dates' + rowindex + ' = datestring2');
+                                        eval('dates' + j + ' = datestring2');
                                         rowindex = maxrowindex;
+                                        console.log('rowindex after eng('+j+'): ' + rowindex);
                                     }
                                 }
                             }

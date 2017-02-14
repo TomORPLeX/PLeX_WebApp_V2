@@ -111,12 +111,13 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
                     console.log('error in select query');
                     throw err;
                 } else {
+                    console.log('skill dropdown:'+JSON.stringify(rows));
                     skillsdropdown = rows;
                     gangsizedropdown = [{"ASSUMED_GANG_SIZE":1},{"ASSUMED_GANG_SIZE":2},{"ASSUMED_GANG_SIZE":3},{"ASSUMED_GANG_SIZE":4},{"ASSUMED_GANG_SIZE":5},{"ASSUMED_GANG_SIZE":6}];
                     traveldropdown = [{"PLANNED_TT_DURATION":10},{"PLANNED_TT_DURATION":"20"},{"PLANNED_TT_DURATION":"30"},{"PLANNED_TT_DURATION":"40"},{"PLANNED_TT_DURATION":"50"},{"PLANNED_TT_DURATION":"60"},{"PLANNED_TT_DURATION":"70"},{"PLANNED_TT_DURATION":"80"},{"PLANNED_TT_DURATION":"90"},{"PLANNED_TT_DURATION":"100"},{"PLANNED_TT_DURATION":"110"},{"PLANNED_TT_DURATION":"120"},{"PLANNED_TT_DURATION":"130"},{"PLANNED_TT_DURATION":"140"},{"PLANNED_TT_DURATION":"150"}];
                     tasknumberdropdown = [{"TASK_NUMBER":1},{"TASK_NUMBER":2},{"TASK_NUMBER":3},{"TASK_NUMBER":4},{"TASK_NUMBER":5},{"TASK_NUMBER":6}];
                     res.cookie('fluiditycookie', fluiditydropdown, {maxAge: 900000, httpOnly: false});
-                    res.cookie('skillscookie', skillsdropdown, {maxAge: 900000, httpOnly: false});
+                    res.cookie('skillscookie', skillsdropdown, {httpOnly: false});
 
                     var dropdownsjson = {
                         "fluiditydropdown":fluiditydropdown,
@@ -127,7 +128,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
                     };
                     //console.log('dropdownsjson:\n'+JSON.stringify(dropdownsjson));
                     obj = {"dropdownsjson":dropdownsjson,
-                        "plannermessage": plannermessage,
+                        "plannermessage": "test message", //plannermessage,
                         "formvalues": formvalues,
                         "cases": req.cookies.cases,
                         "db":"",

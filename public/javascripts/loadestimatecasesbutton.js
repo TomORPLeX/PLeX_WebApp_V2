@@ -11,14 +11,14 @@ document.getElementById("getcasesbutton").onclick = function () {
             success: function (data) {
                 var mulSelect = document.getElementById('cases');
                 var numcases = Object.keys(data).length;
-                if (casesLoadedFlag == 0) {
-                    for (var i = 0; i < numcases; i++) {
-                        var opt = document.createElement('option');
-                        opt.appendChild(document.createTextNode(data[i].CASE_ID));
-                        opt.value = data[i].CASE_ID;
-                        mulSelect.appendChild(opt);
-                    }
-                    casesLoadedFlag = 1;
+
+                $('#cases').children().remove().end();
+
+                for (var i = 0; i < numcases; i++) {
+                    var opt = document.createElement('option');
+                    opt.appendChild(document.createTextNode(data[i].CASE_ID));
+                    opt.value = data[i].CASE_ID;
+                    mulSelect.appendChild(opt);
                 }
             }
         });

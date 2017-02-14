@@ -8,19 +8,34 @@
 
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link href="https://fonts.googleapis.com/css?family=Sarpanch" rel="stylesheet"><!--brand text-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
     <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
     <link rel="stylesheet" href="build/kalendae.css" type="text/css" charset="utf-8">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
 
+
+
+
+    <script src="javascripts/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="javascripts/jquery.js"></script>
     <script src="javascripts/bootstrap.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="build/kalendae.standalone.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
+    <!-- Latest compiled and minified Locales -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
 
 </head>
 
@@ -29,178 +44,213 @@
     <% include ./partials/header %>
 </header>
 
+<div class="row">
+    <div class="col-sm-3 col-md-3"></div>
 
-<div class="container" id="estimatecontainer">
-<h3 id="estimatecontainerheader" style="background-color: #428BCA">Edit EWOC Case</h3>
-<form id="form1" action="editestimate" method="post" name="form1">
-<div id="formdatacontainer">
-<div class="form-group row">
-    <div class="form-group col-md-offset-1 col-lg-3">
-        <label> Enter EWOC Estimate:</label>
+    <div class="col-sm-4 col-md-4">
+        <div class="container" id="estimatecontainer">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" style=" color: #5BC0DE; font-weight: bold" href="#edit">Edit estimate</a></li>
+                <li><a data-toggle="tab" style="color: #D9534F; font-weight: bold" href="#Delete" id="deletion">Delete Engineer</a></li>
+            </ul>
+       <!-- <h3 id="estimatecontainerheader" style="background-color: #428BCA">Edit EWOC Case</h3>-->
+            <div class="tab-content">
+                <div id="edit" class="tab-pane fade in active">
+                    <h2></h2>
+                    <form id="form1" action="editestimate" method="post" name="form1">
+                    <div id="formdatacontainer">
+                    <div class="form-group row">
+                        <div class="form-group col-md-offset-1 col-lg-3">
+                            <label> Enter EWOC Estimate:</label>
+                        </div>
+                        <div class="form-group col-md-6"d="estimatediv" style="padding-bottom: 0px;">
+                            <% if(formvalues.estimatenum.length > 0) { %>
+                                <input type="text" class="form-control" id="estimate" name="ewocestimate" value="<%= formvalues.estimatenum %>">
+                            <% } else { %>
+                                <input type="text" class="form-control" id="estimate" placeholder="example EWOC estimate" name="ewocestimate">
+                            <%}%>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <button type=button id="getcasesbutton" class="btn btn-primary">Load Cases</button>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row" id="divcases">
+                        <div class="form-group col-md-offset-1 col-md-offset-1 col-lg-3">
+                            <label for="exampleSelect2"><br>Select Cases to Edit:</label>
+                        </div>
+                        <div class="form-group col-md-7">
+                        <select multiple="multiple" class="form-control input-large" name="cases" id="cases" style="padding: 0px">
+                            <% if (cases.length > 0) { %>
+                                <% for(var ii=0;ii<cases.length;ii++) { %>
+                                        <% if(formvalues.cases.includes(cases[ii].CASE_ID)) { %>
+                                            <option selected> <%= cases[ii].CASE_ID %></option>
+                                        <% } else { %>
+                                            <option> <%= cases[ii].CASE_ID %></option>
+                                        <% } %>
+                                <%}%>
+                            <%}%>
+                        </select>
+                        <i>Hold Ctrl to select multiple</i>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="form-group col-md-offset-1 col-md-2">
+                            <label class="form-check-inline">
+                                <%    if (formvalues.tmbooked == 'tmbooked') { %>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" id="tmbooked" style="padding: 0px" checked><br> Dependencies
+                                <%} else { %>
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" id="tmbooked" style="padding: 0px"><br> Dependencies
+                                <% } %>
+                            </label>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="form-check-inline">
+                                <%   if (formvalues.dso == 'dso') { %>
+                                <input class="form-check-input" type="checkbox" id="dso" value="dso" name="dso" style="padding: 0px" checked><br> DSO
+                                <%} else { %>
+                                <input class="form-check-input" type="checkbox" id="dso" value="dso" name="dso" style="padding: 0px"><br> DSO
+                                <% } %>
+                            </label>
+                        </div>
+                        <div class="form-group col-md-2">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="form-check-inline">
+                                <%    if (formvalues.keystonetask == 'keystonetask') { %>
+                                <input class="form-check-input" type="checkbox" id="keystonetask" value="keystonetask" name="keystonetask" style="padding: 0px" checked><br> Keystone Task
+                                <% } else { %>
+                                <input class="form-check-input" type="checkbox" id="keystonetask" value="keystonetask" name="keystonetask" style="padding: 0px"><br> Keystone Task
+                                <% } %>
+                            </label>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="form-check-inline">
+                                <%    if (formvalues.flagtofluidity == 'flagtofluidity') { %>
+                                <input class="form-check-input" type="checkbox" id="flagtofluidity" value="flagtofluidity" name="flagtofluidity" style="padding: 0px" checked><br> Flag To Fluidity
+                                <%} else { %>
+                                <input class="form-check-input" type="checkbox" id="flagtofluidity" value="flagtofluidity" name="flagtofluidity" style="padding: 0px"><br> Flag To Fluidity
+                                <% } %>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="form-group col-md-4">
+                            <label style="padding: 0px" for="Profile">Edit/ Add Skill</label>
+                            <select name="addeditskill" id ="addeditskill" class="form-control">
+                                <option style="padding: 0px" value="" selected><em>Select From List</em></option>
+
+                                <%for(var nn =0;nn<dropdownsjson.skillsdropdown.length;nn++) { %>
+                                <% if( dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL == formvalues.skills) { %>
+                                <option style="padding: 0px" value="<%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %>" selected><%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %></option>
+                                <% } else {%>
+                                <option style="padding: 0px" value="<%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %>"><%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %></option>
+                                <% } %>
+                                <% } %>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-offset-3 col-md-2">
+                            <label style="padding: 0px" for="starttime">Enter Start Time</label>
+                                <% if(formvalues.starttime.length > 0) { %>
+                                <input style="padding: 0px" type="number" class="form-control" name="starttime" id="starttime" value="<%=formvalues.starttime%>">
+                                <% } else { %>
+                                <input  style="padding: 0px"type="number" class="form-control" name="starttime" id="starttime" placeholder="Enter Task Time" value="">
+                                <% } %>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label style="padding: 0px" for="finishtime">Enter Finish Time</label>
+                            <% if(formvalues.starttime.length > 0) { %>
+                            <input style="padding: 0px" type="number" class="form-control" name="finishtime" id="finishtime" value="<%=formvalues.finishtime%>">
+                            <% } else { %>
+                            <input  style="padding: 0px"type="number" class="form-control" name="finishtime" id="finishtime" placeholder="Enter Task Time" value="">
+                            <% } %>
+                        </div>
+
+
+                    </div>
+
+
+                    <div id="engrows">
+
+
+                        <!-- var engcount = 0 -->
+                        <%//if (JSON results have a 2nd engineer OR AddEng2Flag Button has been clicked ) { %>
+                        <%// engcount = 2 %>
+                        <% include ./partials/engrow1 %>
+                        <% include ./partials/engrow2 %>
+                        <% include ./partials/engrow3 %>
+                        <% include ./partials/engrow4 %>
+                        <% include ./partials/engrow5 %>
+                        <% include ./partials/engrow6 %>
+
+                        <!--} -->
+
+                        <!--if (JSON results have a 3rd engineer OR 3ndEngFlag = 1) { -->
+                        <!-- include ./partials/engrow3 -->
+                        <!--} -->
+                        <!--if (JSON results have a 4th engineer) { -->
+                        <!-- include ./partials/engrow4 -->
+                        <!--} -->
+                        <!--if (JSON results have a 5th engineer) { -->
+                        <!-- include ./partials/engrow5 -->
+                        <!--} -->
+
+                    </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="form-group  col-md-offset-9 col-md-2">
+                            <button type=button id="addeng" class="btn btn-default">Add Eng</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="form-group col-md-offset-3 col-md-4">
+                            <button type="submit" class="btn btn-primary">Submit Changes</button>
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <button type="reset" value="Reset" class="btn btn-default">Reset Form</button>
+                        </div>
+                    </div>
+
+                    </form>
+                </div>
+                <div id="Delete" class="tab-pane fade">
+                    <h2></h2>
+                    <div class="plexPlanner container">
+                        <div class="table-bordered">
+                            <table id="tableDelete">
+                                <thead>
+                                <tr>
+                                    <th data-field="CASE_ID">Case ID</th>
+                                    <th data-field="PLANNED_ENGINEER">Planned Engineer</th>
+                                    <th data-field="PLANNED_DATE">Planned Date</th>
+                                    <th data-field="ENG_TRAVEL_TIME">Travel To Next Task</th>
+                                    <th data-field="EOD_TRAVEL">EOD Travel</th>
+                                    <th data-field="TASK_NUMBER">Task Number</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group col-md-6" id="estimatediv" style="padding-bottom: 0px;">
-        <% if(formvalues.estimatenum.length > 0) { %>
-            <input type="text" class="form-control" id="estimate" name="ewocestimate" value="<%= formvalues.estimatenum %>">
-        <% } else { %>
-            <input type="text" class="form-control" id="estimate" placeholder="example EWOC estimate" name="ewocestimate">
-        <%}%>
-    </div>
-    <div class="form-group col-md-1">
-        <button type=button id="getcasesbutton" class="btn btn-primary">Load Cases</button>
-    </div>
-</div>
 
+    <div class="col-sm-4 col-md-4"></div>
 
-<div class="form-group row" id="divcases">
-    <div class="form-group col-md-offset-1 col-md-offset-1 col-lg-3">
-        <label for="exampleSelect2"><br>Select Cases to Edit:</label>
-    </div>
-    <div class="form-group col-md-7">
-    <select multiple="multiple" class="form-control input-large" name="cases" id="cases" style="padding: 0px">
-        <% if (cases.length > 0) { %>
-            <% for(var ii=0;ii<cases.length;ii++) { %>
-                    <% if(formvalues.cases.includes(cases[ii].CASE_ID)) { %>
-                        <option selected> <%= cases[ii].CASE_ID %></option>
-                    <% } else { %>
-                        <option> <%= cases[ii].CASE_ID %></option>
-                    <% } %>
-            <%}%>
-        <%}%>
-    </select>
-    <i>Hold Ctrl to select multiple</i>
-    </div>
-</div>
-
-<div class="form-group row">
-    <div class="form-group col-md-offset-1 col-md-2">
-        <label class="form-check-inline">
-            <%    if (formvalues.tmbooked == 'tmbooked') { %>
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" id="tmbooked" style="padding: 0px" checked><br> Dependencies
-            <%} else { %>
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" id="tmbooked" style="padding: 0px"><br> Dependencies
-            <% } %>
-        </label>
-    </div>
-    <div class="form-group col-md-2">
-        <label class="form-check-inline">
-            <%   if (formvalues.dso == 'dso') { %>
-            <input class="form-check-input" type="checkbox" id="dso" value="dso" name="dso" style="padding: 0px" checked><br> DSO
-            <%} else { %>
-            <input class="form-check-input" type="checkbox" id="dso" value="dso" name="dso" style="padding: 0px"><br> DSO
-            <% } %>
-        </label>
-    </div>
-    <div class="form-group col-md-2">
-    </div>
-    <div class="form-group col-md-2">
-        <label class="form-check-inline">
-            <%    if (formvalues.keystonetask == 'keystonetask') { %>
-            <input class="form-check-input" type="checkbox" id="keystonetask" value="keystonetask" name="keystonetask" style="padding: 0px" checked><br> Keystone Task
-            <% } else { %>
-            <input class="form-check-input" type="checkbox" id="keystonetask" value="keystonetask" name="keystonetask" style="padding: 0px"><br> Keystone Task
-            <% } %>
-        </label>
-    </div>
-    <div class="form-group col-md-2">
-        <label class="form-check-inline">
-            <%    if (formvalues.flagtofluidity == 'flagtofluidity') { %>
-            <input class="form-check-input" type="checkbox" id="flagtofluidity" value="flagtofluidity" name="flagtofluidity" style="padding: 0px" checked><br> Flag To Fluidity
-            <%} else { %>
-            <input class="form-check-input" type="checkbox" id="flagtofluidity" value="flagtofluidity" name="flagtofluidity" style="padding: 0px"><br> Flag To Fluidity
-            <% } %>
-        </label>
-    </div>
-</div>
-
-<div class="form-group row">
-    <div class="form-group col-md-4">
-        <label style="padding: 0px" for="Profile">Edit/ Add Skill</label>
-        <select name="addeditskill" id ="addeditskill" class="form-control">
-            <option style="padding: 0px" value="" selected><em>Select From List</em></option>
-
-            <%for(var nn =0;nn<dropdownsjson.skillsdropdown.length;nn++) { %>
-            <% if( dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL == formvalues.skills) { %>
-            <option style="padding: 0px" value="<%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %>" selected><%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %></option>
-            <% } else {%>
-            <option style="padding: 0px" value="<%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %>"><%= dropdownsjson.skillsdropdown[nn].PRIMARY_SKILL %></option>
-            <% } %>
-            <% } %>
-        </select>
-    </div>
-
-    <div class="form-group col-md-offset-3 col-md-2">
-        <label style="padding: 0px" for="starttime">Enter Start Time</label>
-            <% if(formvalues.starttime.length > 0) { %>
-            <input style="padding: 0px" type="number" class="form-control" name="starttime" id="starttime" value="<%=formvalues.starttime%>">
-            <% } else { %>
-            <input  style="padding: 0px"type="number" class="form-control" name="starttime" id="starttime" placeholder="Enter Task Time" value="">
-            <% } %>
-    </div>
-
-    <div class="form-group col-md-2">
-        <label style="padding: 0px" for="finishtime">Enter Finish Time</label>
-        <% if(formvalues.starttime.length > 0) { %>
-        <input style="padding: 0px" type="number" class="form-control" name="finishtime" id="finishtime" value="<%=formvalues.finishtime%>">
-        <% } else { %>
-        <input  style="padding: 0px"type="number" class="form-control" name="finishtime" id="finishtime" placeholder="Enter Task Time" value="">
-        <% } %>
-    </div>
-
-
-</div>
-
-
-<div id="engrows">
-
-
-    <!-- var engcount = 0 -->
-    <%//if (JSON results have a 2nd engineer OR AddEng2Flag Button has been clicked ) { %>
-    <%// engcount = 2 %>
-    <% include ./partials/engrow1 %>
-    <% include ./partials/engrow2 %>
-    <% include ./partials/engrow3 %>
-    <% include ./partials/engrow4 %>
-    <% include ./partials/engrow5 %>
-    <% include ./partials/engrow6 %>
-
-    <!--} -->
-
-    <!--if (JSON results have a 3rd engineer OR 3ndEngFlag = 1) { -->
-    <!-- include ./partials/engrow3 -->
-    <!--} -->
-    <!--if (JSON results have a 4th engineer) { -->
-    <!-- include ./partials/engrow4 -->
-    <!--} -->
-    <!--if (JSON results have a 5th engineer) { -->
-    <!-- include ./partials/engrow5 -->
-    <!--} -->
-
-</div>
-
-</div>
-
-<div class="form-group row">
-    <div class="form-group  col-md-offset-9 col-md-2">
-        <button type=button id="addeng" class="btn btn-default">Add Eng</button>
-    </div>
-</div>
-
-<div class="form-group row">
-    <div class="form-group col-md-offset-3 col-md-4">
-        <button type="submit" class="btn btn-primary">Submit Changes</button>
-    </div>
-    <div class="form-group  col-md-4">
-        <button type="reset" value="Reset" class="btn btn-default">Reset Form</button>
-    </div>
-</div>
-
-</form>
 </div>
 
 
 
 <% if(plannermessage) { %>
-<div class="alert alert-danger text-center" id="alert1">
+<div class="alert alert-danger text-center" id="MessageDialog" style="display: none">
     <p> <%= plannermessage %> </p>
 </div>
 <% } %>
@@ -228,14 +278,27 @@
     </ul>
 </div>
 
+<div id="DeleteDialog" title="Delete Engineer" style="display: none">
+    <p>Are you sure you wont to delete this row?</p>
+</div>
+
+<div id="DeleteSuccessDialog" title="Success" style="display: none">
+    <p>Success!</p>
+</div>
+
+
+
 <footer>
     <% include ./partials/footer %>
 </footer>
+<script type="text/javascript" src="/javascripts/loaddeletetable.js"></script>
 <script src="javascripts/loadestimatecases.js" type="text/javascript" charset="utf-8"></script>
 <script src="javascripts/addengtoform.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/workplanneronebeforeunload.js"></script>
 <script src="javascripts/plannerdatatable.js" type="text/javascript" charset="utf-8"></script>
 <script src="javascripts/loadestimatecasesbutton.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/loadformdata.js"></script>
+<script type="text/javascript" src="/javascripts/deleteclick.js"></script>
+
 </body>
 </html>
