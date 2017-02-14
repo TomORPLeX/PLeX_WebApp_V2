@@ -9,7 +9,7 @@ $("#navbar-header").ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/getdatatabledata',
+            url: '/getdatatabledata_planner',
             success: function (obj) {
                 var parsed = [];
                 var row = new Array();
@@ -34,24 +34,20 @@ $("#navbar-header").ready(function() {
                     row = [];
                 }
 
-                $('#datatableplanner').DataTable({
+                $('#datatabledemand').DataTable({
                     data: array,
                     columns: [
-                        {title: "CASE_ID"},
-                        {title: "ESTIMATENUMBER"},
-                        {title: "PRIMARY_SKILL"},
-                        {title: "SUB_DESCRIPTION"},
-                        {title: "EXCHANGE"},
-                        {title: "OM_OUC"},
-                        {title: "OM_PATCH_NAME"},
-                        {title: "FINAL_STATUS"},
-                        {title: "QUEUE_ID"},
-                        {title: "QUEUE_NAME"},
-                        {title: "PRIORITY"},
-                        {title: "ASSUMED_GANG_SIZE"}
-                ]
+                        {title: "OUC"},
+                        {title: "EIN"},
+                        {title: "ENG_ID"},
+                        {title: "ENG_NAME"},
+                        {title: "PRIMARY_NS_SKILLS"},
+                        {title: "ATTENDANCE_DAY_0"},
+                        {title: "PERCENTAGE_ON_TASK_DAY_0"},
+                        {title: "PLAN_ISSUES_DAY_0"},
+                        {title: "TOUR_DAY_0"}
+                    ]
                 });
-                //$("#divcases").load("planner #tablecontainer"); //reload div
             }
         });
     }

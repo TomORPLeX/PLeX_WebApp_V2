@@ -276,28 +276,28 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                 //selectcolumns = selectcolumns + " PLANNED_ENGINEERS,";
                 //selectcolcount++;
 
-                if (tasknum) {
+                if (tasknum.length>0) {
                     insertquerfields = insertquerfields + " TASK_NUMBER ,";
                     insertquervalues = insertquervalues + " \'" + tasknum + "\',";
                     str = str + "Task Number = " + tasknum + " ";
                     //selectcolumns = selectcolumns + " TASK_NUMBER,";
                     //selectcolcount++;
                 }
-                if (travel) {
+                if (travel.length>0) {
                     insertquerfields = insertquerfields + " ENG_TRAVEL_TIME ,";
                     insertquervalues = insertquervalues + " \'" + travel + "\',";
                     str = str + "Travel = " + travel + " ";
                     //selectcolumns = selectcolumns + " ENG_TRAVEL_TIME,";
                     //selectcolcount++;
                 }
-                if (eodtravel) {
+                if (eodtravel.length>0) {
                     insertquerfields = insertquerfields + " EOD_TRAVEL ,";
                     insertquervalues = insertquervalues + " \'" + eodtravel + "\',";
                     str = str + "EOD Travel = " + eodtravel + " ";
                     //selectcolumns = selectcolumns + " EOD_TRAVEL,";
                     //selectcolcount++;
                 }
-                if (splitdates) {
+                if (splitdates.length>0) {
                     insertquerfields = insertquerfields + " PLANNED_DATE ,";
                     insertquervalues = insertquervalues + " str_to_date(\'" + splitdates[p] + " 00:00:00\','%m/%d/%Y %H:%i:%s'),";
                     str = str + "Dates = " + splitdates[p] + " ";
@@ -355,28 +355,28 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                     //selectcolumns = selectcolumns + " PLANNED_ENGINEERS,";
                     //selectcolcount++;
 
-                    if (eval('tasknum'+ij)) {
+                    if (eval('tasknum'+ij+'.length > 0')) {
                         insertquerfields = insertquerfields + " TASK_NUMBER ,";
                         insertquervalues = insertquervalues + " \'" + eval('tasknum'+ij) + "\',";
                         str = str + "Task Number = " + eval('tasknum'+ij) + " ";
                         //selectcolumns = selectcolumns + " TASK_NUMBER,";
                         //selectcolcount++;
                     }
-                    if (eval('travel'+ij)) {
+                    if (eval('travel'+ij+'.length > 0')) {
                         insertquerfields = insertquerfields + " ENG_TRAVEL_TIME ,";
                         insertquervalues = insertquervalues + " \'" + eval('travel'+ij) + "\',";
                         str = str + "Travel = " + eval('travel'+ij) + " ";
                         //selectcolumns = selectcolumns + " ENG_TRAVEL_TIME,";
                         //selectcolcount++;
                     }
-                    if (eval('eodtravel'+ij)) {
+                    if (eval('eodtravel'+ij+'.length > 0')) {
                         insertquerfields = insertquerfields + " EOD_TRAVEL ,";
                         insertquervalues = insertquervalues + " \'" + eval('eodtravel'+ij) + "\',";
                         str = str + "EOD Travel = " + eval('eodtravel'+ij) + " ";
                         //selectcolumns = selectcolumns + " EOD_TRAVEL,";
                         //selectcolcount++;
                     }
-                    if (splitdates) {
+                    if (splitdates.length>0) {
                         insertquerfields = insertquerfields + " PLANNED_DATE ,";
                         insertquervalues = insertquervalues + " str_to_date(\'" + splitdates[pp] + " 00:00:00\','%m/%d/%Y %H:%i:%s'),";
                         str = str + "Dates = " + splitdates[pp] + " ";
@@ -405,7 +405,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 
                     insertquerfields = "(";
                     insertquervalues = "(";
-                    splitdates =[];
                 }
             }
         }
@@ -491,7 +490,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 
 // Reset form values to ""
     estimatenum = "";
-    allcases = "";
     selectedcases = "";
     dso = "";
     tmbooked = "";

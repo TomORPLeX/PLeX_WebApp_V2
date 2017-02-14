@@ -17,22 +17,16 @@ $(document).ready(function() {
                 parsed = JSON.parse(obj);
                 for (var i = 0; i < parsed.length; i++) {
 
-                    row[0] = parsed[i].CASE_ID;
-                    row[1] = parsed[i].ESTIMATENUMBER;
-                    row[2] = parsed[i].PRIMARY_SKILL;
-                    row[3] = parsed[i].SUB_DESCRIPTION;
-                    row[4] = parsed[i].EXCHANGE;
-                    row[5] = parsed[i].OM_OUC;
-                    row[6] = parsed[i].OM_PATCH_NAME;
-                    row[7] = parsed[i].FINAL_STATUS;
-                    row[8] = parsed[i].QUEUE_ID;
-                    row[9] = parsed[i].QUEUE_NAME;
-                    row[10] = parsed[i].PRIORITY_DESCRIPTION;
-                    row[11] = parsed[i].ASSUMED_GANG_SIZE;
-                    row[12] = parsed[i].DURATION;
-                    row[13] = parsed[i].CASE_MINS_PLANNED;
-                    row[14] = parsed[i].CASE_MINS_REMAINING;
-                    row[15] = parsed[i].PLANNED_TT_DURATION;
+                    row[0] = parsed[i].OUC;
+                    row[1] = parsed[i].EIN;
+                    row[2] = parsed[i].ENG_ID;
+                    row[3] = parsed[i].ENG_NAME;
+                    row[4] = parsed[i].PRIMARY_NS_SKILLS;
+                    row[5] = parsed[i].ATTENDANCE_DAY_0;
+                    row[6] = parsed[i].PERCENTAGE_ON_TASK_DAY_0;
+                    row[7] = parsed[i].PERCENTAGE_TRAVEL_DAY_0;
+                    row[8] = parsed[i].PLAN_ISSUES_DAY_0;
+                    row[9] = parsed[i].TOUR_DAY_0;
 
                     array[i] = row;
                     row = [];
@@ -41,26 +35,17 @@ $(document).ready(function() {
                 $('#datatabledemand').DataTable({
                     data: array,
                     columns: [
-                        {title: "CASE_ID"},
-                        {title: "ESTIMATENUMBER"},
-                        {title: "PRIMARY_SKILL"},
-                        {title: "SUB_DESCRIPTION"},
-                        {title: "EXCHANGE"},
-                        {title: "OM_OUC"},
-                        {title: "OM_PATCH_NAME"},
-                        {title: "FINAL_STATUS"},
-                        {title: "QUEUE_ID"},
-                        {title: "QUEUE_NAME"},
-                        {title: "PRIORITY"},
-                        {title: "ASSUMED_GANG_SIZE"},
-                        {title: "DURATION"},
-                        {title: "CASE_MINS_PLANNED"},
-                        {title: "CASE_MINS_REMAINING"},
-                        {title: "PLANNED_TT_DURATION"}
-
+                        {title: "OUC"},
+                        {title: "EIN"},
+                        {title: "ENG_ID"},
+                        {title: "ENG_NAME"},
+                        {title: "PRIMARY_NS_SKILLS"},
+                        {title: "ATTENDANCE_DAY_0"},
+                        {title: "PERCENTAGE_ON_TASK_DAY_0"},
+                        {title: "PLAN_ISSUES_DAY_0"},
+                        {title: "TOUR_DAY_0"}
                     ]
                 });
-                //$("#divcases").load("planner #tablecontainer"); //reload div
             }
         });
     }
