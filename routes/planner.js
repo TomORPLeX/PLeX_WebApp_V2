@@ -128,7 +128,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
                     };
                     //console.log('dropdownsjson:\n'+JSON.stringify(dropdownsjson));
                     obj = {"dropdownsjson":dropdownsjson,
-                        "plannermessage": plannermessage,
+                        "plannermessage": "test message", //plannermessage,
                         "formvalues": formvalues,
                         "cases": "",
                         "db":"",

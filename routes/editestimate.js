@@ -214,7 +214,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             selectcolcount++;
         }
 
-
         // delete all case data from engineer table.
         var deleteexisting = 'DELETE FROM live_plexplanner WHERE CASE_ID LIKE \'' + selectedcases + '\';';
         console.log(deleteexisting);

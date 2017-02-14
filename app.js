@@ -23,6 +23,8 @@ var queryestimatecases = require('./routes/queryestimatecases');
 var maprerender = require('./routes/maprerender');
 var getdatatabledata = require('./routes/getdatatabledata');
 var querycasedata = require ('./routes/querycasedata');
+var querydeletedata = require ('./routes/querydeletedata');
+var deleteclicked = require ('./routes/deleteclicked');
 
 var app = express();
 
@@ -59,6 +61,8 @@ app.use('/queryestimatecases', queryestimatecases);
 app.use('/maprerender', maprerender);
 app.use('/getdatatabledata', getdatatabledata);
 app.use('/querycasedata', querycasedata);
+app.use('/querydeletedata', querydeletedata);
+app.use('/deleteclicked', deleteclicked);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
