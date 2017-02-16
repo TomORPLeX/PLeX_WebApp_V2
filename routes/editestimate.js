@@ -108,12 +108,25 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     travel6 = req.body.traveltime6;
     eodtravel6 = req.body.eodtravel6;
     dates6 = req.body.dates6;
-    delflag = req.body.deleteeng;
-    delflag2 = req.body.deleteeng2;
-    delflag3 = req.body.deleteeng3;
-    delflag4 = req.body.deleteeng4;
-    delflag5 = req.body.deleteeng5;
-    delflag6 = req.body.deleteeng6;
+
+    if (req.body.deleteeng){
+        delflag = req.body.deleteeng;
+    }
+    if (req.body.deleteeng2){
+        delflag = req.body.deleteeng2;
+    }
+    if (req.body.deleteeng3){
+        delflag = req.body.deleteeng3;
+    }
+    if (req.body.deleteeng4){
+        delflag = req.body.deleteeng4;
+    }
+    if (req.body.deleteeng5){
+        delflag = req.body.deleteeng5;
+    }
+    if (req.body.deleteeng6){
+        delflag = req.body.deleteeng6;
+    }
 
     console.log('delflag value: '+delflag);
     console.log('delflag2 value: '+delflag2);
@@ -180,32 +193,31 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 
         // case specific form info
         if (dso) {
-            updatecase = updatecase + " WEB_DSO_BOOKED = \'" + dso + "\' ,";
+            updatecase = updatecase + " WEB_DSO_BOOKED = \'Y\' ,";
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = \'3\' ,";
-            //updatequer = updatequer + " SYSTEM_DEFINED_PRIORITY = '3.1' ,";
             updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = \'P3\' ,";
-            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = \'Y\' ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = \'1\' ,";
             str = str + "DSO_BOOKED=Y ";
             selectcolumns = selectcolumns + " WEB_DSO_BOOKED, WEB_SYSTEM_DEFINED_PRIORITY, WEB_PRIORITY_DESCRIPTION,";
             selectcolcount = selectcolcount + 3;
         }
         if (flagtofluidity) {
-            updatecase = updatecase + " WEB_REVIEW_FLAG = '" + flagtofluidity + "' ,";
+            updatecase = updatecase + " WEB_REVIEW_FLAG = '1' ,";
             str = str + "FlagToFluidity=Y ";
             selectcolumns = selectcolumns + " WEB_REVIEW_FLAG,";
             selectcolcount++;
         }
         if (tmbooked) {
-            updatecase = updatecase + " WEB_DEPENDENCIES_BOOKED = '" + tmbooked + "' ,";
+            updatecase = updatecase + " WEB_DEPENDENCIES_BOOKED = 'Y' ,";
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = '1' ,";
-            //updatecase = updatecase + " SYSTEM_DEFINED_PRIORITY = '1.5' ,";
             updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = 'P1' ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = \'1\' ,";
             str = str + "Dependancies=Y ";
             selectcolumns = selectcolumns + " WEB_DEPENDENCIES_BOOKED, WEB_PRIORITY_DESCRIPTION, WEB_SYSTEM_DEFINED_PRIORITY,";
             selectcolcount = selectcolcount + 3;
         }
         if(keystonetask){
-            updatecase = updatecase + " WEB_KEYSTONE_TASK = \'"+keystonetask+"\',";
+            updatecase = updatecase + " WEB_KEYSTONE_TASK = \'Y\',";
             str = str + "Keystone Task=Y ";
             selectcolumns = selectcolumns + " WEB_KEYSTONE_TASK,";
             selectcolcount = selectcolcount++;
@@ -213,7 +225,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         if (skills) {
             //updatecase = updatecase + " PRIMARY_SKILL = '" + skills + "' ,";
             updatecase = updatecase + " WEB_PRIMARY_SKILL = '" + skills + "' ,";
-            updatecase = updatecase + " WEB_PRIMARY_SKILL_FLAG = 'Y' ,";
+            updatecase = updatecase + " WEB_PRIMARY_SKILL_FLAG = '1' ,";
             str = str + "Primary Skill = "+ skills+" ";
             selectcolumns = selectcolumns + " WEB_PRIMARY_SKILL,";
             selectcolcount++;

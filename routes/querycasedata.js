@@ -189,6 +189,48 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
                                 "dates6":dates6
                             };
 
+                            var cases = req.body.cases;
+                            //console.log('cases:' +cases);
+                            var estimatenum = req.body.estimatenum;
+                            //console.log('cases:' +cases);
+                            dso ="";
+                            tmbooked ="";
+                            skills="";
+                            starttime="";
+                            finishtime="";
+                            keystonetask="";
+                            travel = "";
+                            eodtravel ="";
+                            engein = "";
+                            tasknum = "";
+                            dates = "";
+                            flagtofluidity ="";
+                            engein2="";
+                            tasknum2="";
+                            eodtravel2="";
+                            travel2="";
+                            dates2="";
+                            engein3="";
+                            tasknum3="";
+                            eodtravel3="";
+                            travel3="";
+                            dates3="";
+                            engein4="";
+                            tasknum4="";
+                            eodtravel4="";
+                            travel4="";
+                            dates4="";
+                            engein5="";
+                            tasknum5="";
+                            eodtravel5="";
+                            travel5="";
+                            dates5="";
+                            engein6="";
+                            tasknum6="";
+                            eodtravel6="";
+                            travel6="";
+                            dates6="";
+
                             var obj = {"formvalues": formvalues};
                             res.send(obj);
                         }

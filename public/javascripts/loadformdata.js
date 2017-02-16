@@ -30,7 +30,6 @@ document.getElementById("divcases").onclick = function ()
                     document.getElementById("flagtofluidity").checked = true;
                 }
                 if (values.formvalues.skills != null){
-                    console.log('in skills');
                     document.getElementById("addeditskill").value = values.formvalues.skills;
                 }
                 if(values.formvalues.starttime != null) {
