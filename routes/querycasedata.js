@@ -12,15 +12,19 @@ function dateconverter(uglydate) {
 router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
 
     var cases = req.body.cases;
-    //console.log('cases:' +cases);
     var estimatenum = req.body.estimatenum;
-    //console.log('cases:' +cases);
-    var dso;
-    var tmbooked;
-    var skills;
-    var starttime;
-    var finishtime;
-    var keystonetask;
+    estimatenum = estimatenum.trim();
+
+    console.log('estimate:'+estimatenum+';');
+    console.log('cases:'+cases+';');
+
+
+    var dso ="";
+    var tmbooked="";
+    var skills="";
+    var starttime="";
+    var finishtime="";
+    var keystonetask="";
     var travel = "";
     var eodtravel ="";
     var engein = "";
@@ -55,7 +59,8 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
 
 
 
-    var selectquer = 'SELECT CASE_ID, WEB_DEPENDENCIES_BOOKED, WEB_DSO_BOOKED, WEB_KEYSTONE_TASK, WEB_REVIEW_FLAG, WEB_PRIMARY_SKILL, WEB_SPECIFIC_START_TIME, WEB_SPECIFIC_END_TIME FROM live_workstack WHERE ESTIMATENUMBER LIKE \'IBB6A3NM\' AND CASE_ID LIKE \'B6A3NM002\';';
+    var selectquer = 'SELECT CASE_ID, WEB_DEPENDENCIES_BOOKED, WEB_DSO_BOOKED, WEB_KEYSTONE_TASK, WEB_REVIEW_FLAG, WEB_PRIMARY_SKILL, WEB_SPECIFIC_START_TIME, WEB_SPECIFIC_END_TIME FROM live_workstack WHERE ESTIMATENUMBER LIKE \''+estimatenum+'\' AND CASE_ID LIKE \''+cases+'\';';
+    console.log(selectquer);
     // query to get case specific data
     pool.query(selectquer, function (err, rows) {
         if (err) {
@@ -63,6 +68,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
             err.status=503;
             return next(err);
         } else {
+            console.log('queried case data: '+JSON.stringify(rows));
             tmbooked = rows[0].WEB_DEPENDENCIES_BOOKED;
             dso = rows[0].WEB_DSO_BOOKED;
             flagtofluidity = rows[0].WEB_REVIEW_FLAG;
@@ -189,10 +195,8 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
                                 "dates6":dates6
                             };
 
-                            var cases = req.body.cases;
-                            //console.log('cases:' +cases);
-                            var estimatenum = req.body.estimatenum;
-                            //console.log('cases:' +cases);
+                            cases = "";
+                            estimatenum = "";
                             dso ="";
                             tmbooked ="";
                             skills="";
