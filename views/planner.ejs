@@ -84,9 +84,9 @@
                             <% if (cases.length > 0) { %>
                                 <% for(var ii=0;ii<cases.length;ii++) { %>
                                         <% if(formvalues.cases.includes(cases[ii].CASE_ID)) { %>
-                                            <option selected> <%= cases[ii].CASE_ID %></option>
+                                            <option selected><%= cases[ii].CASE_ID %></option>
                                         <% } else { %>
-                                            <option> <%= cases[ii].CASE_ID %></option>
+                                            <option><%= cases[ii].CASE_ID %></option>
                                         <% } %>
                                 <%}%>
                             <%}%>
@@ -247,16 +247,17 @@
 <br><br>
 
 
-   <!-- <div id = "tablecontainer" class="tablecontainer">
+
+    <!--div id = "tablecontainer" class="tablecontainer">
             <table id="datatableplanner" class="table table-striped hover"></table>
-    </div>-->
+    </div-->
 
 <!--<div class="scrollbuttons">
     <button type="submit" class="btn btn-primary" onClick="scrollacross()">Scroll To Next Day</button>
 </div>-->
 
 
-<!--<div class="resultstable">
+<!--div class="resultstable">
 
     <ul class="list-group">
         DBLength: <%= (rowsize) %>
@@ -266,7 +267,8 @@
             <li class="list-group-item">db[0]<%=JSON.stringify(db[Object.keys(db)[Object.keys(db)[0]]])%></li>
         <% } %>
     </ul>
-</div>-->
+
+</div-->
 
 <div id="DeleteDialog" title="Delete Engineer" style="display: none">
     <p>Are you sure you wont to delete this row?</p>
@@ -284,7 +286,7 @@
 <script type="text/javascript" src="/javascripts/loaddeletetable.js"></script>
 <script src="javascripts/loadestimatecases.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/workplanneronebeforeunload.js"></script>
-<!--<script src="javascripts/plannerdatatable.js" type="text/javascript" charset="utf-8"></script>-->
+<!--script src="javascripts/plannerdatatable.js" type="text/javascript" charset="utf-8"></script-->
 <script src="javascripts/loadestimatecasesbutton.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/loadformdata.js"></script>
 <script type="text/javascript" src="/javascripts/deleteclick.js"></script>

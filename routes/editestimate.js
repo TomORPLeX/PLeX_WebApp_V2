@@ -66,9 +66,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 
     estimatenum = req.body.ewocestimate;
     selectedcases = req.body.cases;
-    var numengs;
-    //console.log('selectedcases: '+selectedcases);
-
     dso = req.body.dso;
     tmbooked = req.body.tmbooked;
     keystonetask = req.body.keystonetask;
@@ -77,8 +74,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     starttime = req.body.starttime;
     finishtime =  req.body.finishtime;
     engein = req.body.engein;
-    //console.log('engein:' +engein);
-
     tasknum = req.body.tasknum;
     travel = req.body.traveltime;
     eodtravel = req.body.eodtravel;
@@ -108,29 +103,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     travel6 = req.body.traveltime6;
     eodtravel6 = req.body.eodtravel6;
     dates6 = req.body.dates6;
-
-    if (req.body.deleteeng){
-        delflag = req.body.deleteeng;
-    }
-    if (req.body.deleteeng2){
-        delflag = req.body.deleteeng2;
-    }
-    if (req.body.deleteeng3){
-        delflag = req.body.deleteeng3;
-    }
-    if (req.body.deleteeng4){
-        delflag = req.body.deleteeng4;
-    }
-    if (req.body.deleteeng5){
-        delflag = req.body.deleteeng5;
-    }
-    if (req.body.deleteeng6){
-        delflag = req.body.deleteeng6;
-    }
-
-    console.log('delflag value: '+delflag);
-    console.log('delflag2 value: '+delflag2);
-    console.log('delflag3 value: '+delflag3);
+    var numengs;
+    //console.log('selectedcases: '+selectedcases);
 
     var dropdownsjson = {
         "fluiditydropdown":req.cookies.fluiditycookie,
@@ -200,12 +174,19 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             str = str + "DSO_BOOKED=Y ";
             selectcolumns = selectcolumns + " WEB_DSO_BOOKED, WEB_SYSTEM_DEFINED_PRIORITY, WEB_PRIORITY_DESCRIPTION,";
             selectcolcount = selectcolcount + 3;
+        } else {
+            updatecase = updatecase + " WEB_DSO_BOOKED = NULL ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = NULL ,";
+            updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = NULL ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = NULL ,";
         }
         if (flagtofluidity) {
             updatecase = updatecase + " WEB_REVIEW_FLAG = '1' ,";
             str = str + "FlagToFluidity=Y ";
             selectcolumns = selectcolumns + " WEB_REVIEW_FLAG,";
             selectcolcount++;
+        } else {
+            updatecase = updatecase + " WEB_REVIEW_FLAG = NULL ,";
         }
         if (tmbooked) {
             updatecase = updatecase + " WEB_DEPENDENCIES_BOOKED = 'Y' ,";
@@ -215,12 +196,19 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             str = str + "Dependancies=Y ";
             selectcolumns = selectcolumns + " WEB_DEPENDENCIES_BOOKED, WEB_PRIORITY_DESCRIPTION, WEB_SYSTEM_DEFINED_PRIORITY,";
             selectcolcount = selectcolcount + 3;
+        } else {
+            updatecase = updatecase + " WEB_DEPENDENCIES_BOOKED = NULL ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = NULL ,";
+            updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = NULL ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = NULL ,";
         }
         if(keystonetask){
             updatecase = updatecase + " WEB_KEYSTONE_TASK = \'Y\',";
             str = str + "Keystone Task=Y ";
-            selectcolumns = selectcolumns + " WEB_KEYSTONE_TASK,";
+            selectcolumns = selectcolumns + " WEB_KEYSTONE_TASK ";
             selectcolcount = selectcolcount++;
+        } else {
+            updatecase = updatecase + " WEB_KEYSTONE_TASK = NULL ,";
         }
         if (skills) {
             //updatecase = updatecase + " PRIMARY_SKILL = '" + skills + "' ,";
@@ -229,18 +217,25 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             str = str + "Primary Skill = "+ skills+" ";
             selectcolumns = selectcolumns + " WEB_PRIMARY_SKILL,";
             selectcolcount++;
+        } else {
+            updatecase = updatecase + " WEB_PRIMARY_SKILL = NULL ,";
+            updatecase = updatecase + " WEB_PRIMARY_SKILL_FLAG = NULL ,";
         }
         if (starttime) {
             updatecase = updatecase + " WEB_SPECIFIC_START_TIME = '" + starttime + "' ,";
             str = str + "Start Time = "+ starttime+" ";
             selectcolumns = selectcolumns + " WEB_SPECIFIC_START_TIME,";
             selectcolcount++;
+        } else {
+            updatecase = updatecase + " WEB_SPECIFIC_START_TIME = NULL ,";
         }
         if (finishtime) {
             updatecase = updatecase + " WEB_SPECIFIC_END_TIME = '" + finishtime + "' ,";
             str = str + "Start Time = "+ finishtime+" ";
             selectcolumns = selectcolumns + " WEB_SPECIFIC_END_TIME,";
             selectcolcount++;
+        } else {
+            updatecase = updatecase + " WEB_SPECIFIC_END_TIME = NULL ,";
         }
 
         // delete all case data from engineer table.
@@ -248,234 +243,296 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         console.log(deleteexisting);
         pool.query(deleteexisting, function (err, rows) {
             if (err) {
-                console.log('error in delete query');
+                console.log('error in delete eng query');
                 err.status = 503;
                 return next(err);
             } else {
-                console.log(rows.affectedRows + 'Rows Deleted:' + JSON.stringify(rows));
-            }
-        });
+                console.log(rows.affectedRows + ' EngDay Rows Deleted:' + JSON.stringify(rows));
 
+                dso = req.body.dso;
+                tmbooked = req.body.tmbooked;
+                keystonetask = req.body.keystonetask;
+                flagtofluidity = req.body.flagtofluidity;
+                skills = req.body.addeditskill;
+                starttime = req.body.starttime;
+                finishtime =  req.body.finishtime;
+                engein = req.body.engein;
+                tasknum = req.body.tasknum;
+                travel = req.body.traveltime;
+                eodtravel = req.body.eodtravel;
+                dates = req.body.dates;
+                engein2 = req.body.engein2;
+                tasknum2 = req.body.tasknum2;
+                travel2 = req.body.traveltime2;
+                eodtravel2 = req.body.eodtravel2;
+                dates2 = req.body.dates2;
+                engein3 = req.body.engein3;
+                tasknum3 = req.body.tasknum3;
+                travel3 = req.body.traveltime3;
+                eodtravel3 = req.body.eodtravel3;
+                dates3 = req.body.dates3;
+                engein4 = req.body.engein4;
+                tasknum4 = req.body.tasknum4;
+                travel4 = req.body.traveltime4;
+                eodtravel4 = req.body.eodtravel4;
+                dates4 = req.body.dates4;
+                engein5 = req.body.engein5;
+                tasknum5 = req.body.tasknum5;
+                travel5 = req.body.traveltime5;
+                eodtravel5 = req.body.eodtravel5;
+                dates5 = req.body.dates5;
+                engein6 = req.body.engein6;
+                tasknum6 = req.body.tasknum6;
+                travel6 = req.body.traveltime6;
+                eodtravel6 = req.body.eodtravel6;
+                dates6 = req.body.dates6;
+                estimatenum = req.body.ewocestimate;
+                selectedcases = req.body.cases;
+                var numengs;
+                //console.log('selectedcases: '+selectedcases);
 
-
-        var fullinsertquery ="";
-        var insertquerpre = "INSERT INTO live_plexplanner ";
-        var insertquerfields = "(";
-        var insertquermid = " VALUES ";
-        var insertquervalues = "(";
-        var daysworking;
-        var splitdates;
-        var looper =0;
-        if(engein.length>0){
-            looper++;
-        } if(engein2.length>0){
-            looper++;
-        } if(engein3.length>0){
-            looper++;
-        } if(engein4.length>0){
-            looper++;
-        } if(engein5.length>0){
-            looper++;
-        } if(engein6.length>0){
-            looper++;
-        }
-        numengs = looper;
-
-        updatecase = updatecase + " WEB_PLANNED_FLAG = \'"+numengs+"\',";
-
-        if (engein.length>0 && delflag==0) {
-            console.log('engein1 exists');
-            // set count to num of days eng io working on the case
-            splitdates = dates.split(",");
-            for(var temp1=0;temp1<splitdates.length;temp1++){
-                splitdates[temp1] = splitdates[temp1].trim();
-            }
-            console.log('num of days eng1 is working: '+splitdates.length);
-            for(var p =0; p<splitdates.length;p++) {
-                // Set Web Planned Flag
-
-                //set case_id of row to be inserted
-                insertquerfields = insertquerfields + " CASE_ID ,";
-                insertquervalues = insertquervalues + " \'" + selectedcases + "\',";
-
-                //insert eng specific data
-                insertquerfields = insertquerfields + " PLANNED_ENGINEER ,";
-                insertquervalues = insertquervalues + " \'" + engein + "\',";
-                str = str + "Task pinned to = " + engein + " ";
-                //selectcolumns = selectcolumns + " PLANNED_ENGINEERS,";
-                //selectcolcount++;
-
-                if (tasknum.length>0) {
-                    insertquerfields = insertquerfields + " TASK_NUMBER ,";
-                    insertquervalues = insertquervalues + " \'" + tasknum + "\',";
-                    str = str + "Task Number = " + tasknum + " ";
-                    //selectcolumns = selectcolumns + " TASK_NUMBER,";
-                    //selectcolcount++;
+                if (req.body.deleteeng == 'Y'){
+                    delflag = 1;
                 }
-                if (travel.length>0) {
-                    insertquerfields = insertquerfields + " ENG_TRAVEL_TIME ,";
-                    insertquervalues = insertquervalues + " \'" + travel + "\',";
-                    str = str + "Travel = " + travel + " ";
-                    //selectcolumns = selectcolumns + " ENG_TRAVEL_TIME,";
-                    //selectcolcount++;
+                if (req.body.deleteeng2 == 'Y'){
+                    delflag2 = 1;
                 }
-                if (eodtravel.length>0) {
-                    insertquerfields = insertquerfields + " EOD_TRAVEL ,";
-                    insertquervalues = insertquervalues + " \'" + eodtravel + "\',";
-                    str = str + "EOD Travel = " + eodtravel + " ";
-                    //selectcolumns = selectcolumns + " EOD_TRAVEL,";
-                    //selectcolcount++;
+                if (req.body.deleteeng3 == 'Y'){
+                    delflag3 = 1;
                 }
-                if (splitdates.length>0) {
-                    insertquerfields = insertquerfields + " PLANNED_DATE ,";
-                    insertquervalues = insertquervalues + " str_to_date(\'" + splitdates[p] + " 00:00:00\','%m/%d/%Y %H:%i:%s'),";
-                    str = str + "Dates = " + splitdates[p] + " ";
-                    //selectcolumns = selectcolumns + " PLANNED_DATE,";
-                    //selectcolcount++;
-
+                if (req.body.deleteeng4 == 'Y'){
+                    delflag4 = 1;
+                }
+                if (req.body.deleteeng5 == 'Y'){
+                    delflag5 = 1;
+                }
+                if (req.body.deleteeng6 == 'Y'){
+                    delflag6 = 1;
                 }
 
-                insertquerfields = insertquerfields.slice(",", -1);
-                insertquerfields = insertquerfields + ")";
-                insertquervalues = insertquervalues.slice(",", -1);
-                insertquervalues = insertquervalues + ")";
 
-                fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
-                console.log('insertquer'+p+': ' + fullinsertquery);
-
-                pool.query(fullinsertquery, function(err,rows)
-                 {
-                     if (err) {
-                        console.log('error in insert query on eng1, day '+p);
-                        err.status=503;
-                     return next(err);
-                     } else {
-                        console.log('Rows Inserted Successfully: '+rows.affectedRows);
-                     }
-                 });
-
-                insertquerfields = "(";
-                insertquervalues = "(";
-            }
-        }
-
-        console.log('numengsbefore eng 2: '+numengs);
-
-        for(var ij=2;ij<numengs+1;ij++) {
-            if (eval('engein' + ij+'.length > 0') && eval('delflag'+ij+' == 0')) {
-                // set count to num of days eng io working on the case
-                eval('splitdates = dates'+ij+'.split(",")');
-                for (var temp = 0; temp < splitdates.length; temp++) {
-                    splitdates[temp] = splitdates[temp].trim();
+                var fullinsertquery ="";
+                var insertquerpre = "INSERT INTO live_plexplanner ";
+                var insertquerfields = "(";
+                var insertquermid = " VALUES ";
+                var insertquervalues = "(";
+                var daysworking;
+                var splitdates;
+                var looper =0;
+                if(engein.length>0){
+                    looper++;
+                } if(engein2.length>0){
+                    looper++;
+                } if(engein3.length>0){
+                    looper++;
+                } if(engein4.length>0){
+                    looper++;
+                } if(engein5.length>0){
+                    looper++;
+                } if(engein6.length>0){
+                    looper++;
                 }
-                console.log('num of days eng'+ij +' is working: '+splitdates.length);
-                for (var pp = 0; pp < splitdates.length; pp++) {
-                    // Set Web Planned Flag
-                    updatecase = updatecase + " WEB_PLANNED_FLAG = \'Y\',";
+                numengs = looper;
 
-                    //set case_id of row to be inserted
-                    insertquerfields = insertquerfields + " CASE_ID ,";
-                    insertquervalues = insertquervalues + " \'" + selectedcases + "\',";
+                updatecase = updatecase + " WEB_PLANNED_FLAG = \'"+numengs+"\',";
 
-                    //insert eng specific data
-                    insertquerfields = insertquerfields + " PLANNED_ENGINEER ,";
-                    insertquervalues = insertquervalues + " \'" + eval('engein'+ij) + "\',";
-                    str = str + "Task pinned to = " + eval('engein'+ij) + " ";
-                    //selectcolumns = selectcolumns + " PLANNED_ENGINEERS,";
-                    //selectcolcount++;
+                console.log('delflag: '+delflag);
+                console.log('EIN len: '+engein.length);
 
-                    if (eval('tasknum'+ij+'.length > 0')) {
-                        insertquerfields = insertquerfields + " TASK_NUMBER ,";
-                        insertquervalues = insertquervalues + " \'" + eval('tasknum'+ij) + "\',";
-                        str = str + "Task Number = " + eval('tasknum'+ij) + " ";
-                        //selectcolumns = selectcolumns + " TASK_NUMBER,";
-                        //selectcolcount++;
+                if (engein.length>0 && delflag==0) {
+                    console.log('engein1 exists');
+                    // set count to num of days eng io working on the case
+                    splitdates = dates.split(",");
+                    for(var temp1=0;temp1<splitdates.length;temp1++){
+                        splitdates[temp1] = splitdates[temp1].trim();
                     }
-                    if (eval('travel'+ij+'.length > 0')) {
-                        insertquerfields = insertquerfields + " ENG_TRAVEL_TIME ,";
-                        insertquervalues = insertquervalues + " \'" + eval('travel'+ij) + "\',";
-                        str = str + "Travel = " + eval('travel'+ij) + " ";
-                        //selectcolumns = selectcolumns + " ENG_TRAVEL_TIME,";
-                        //selectcolcount++;
-                    }
-                    if (eval('eodtravel'+ij+'.length > 0')) {
-                        insertquerfields = insertquerfields + " EOD_TRAVEL ,";
-                        insertquervalues = insertquervalues + " \'" + eval('eodtravel'+ij) + "\',";
-                        str = str + "EOD Travel = " + eval('eodtravel'+ij) + " ";
-                        //selectcolumns = selectcolumns + " EOD_TRAVEL,";
-                        //selectcolcount++;
-                    }
-                    if (splitdates.length>0) {
-                        insertquerfields = insertquerfields + " PLANNED_DATE ,";
-                        insertquervalues = insertquervalues + " str_to_date(\'" + splitdates[pp] + " 00:00:00\','%m/%d/%Y %H:%i:%s'),";
-                        str = str + "Dates = " + splitdates[pp] + " ";
-                        //selectcolumns = selectcolumns + " PLANNED_DATE,";
+                    console.log('num of days eng1 is working: '+splitdates.length);
+                    for(var p =0; p<splitdates.length;p++) {
+
+                        //set case_id of row to be inserted
+                        insertquerfields = insertquerfields + " CASE_ID ,";
+                        insertquervalues = insertquervalues + " \'" + selectedcases + "\',";
+
+                        //insert eng specific data
+                        insertquerfields = insertquerfields + " PLANNED_ENGINEER ,";
+                        insertquervalues = insertquervalues + " \'" + engein + "\',";
+                        str = str + "Task pinned to = " + engein + " ";
+                        //selectcolumns = selectcolumns + " PLANNED_ENGINEERS,";
                         //selectcolcount++;
 
-                    }
-
-                    insertquerfields = insertquerfields.slice(",", -1);
-                    insertquerfields = insertquerfields + ")";
-                    insertquervalues = insertquervalues.slice(",", -1);
-                    insertquervalues = insertquervalues + ")";
-
-                    fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
-                    console.log('eng'+ij+', insertquer' + pp + ': ' + fullinsertquery);
-
-                    pool.query(fullinsertquery, function (err, rows) {
-                        if (err) {
-                            console.log('error in insert query on eng'+ij+', day ' + pp);
-                            err.status = 503;
-                            return next(err);
-                        } else {
-                            console.log('Rows Inserted Successfully: ' + rows.affectedRows);
+                        if (tasknum.length>0) {
+                            insertquerfields = insertquerfields + " TASK_NUMBER ,";
+                            insertquervalues = insertquervalues + " \'" + tasknum + "\',";
+                            str = str + "Task Number = " + tasknum + " ";
+                            //selectcolumns = selectcolumns + " TASK_NUMBER,";
+                            //selectcolcount++;
                         }
-                    });
+                        if (travel.length>0) {
+                            insertquerfields = insertquerfields + " ENG_TRAVEL_TIME ,";
+                            insertquervalues = insertquervalues + " \'" + travel + "\',";
+                            str = str + "Travel = " + travel + " ";
+                            //selectcolumns = selectcolumns + " ENG_TRAVEL_TIME,";
+                            //selectcolcount++;
+                        }
+                        if (eodtravel.length>0) {
+                            insertquerfields = insertquerfields + " EOD_TRAVEL ,";
+                            insertquervalues = insertquervalues + " \'" + eodtravel + "\',";
+                            str = str + "EOD Travel = " + eodtravel + " ";
+                            //selectcolumns = selectcolumns + " EOD_TRAVEL,";
+                            //selectcolcount++;
+                        }
+                        if (splitdates.length>0) {
+                            insertquerfields = insertquerfields + " PLANNED_DATE ,";
+                            insertquervalues = insertquervalues + " str_to_date(\'" + splitdates[p] + " 00:00:00\','%m/%d/%Y %H:%i:%s'),";
+                            str = str + "Dates = " + splitdates[p] + " ";
+                            //selectcolumns = selectcolumns + " PLANNED_DATE,";
+                            //selectcolcount++;
 
-                    insertquerfields = "(";
-                    insertquervalues = "(";
+                        }
+
+                        insertquerfields = insertquerfields.slice(",", -1);
+                        insertquerfields = insertquerfields + ")";
+                        insertquervalues = insertquervalues.slice(",", -1);
+                        insertquervalues = insertquervalues + ")";
+
+                        fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
+                        console.log('insertquer'+p+': ' + fullinsertquery);
+
+                        pool.query(fullinsertquery, function(err,rows)
+                        {
+                            if (err) {
+                                console.log('error in insert query on eng1, day '+p);
+                                err.status=503;
+                                return next(err);
+                            } else {
+                                console.log('Rows Inserted Successfully: '+rows.affectedRows);
+                            }
+                        });
+
+                        insertquerfields = "(";
+                        insertquervalues = "(";
+                    }
                 }
-            }
-        }
 
-        updatecase = updatecase +" WEB_MOD_UIN = \'"+req.cookies.EIN+"\';";
-        updatecase = updatecase.slice(",", -1);
-        selectcolumns = selectcolumns.slice(",", -1);
-        updatecase = updatecase + " WHERE ESTIMATENUMBER LIKE '" + estimatenum + "' AND CASE_ID LIKE '"+selectedcases+"';";
+                console.log('numengsbefore eng 2: '+numengs);
 
-        var selectquer = "SELECT"+selectcolumns+" FROM live_workstack WHERE ESTIMATENUMBER LIKE '"+estimatenum +"' AND CASE_ID LIKE '"+selectedcases+"';";
-        console.log('select query: '+selectquer);
-        console.log('updatecase: '+updatecase);
+                for(var ij=2;ij<numengs+1;ij++) {
+                    if (eval('engein' + ij+'.length > 0') && eval('delflag'+ij+' == 0')) {
+                        // set count to num of days eng io working on the case
+                        eval('splitdates = dates'+ij+'.split(",")');
+                        for (var temp = 0; temp < splitdates.length; temp++) {
+                            splitdates[temp] = splitdates[temp].trim();
+                        }
+                        console.log('num of days eng'+ij +' is working: '+splitdates.length);
+                        for (var pp = 0; pp < splitdates.length; pp++) {
+                            // Set Web Planned Flag
+                            updatecase = updatecase + " WEB_PLANNED_FLAG = \'Y\',";
 
-        pool.query(updatecase, function (err, rows) {
-            if (err) {
-                console.log('error in update query');
-                err.status=503;
-                return next(err);
-            } else {
-                console.log('Database Updated');
-                pool.query(selectquer, function (err, rows) {
+                            //set case_id of row to be inserted
+                            insertquerfields = insertquerfields + " CASE_ID ,";
+                            insertquervalues = insertquervalues + " \'" + selectedcases + "\',";
+
+                            //insert eng specific data
+                            insertquerfields = insertquerfields + " PLANNED_ENGINEER ,";
+                            insertquervalues = insertquervalues + " \'" + eval('engein'+ij) + "\',";
+                            str = str + "Task pinned to = " + eval('engein'+ij) + " ";
+                            //selectcolumns = selectcolumns + " PLANNED_ENGINEERS,";
+                            //selectcolcount++;
+
+                            if (eval('tasknum'+ij+'.length > 0')) {
+                                insertquerfields = insertquerfields + " TASK_NUMBER ,";
+                                insertquervalues = insertquervalues + " \'" + eval('tasknum'+ij) + "\',";
+                                str = str + "Task Number = " + eval('tasknum'+ij) + " ";
+                                //selectcolumns = selectcolumns + " TASK_NUMBER,";
+                                //selectcolcount++;
+                            }
+                            if (eval('travel'+ij+'.length > 0')) {
+                                insertquerfields = insertquerfields + " ENG_TRAVEL_TIME ,";
+                                insertquervalues = insertquervalues + " \'" + eval('travel'+ij) + "\',";
+                                str = str + "Travel = " + eval('travel'+ij) + " ";
+                                //selectcolumns = selectcolumns + " ENG_TRAVEL_TIME,";
+                                //selectcolcount++;
+                            }
+                            if (eval('eodtravel'+ij+'.length > 0')) {
+                                insertquerfields = insertquerfields + " EOD_TRAVEL ,";
+                                insertquervalues = insertquervalues + " \'" + eval('eodtravel'+ij) + "\',";
+                                str = str + "EOD Travel = " + eval('eodtravel'+ij) + " ";
+                                //selectcolumns = selectcolumns + " EOD_TRAVEL,";
+                                //selectcolcount++;
+                            }
+                            if (splitdates.length>0) {
+                                insertquerfields = insertquerfields + " PLANNED_DATE ,";
+                                insertquervalues = insertquervalues + " str_to_date(\'" + splitdates[pp] + " 00:00:00\','%m/%d/%Y %H:%i:%s'),";
+                                str = str + "Dates = " + splitdates[pp] + " ";
+                                //selectcolumns = selectcolumns + " PLANNED_DATE,";
+                                //selectcolcount++;
+
+                            }
+
+                            insertquerfields = insertquerfields.slice(",", -1);
+                            insertquerfields = insertquerfields + ")";
+                            insertquervalues = insertquervalues.slice(",", -1);
+                            insertquervalues = insertquervalues + ")";
+
+                            fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
+                            console.log('eng'+ij+', insertquer' + pp + ': ' + fullinsertquery);
+
+                            pool.query(fullinsertquery, function (err, rows) {
+                                if (err) {
+                                    console.log('error in insert query on eng'+ij+', day ' + pp);
+                                    err.status = 503;
+                                    return next(err);
+                                } else {
+                                    console.log('Rows Inserted Successfully: ' + rows.affectedRows);
+                                }
+                            });
+
+                            insertquerfields = "(";
+                            insertquervalues = "(";
+                        }
+                    }
+                }
+
+                updatecase = updatecase +" WEB_MOD_UIN = \'"+req.cookies.EIN+"\';";
+                updatecase = updatecase.slice(",", -1);
+                selectcolumns = selectcolumns.slice(",", -1);
+                updatecase = updatecase + " WHERE ESTIMATENUMBER LIKE '" + estimatenum + "' AND CASE_ID LIKE '"+selectedcases+"';";
+
+                var selectquer = "SELECT * FROM live_workstack LIMIT 1;";
+                console.log('select query: '+selectquer);
+                console.log('updatecase: '+updatecase);
+
+                pool.query(updatecase, function (err, rows) {
                     if (err) {
-                        console.log('Error in select query');
+                        console.log('error in update query');
                         err.status=503;
                         return next(err);
                     } else {
+                        console.log('Database Updated');
+                        pool.query(selectquer, function (err, rows) {
+                            if (err) {
+                                console.log('Error in select query');
+                                err.status=503;
+                                return next(err);
+                            } else {
 
-                        //console.log("rows: "+JSON.stringify(rows));
-                        obj = {"dropdownsjson":dropdownsjson,
-                            "plannermessage": str,
-                            "formvalues": formvalues,
-                            "cases":req.cookies.cases,
-                            "db":rows,
-                            "rowsize": selectcolcount,
-                            "loginFlag":req.cookies.loginFlag,
-                            "adminFlag":req.cookies.adminFlag};
-                            res.render('planner', obj);
+                                //console.log("rows: "+JSON.stringify(rows));
+                                obj = {"dropdownsjson":dropdownsjson,
+                                    "plannermessage": str,
+                                    "formvalues": formvalues,
+                                    "cases":req.cookies.cases,
+                                    "db":rows,
+                                    "rowsize": selectcolcount,
+                                    "loginFlag":req.cookies.loginFlag,
+                                    "adminFlag":req.cookies.adminFlag};
+                                res.render('planner', obj);
+                            }
+                        });
                     }
                 });
+
             }
         });
-
     } else
     {
         plannermessage = "Please select cases to edit";
@@ -558,7 +615,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     travel6="";
     dates6="";
     plannermessage="";
-
 });
 
 module.exports = router;
