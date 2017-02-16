@@ -53,6 +53,13 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     var tasknum6 = "";
     var dates6 = "";
 
+    var delflag=0;
+    var delflag2=0;
+    var delflag3=0;
+    var delflag4=0;
+    var delflag5=0;
+    var delflag6=0;
+
     var gangsizedropdown = [{"ASSUMED_GANG_SIZE":1},{"ASSUMED_GANG_SIZE":2},{"ASSUMED_GANG_SIZE":3},{"ASSUMED_GANG_SIZE":4},{"ASSUMED_GANG_SIZE":5},{"ASSUMED_GANG_SIZE":6}];
     var traveldropdown = [{"PLANNED_TT_DURATION":10},{"PLANNED_TT_DURATION":"20"},{"PLANNED_TT_DURATION":"30"},{"PLANNED_TT_DURATION":"40"},{"PLANNED_TT_DURATION":"50"},{"PLANNED_TT_DURATION":"60"},{"PLANNED_TT_DURATION":"70"},{"PLANNED_TT_DURATION":"80"},{"PLANNED_TT_DURATION":"90"},{"PLANNED_TT_DURATION":"100"},{"PLANNED_TT_DURATION":"110"},{"PLANNED_TT_DURATION":"120"},{"PLANNED_TT_DURATION":"130"},{"PLANNED_TT_DURATION":"140"},{"PLANNED_TT_DURATION":"150"}];
     var tasknumberdropdown = [{"TASK_NUMBER":1},{"TASK_NUMBER":2},{"TASK_NUMBER":3},{"TASK_NUMBER":4},{"TASK_NUMBER":5},{"TASK_NUMBER":6}];
@@ -60,9 +67,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     estimatenum = req.body.ewocestimate;
     selectedcases = req.body.cases;
     var numengs;
-    console.log('selectedcases: '+selectedcases);
-    //console.log('numengs: '+numengs);
-    //res.clearCookie("cases");
+    //console.log('selectedcases: '+selectedcases);
 
     dso = req.body.dso;
     tmbooked = req.body.tmbooked;
@@ -72,7 +77,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     starttime = req.body.starttime;
     finishtime =  req.body.finishtime;
     engein = req.body.engein;
-    console.log('engein:' +engein);
+    //console.log('engein:' +engein);
 
     tasknum = req.body.tasknum;
     travel = req.body.traveltime;
@@ -103,6 +108,16 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     travel6 = req.body.traveltime6;
     eodtravel6 = req.body.eodtravel6;
     dates6 = req.body.dates6;
+    delflag = req.body.deleteeng;
+    delflag2 = req.body.deleteeng2;
+    delflag3 = req.body.deleteeng3;
+    delflag4 = req.body.deleteeng4;
+    delflag5 = req.body.deleteeng5;
+    delflag6 = req.body.deleteeng6;
+
+    console.log('delflag value: '+delflag);
+    console.log('delflag2 value: '+delflag2);
+    console.log('delflag3 value: '+delflag3);
 
     var dropdownsjson = {
         "fluiditydropdown":req.cookies.fluiditycookie,
@@ -165,13 +180,14 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 
         // case specific form info
         if (dso) {
-            updatecase = updatecase + " WEB_DSO_BOOKED = '" + dso + "' ,";
-            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = '3.1' ,";
+            updatecase = updatecase + " WEB_DSO_BOOKED = \'" + dso + "\' ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = \'3\' ,";
             //updatequer = updatequer + " SYSTEM_DEFINED_PRIORITY = '3.1' ,";
-            updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = 'Urgent' ,";
+            updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = \'P3\' ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = \'Y\' ,";
             str = str + "DSO_BOOKED=Y ";
             selectcolumns = selectcolumns + " WEB_DSO_BOOKED, WEB_SYSTEM_DEFINED_PRIORITY, WEB_PRIORITY_DESCRIPTION,";
-            selectcolcount = selectcolcount + 2;
+            selectcolcount = selectcolcount + 3;
         }
         if (flagtofluidity) {
             updatecase = updatecase + " WEB_REVIEW_FLAG = '" + flagtofluidity + "' ,";
@@ -181,15 +197,15 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         }
         if (tmbooked) {
             updatecase = updatecase + " WEB_DEPENDENCIES_BOOKED = '" + tmbooked + "' ,";
-            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = '1.5' ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = '1' ,";
             //updatecase = updatecase + " SYSTEM_DEFINED_PRIORITY = '1.5' ,";
             updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = 'P1' ,";
             str = str + "Dependancies=Y ";
             selectcolumns = selectcolumns + " WEB_DEPENDENCIES_BOOKED, WEB_PRIORITY_DESCRIPTION, WEB_SYSTEM_DEFINED_PRIORITY,";
-            selectcolcount = selectcolcount + 2;
+            selectcolcount = selectcolcount + 3;
         }
         if(keystonetask){
-            updatecase = updatecase + " WEB_KEYSTONE_TASK = \'Y\',";
+            updatecase = updatecase + " WEB_KEYSTONE_TASK = \'"+keystonetask+"\',";
             str = str + "Keystone Task=Y ";
             selectcolumns = selectcolumns + " WEB_KEYSTONE_TASK,";
             selectcolcount = selectcolcount++;
@@ -197,6 +213,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         if (skills) {
             //updatecase = updatecase + " PRIMARY_SKILL = '" + skills + "' ,";
             updatecase = updatecase + " WEB_PRIMARY_SKILL = '" + skills + "' ,";
+            updatecase = updatecase + " WEB_PRIMARY_SKILL_FLAG = 'Y' ,";
             str = str + "Primary Skill = "+ skills+" ";
             selectcolumns = selectcolumns + " WEB_PRIMARY_SKILL,";
             selectcolcount++;
@@ -252,7 +269,9 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         }
         numengs = looper;
 
-        if (engein.length>0) {
+        updatecase = updatecase + " WEB_PLANNED_FLAG = \'"+numengs+"\',";
+
+        if (engein.length>0 && delflag==0) {
             console.log('engein1 exists');
             // set count to num of days eng io working on the case
             splitdates = dates.split(",");
@@ -262,7 +281,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             console.log('num of days eng1 is working: '+splitdates.length);
             for(var p =0; p<splitdates.length;p++) {
                 // Set Web Planned Flag
-                updatecase = updatecase + " WEB_PLANNED_FLAG = \'Y\',";
 
                 //set case_id of row to be inserted
                 insertquerfields = insertquerfields + " CASE_ID ,";
@@ -332,7 +350,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         console.log('numengsbefore eng 2: '+numengs);
 
         for(var ij=2;ij<numengs+1;ij++) {
-            if (eval('engein' + ij+'.length > 0')) {
+            if (eval('engein' + ij+'.length > 0') && eval('delflag'+ij+' == 0')) {
                 // set count to num of days eng io working on the case
                 eval('splitdates = dates'+ij+'.split(",")');
                 for (var temp = 0; temp < splitdates.length; temp++) {

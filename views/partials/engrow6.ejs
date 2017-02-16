@@ -48,9 +48,9 @@
 
     <div class="form-group col-md-2">
         <% if(formvalues.dates6.length > 0) { %>
-        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates6" id="dates6" value = "<%=formvalues.dates6%>">
+        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates6" id="dates6" value = "<%=formvalues.dates6%>" readonly>
         <% } else { %>
-        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " name="dates6" id="dates6">
+        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " name="dates6" id="dates6" readonly>
         <% } %>
     </div>
 </div>
