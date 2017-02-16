@@ -26,7 +26,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="build/kalendae.standalone.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
 
@@ -99,9 +99,9 @@
                         <div class="form-group col-md-offset-1 col-md-2">
                             <label class="form-check-inline">
                                 <%    if (formvalues.tmbooked == 'tmbooked') { %>
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" id="tmbooked" style="padding: 0px" checked><br> Dependencies
+                                <input class="form-check-input" type="checkbox"  value="tmbooked" name="tmbooked" id="tmbooked" style="padding: 0px" checked><br> Dependencies
                                 <%} else { %>
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="tmbooked" name="tmbooked" id="tmbooked" style="padding: 0px"><br> Dependencies
+                                <input class="form-check-input" type="checkbox" value="tmbooked" name="tmbooked" id="tmbooked" style="padding: 0px"><br> Dependencies
                                 <% } %>
                             </label>
                         </div>
@@ -155,18 +155,18 @@
                         <div class="form-group col-md-offset-3 col-md-2">
                             <label style="padding: 0px" for="starttime">Enter Start Time</label>
                                 <% if(formvalues.starttime.length > 0) { %>
-                                <input style="padding: 0px" type="number" class="form-control" name="starttime" id="starttime" value="<%=formvalues.starttime%>">
-                                <% } else { %>
-                                <input  style="padding: 0px"type="number" class="form-control" name="starttime" id="starttime" placeholder="Enter Task Time" value="">
-                                <% } %>
+                            <input class="timepicker text-center" interval="model.options.interval" dynamic="model.options.dynamic" dropdown="model.options.dropdown" scrollbar="model.options.scrollbar" max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" time-format="model.options.timeFormat" default-time="model.options.defaultTime" time-string="model.timeString" time="model.time" jt-timepicker="" name="starttime" id="starttime" placeholder=" Enter Task Time" value="<%=formvalues.starttime%>">
+                            <% } else { %>
+                            <input class="timepicker text-center" interval="model.options.interval" dynamic="model.options.dynamic" dropdown="model.options.dropdown" scrollbar="model.options.scrollbar" max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" time-format="model.options.timeFormat" default-time="model.options.defaultTime" time-string="model.timeString" time="model.time" jt-timepicker="" name="starttime" id="starttime" placeholder=" Enter Task Time" value="">
+                            <% } %>
                         </div>
 
                         <div class="form-group col-md-3">
                             <label style="padding: 0px" for="finishtime">Enter Finish Time</label>
                             <% if(formvalues.starttime.length > 0) { %>
-                            <input style="padding: 0px" type="number" class="form-control" name="finishtime" id="finishtime" value="<%=formvalues.finishtime%>">
+                            <input class="timepicker text-center" interval="model.options.interval" dynamic="model.options.dynamic" dropdown="model.options.dropdown" scrollbar="model.options.scrollbar" max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" time-format="model.options.timeFormat" default-time="model.options.defaultTime" time-string="model.timeString" time="model.time" jt-timepicker="" name="finishtime" id="finishtime" placeholder=" Enter Task Time" value="<%=formvalues.starttime%>">
                             <% } else { %>
-                            <input  style="padding: 0px"type="number" class="form-control" name="finishtime" id="finishtime" placeholder="Enter Task Time" value="">
+                            <input class="timepicker text-center" interval="model.options.interval" dynamic="model.options.dynamic" dropdown="model.options.dropdown" scrollbar="model.options.scrollbar" max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" time-format="model.options.timeFormat" default-time="model.options.defaultTime" time-string="model.timeString" time="model.time" jt-timepicker="" name="finishtime" id="finishtime" placeholder=" Enter Task Time" value="">
                             <% } %>
                         </div>
 
@@ -295,6 +295,6 @@
 <script src="javascripts/loadestimatecasesbutton.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/loadformdata.js"></script>
 <script type="text/javascript" src="/javascripts/deleteclick.js"></script>
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 </body>
 </html>
