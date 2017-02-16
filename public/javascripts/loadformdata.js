@@ -139,4 +139,19 @@ document.getElementById("divcases").onclick = function ()
         alert('Please select a single case to load the existing information');
     }
 
+
 };
+
+$(document).ready(function() {
+    $('.timepicker').timepicker({
+        timeFormat: 'H:mm',
+        interval: 15,
+        minTime: '00:00am',
+        maxTime: '11:59pm',
+        defaultTime: '',
+        startTime: '00:00',
+        dynamic: true,
+        dropdown: true,
+        scrollbar: true
+    });
+});
