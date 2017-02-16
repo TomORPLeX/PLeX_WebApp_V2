@@ -55,7 +55,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
 
 
 
-    var selectquer = 'SELECT CASE_ID, WEB_DEPENDENCIES_BOOKED, WEB_DSO_BOOKED, WEB_KEYSTONE_TASK, WEB_REVIEW_FLAG, WEB_PRIMARY_SKILL, WEB_SPECIFIC_START_TIME, WEB_SPECIFIC_END_TIME FROM live_workstack WHERE ESTIMATENUMBER LIKE \'IBB6A3NM\' AND CASE_ID LIKE \'B6A3NM002\';';
+    var selectquer = 'SELECT CASE_ID, WEB_DEPENDENCIES_BOOKED, WEB_DSO_BOOKED, WEB_KEYSTONE_TASK, WEB_REVIEW_FLAG, WEB_PRIMARY_SKILL, WEB_SPECIFIC_START_TIME, WEB_SPECIFIC_END_TIME FROM live_workstack WHERE ESTIMATENUMBER LIKE \''+estimatenum+'\' AND CASE_ID LIKE \''+cases+'\';';
     // query to get case specific data
     pool.query(selectquer, function (err, rows) {
         if (err) {
