@@ -49,14 +49,14 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         pool.query(insertquer, function (err, rows) {
             if (err) {
                 console.log('error in insert query');
-                err.status=503;
+                err.status=500.02;
                 return next(err);
             } else {
                 console.log('Database Updated');
                 pool.query(selectquer, function (err, rows) {
                     if (err) {
                         console.log('Error in select query');
-                        err.status=503;
+                        err.status=500.03;
                         return next(err);
                     } else {
                         obj = {db: rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag};

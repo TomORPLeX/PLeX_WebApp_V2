@@ -31,13 +31,13 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
             if (err) {
                 delusermessage = 'Invalid EIN';
                 console.log(err.code);
-                err.status=503;
+                err.status=500.05;
                 return next(err);
             } else {
                 console.log('Database Updated');
                 pool.query(selectquer, function (err, rows) {
                     if (err) {
-                        err.status=503;
+                        err.status=500.06;
                         return next(err);
                     } else {
                         obj = {db: rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag};

@@ -22,7 +22,7 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
     {
         if(err)
         {
-            err.status=503;
+            err.status=500.07;
             return next(err);
         } else
         {

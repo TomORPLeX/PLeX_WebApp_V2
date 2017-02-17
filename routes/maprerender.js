@@ -119,12 +119,12 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
 
     pool.query(quer5, function (err,rows) {
         if (err) {
-            err.status=503;
+            err.status=500.16;
             return next(err);
         } else {
             pool.query(quer6, function (err, rows1) {
                 if (err) {
-                    err.status=503;
+                    err.status=500.17;
                     return next(err);
                 } else {
                     obj = {

@@ -9,7 +9,7 @@ router.all('/', loginfunction.isLoggedIn, function(req, res, next) {
     selectquer = "SELECT * FROM live_kpi LIMIT 10000;";
     pool.query(selectquer, function (err, rows) {
         if (err) {
-            err.status=503;
+            err.status=500.15;
             return next(err);
         } else {
             obj = {db: rows};

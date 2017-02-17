@@ -21,7 +21,7 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
 
     pool.query(quer5, function (err, rows1) {
         if (err) {
-            err.status=503;
+            err.status=500.04;
             return next(err);
         } else {
             obj = {
