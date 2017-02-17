@@ -9,7 +9,7 @@ document.getElementById("divcases").onclick = function ()
     //alert(cases +'\n'+'length: '+numofcases);
 
     if(numofcases==1) {
-        alert('case selected: '+cases +'\n'+'length: '+numofcases);
+        //alert('case selected: '+cases +'\n'+'length: '+numofcases);
         $.ajax({
             type: 'POST',
             data: JSON.stringify(obj),
