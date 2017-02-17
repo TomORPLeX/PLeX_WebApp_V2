@@ -155,11 +155,11 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         "travel6":travel6,
         "dates6":dates6
     };
-    var str = "Updated Row (EST_NUM[" + estimatenum +"], CASE_ID[" + selectedcases +"]): ";
+    var str = "EST_NUM: <b>" + estimatenum +"</b>   CASE_ID: <b>" + selectedcases +"</b><br /><br />";
     var selectcolumns = "";
     var selectcolcount=0;
 
-    console.log('initialised');
+    console.log('Initialised Edit Estimate');
     if(selectedcases) {
         console.log("selected case: "+selectedcases);
         updatecase = "UPDATE live_workstack SET";
@@ -171,7 +171,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = \'3\' ,";
             updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = \'P3\' ,";
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = \'1\' ,";
-            str = str + "DSO_BOOKED=Y ";
+            str = str + "DSO_BOOKED = Y <br />";
             selectcolumns = selectcolumns + " WEB_DSO_BOOKED, WEB_SYSTEM_DEFINED_PRIORITY, WEB_PRIORITY_DESCRIPTION,";
             selectcolcount = selectcolcount + 3;
         } else {
@@ -179,21 +179,23 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = NULL ,";
             updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = NULL ,";
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = NULL ,";
+            str = str + "DSO_BOOKED = N <br />";
         }
         if (flagtofluidity) {
             updatecase = updatecase + " WEB_REVIEW_FLAG = '1' ,";
-            str = str + "FlagToFluidity=Y ";
+            str = str + "FlagToFluidity = Y <br />";
             selectcolumns = selectcolumns + " WEB_REVIEW_FLAG,";
             selectcolcount++;
         } else {
             updatecase = updatecase + " WEB_REVIEW_FLAG = NULL ,";
+            str = str + "FlagToFluidity = N <br />";
         }
         if (tmbooked) {
             updatecase = updatecase + " WEB_DEPENDENCIES_BOOKED = 'Y' ,";
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = '1' ,";
             updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = 'P1' ,";
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = \'1\' ,";
-            str = str + "Dependancies=Y ";
+            str = str + "Dependancies Booked = Y <br />";
             selectcolumns = selectcolumns + " WEB_DEPENDENCIES_BOOKED, WEB_PRIORITY_DESCRIPTION, WEB_SYSTEM_DEFINED_PRIORITY,";
             selectcolcount = selectcolcount + 3;
         } else {
@@ -201,41 +203,46 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = NULL ,";
             updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = NULL ,";
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = NULL ,";
+            str = str + "Dependancies Booked = N <br />";
         }
         if(keystonetask){
             updatecase = updatecase + " WEB_KEYSTONE_TASK = \'Y\',";
-            str = str + "Keystone Task=Y ";
+            str = str + "Keystone Task = Y <br />";
             selectcolumns = selectcolumns + " WEB_KEYSTONE_TASK ";
             selectcolcount = selectcolcount++;
         } else {
             updatecase = updatecase + " WEB_KEYSTONE_TASK = NULL ,";
+            str = str + "Keystone Task = N <br />";
         }
         if (skills) {
             //updatecase = updatecase + " PRIMARY_SKILL = '" + skills + "' ,";
             updatecase = updatecase + " WEB_PRIMARY_SKILL = '" + skills + "' ,";
             updatecase = updatecase + " WEB_PRIMARY_SKILL_FLAG = '1' ,";
-            str = str + "Primary Skill = "+ skills+" ";
+            str = str + "Primary Skill = "+ skills+" <br />";
             selectcolumns = selectcolumns + " WEB_PRIMARY_SKILL,";
             selectcolcount++;
         } else {
             updatecase = updatecase + " WEB_PRIMARY_SKILL = NULL ,";
             updatecase = updatecase + " WEB_PRIMARY_SKILL_FLAG = NULL ,";
+            str = str + "Primary Skill = NULL <br />";
         }
         if (starttime) {
             updatecase = updatecase + " WEB_SPECIFIC_START_TIME = '" + starttime + "' ,";
-            str = str + "Start Time = "+ starttime+" ";
+            str = str + "Start Time = "+ starttime+" <br />";
             selectcolumns = selectcolumns + " WEB_SPECIFIC_START_TIME,";
             selectcolcount++;
         } else {
             updatecase = updatecase + " WEB_SPECIFIC_START_TIME = NULL ,";
+            str = str + "Start Time = NULL <br />";
         }
         if (finishtime) {
             updatecase = updatecase + " WEB_SPECIFIC_END_TIME = '" + finishtime + "' ,";
-            str = str + "Start Time = "+ finishtime+" ";
+            str = str + "Finish Time = "+ finishtime+" <br />";
             selectcolumns = selectcolumns + " WEB_SPECIFIC_END_TIME,";
             selectcolcount++;
         } else {
             updatecase = updatecase + " WEB_SPECIFIC_END_TIME = NULL ,";
+            str = str + "Start Time = NULL <br />";
         }
 
         // delete all case data from engineer table.
@@ -340,13 +347,14 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                 console.log('EIN len: '+engein.length);
 
                 if (engein.length>0 && delflag==0) {
-                    console.log('engein1 exists');
+                    //console.log('engein1 exists');
                     // set count to num of days eng io working on the case
                     splitdates = dates.split(",");
                     for(var temp1=0;temp1<splitdates.length;temp1++){
                         splitdates[temp1] = splitdates[temp1].trim();
                     }
-                    console.log('num of days eng1 is working: '+splitdates.length);
+                    //console.log('num of days eng1 is working: '+splitdates.length);
+                    var alldates = "[";
                     for(var p =0; p<splitdates.length;p++) {
 
                         //set case_id of row to be inserted
@@ -356,37 +364,37 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         //insert eng specific data
                         insertquerfields = insertquerfields + " PLANNED_ENGINEER ,";
                         insertquervalues = insertquervalues + " \'" + engein + "\',";
-                        str = str + "Task pinned to = " + engein + " ";
                         //selectcolumns = selectcolumns + " PLANNED_ENGINEERS,";
                         //selectcolcount++;
 
                         if (tasknum.length>0) {
                             insertquerfields = insertquerfields + " TASK_NUMBER ,";
                             insertquervalues = insertquervalues + " \'" + tasknum + "\',";
-                            str = str + "Task Number = " + tasknum + " ";
                             //selectcolumns = selectcolumns + " TASK_NUMBER,";
                             //selectcolcount++;
                         }
                         if (travel.length>0) {
                             insertquerfields = insertquerfields + " ENG_TRAVEL_TIME ,";
                             insertquervalues = insertquervalues + " \'" + travel + "\',";
-                            str = str + "Travel = " + travel + " ";
                             //selectcolumns = selectcolumns + " ENG_TRAVEL_TIME,";
                             //selectcolcount++;
                         }
                         if (eodtravel.length>0) {
                             insertquerfields = insertquerfields + " EOD_TRAVEL ,";
                             insertquervalues = insertquervalues + " \'" + eodtravel + "\',";
-                            str = str + "EOD Travel = " + eodtravel + " ";
                             //selectcolumns = selectcolumns + " EOD_TRAVEL,";
                             //selectcolcount++;
                         }
                         if (splitdates.length>0) {
                             insertquerfields = insertquerfields + " PLANNED_DATE ,";
                             insertquervalues = insertquervalues + " str_to_date(\'" + splitdates[p] + " 00:00:00\','%m/%d/%Y %H:%i:%s'),";
-                            str = str + "Dates = " + splitdates[p] + " ";
                             //selectcolumns = selectcolumns + " PLANNED_DATE,";
                             //selectcolcount++;
+                            if (alldates.length > 2) {
+                                alldates = alldates + ", " + splitdates[p];
+                            } else {
+                                alldates = alldates + splitdates[p];
+                            }
 
                         }
 
@@ -411,12 +419,21 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 
                         insertquerfields = "(";
                         insertquervalues = "(";
+
                     }
+                    console.log('str after eng 1 before dates: '+str);
+                    str = str + "Pinned to = " + engein + ", ";
+                    str = str + "Task Num = " + tasknum + ", ";
+                    str = str + "Travel = " + travel + ", ";
+                    str = str + "EOD Travel = " + eodtravel + ", ";
+                    str = str + "Dates = " + alldates + "] <br />";
+                    console.log('str after inserted dates: '+str);
                 }
 
                 console.log('numengsbefore eng 2: '+numengs);
-
+                var alldates2;
                 for(var ij=2;ij<numengs+1;ij++) {
+                    alldates2 = "[";
                     if (eval('engein' + ij+'.length > 0') && eval('delflag'+ij+' == 0')) {
                         // set count to num of days eng io working on the case
                         eval('splitdates = dates'+ij+'.split(",")');
@@ -435,35 +452,35 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                             //insert eng specific data
                             insertquerfields = insertquerfields + " PLANNED_ENGINEER ,";
                             insertquervalues = insertquervalues + " \'" + eval('engein'+ij) + "\',";
-                            str = str + "Task pinned to = " + eval('engein'+ij) + " ";
                             //selectcolumns = selectcolumns + " PLANNED_ENGINEERS,";
                             //selectcolcount++;
 
                             if (eval('tasknum'+ij+'.length > 0')) {
                                 insertquerfields = insertquerfields + " TASK_NUMBER ,";
                                 insertquervalues = insertquervalues + " \'" + eval('tasknum'+ij) + "\',";
-                                str = str + "Task Number = " + eval('tasknum'+ij) + " ";
                                 //selectcolumns = selectcolumns + " TASK_NUMBER,";
                                 //selectcolcount++;
                             }
                             if (eval('travel'+ij+'.length > 0')) {
                                 insertquerfields = insertquerfields + " ENG_TRAVEL_TIME ,";
                                 insertquervalues = insertquervalues + " \'" + eval('travel'+ij) + "\',";
-                                str = str + "Travel = " + eval('travel'+ij) + " ";
                                 //selectcolumns = selectcolumns + " ENG_TRAVEL_TIME,";
                                 //selectcolcount++;
                             }
                             if (eval('eodtravel'+ij+'.length > 0')) {
                                 insertquerfields = insertquerfields + " EOD_TRAVEL ,";
                                 insertquervalues = insertquervalues + " \'" + eval('eodtravel'+ij) + "\',";
-                                str = str + "EOD Travel = " + eval('eodtravel'+ij) + " ";
                                 //selectcolumns = selectcolumns + " EOD_TRAVEL,";
                                 //selectcolcount++;
                             }
                             if (splitdates.length>0) {
                                 insertquerfields = insertquerfields + " PLANNED_DATE ,";
                                 insertquervalues = insertquervalues + " str_to_date(\'" + splitdates[pp] + " 00:00:00\','%m/%d/%Y %H:%i:%s'),";
-                                str = str + "Dates = " + splitdates[pp] + " ";
+                                if (alldates2.length > 2) {
+                                    alldates2 = alldates2 + ", " + splitdates[pp];
+                                } else {
+                                    alldates2 = alldates2 + splitdates[pp];
+                                }
                                 //selectcolumns = selectcolumns + " PLANNED_DATE,";
                                 //selectcolcount++;
 
@@ -490,6 +507,11 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                             insertquerfields = "(";
                             insertquervalues = "(";
                         }
+                        str = str + "Pinned to = " + eval('engein'+ij) + ", ";
+                        str = str + "Task Num = " + eval('tasknum'+ij) + ", ";
+                        str = str + "Travel = " + eval('travel'+ij) + ", ";
+                        str = str + "EOD Travel = " + eval('eodtravel'+ij) + ", ";
+                        str = str + "Dates = " + alldates2 + "] <br />";
                     }
                 }
 
@@ -515,7 +537,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                                 err.status=503;
                                 return next(err);
                             } else {
-
+                                var loginflag0 = req.cookies.loginFlag;
+                                var adminflag0 = req.cookies.adminFlag;
                                 //console.log("rows: "+JSON.stringify(rows));
                                 obj = {"dropdownsjson":dropdownsjson,
                                     "plannermessage": str,
@@ -523,8 +546,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                                     "cases":req.cookies.cases,
                                     "db":rows,
                                     "rowsize": selectcolcount,
-                                    "loginFlag":req.cookies.loginFlag,
-                                    "adminFlag":req.cookies.adminFlag};
+                                    "loginFlag":loginflag0,
+                                    "adminFlag":adminflag0};
                                 res.render('planner', obj);
                             }
                         });

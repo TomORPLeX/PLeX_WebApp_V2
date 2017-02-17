@@ -3,10 +3,12 @@ var router = express.Router();
 var pool = require('../bin/db.js');
 var loginfunction = require("../bin/login.js");
 
+function pad(n) {return n < 10 ? "0"+n : n;}
+
 function dateconverter(uglydate) {
-    //var nicedate = uglydate.getDay() + uglydate.getMonth() + uglydate.getYear();
-    var nicedate2 = uglydate.toLocaleDateString("en-GB");
-    return nicedate2;
+    var nicedate = pad(uglydate.getMonth()+1)+"/"+pad(uglydate.getDate())+"/"+uglydate.getFullYear();
+    console.log('nicedate :'+nicedate);
+    return nicedate;
 }
 
 router.use('/', loginfunction.isLoggedIn, function(req, res, next) {

@@ -8,7 +8,8 @@ function ConnectDB() {
         password: "N5p1A2",
         database: "plex",
         connectionLimit: 10,
-        multipleStatements: true
+        multipleStatements: true,
+        acquireTimeout: 15000
     });
 
     pool.getConnection(function(err, connection) {

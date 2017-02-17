@@ -83,7 +83,7 @@
                         <select multiple="multiple" class="form-control input-large" name="cases" id="cases" style="padding: 0px">
                             <% if (cases.length > 0) { %>
                                 <% for(var ii=0;ii<cases.length;ii++) { %>
-                                        <% if(formvalues.cases.includes(cases[ii].CASE_ID)) { %>
+                                        <% if (formvalues.cases.indexOf(cases[ii].CASE_ID) > -1) { %>
                                             <option selected><%= cases[ii].CASE_ID %></option>
                                         <% } else { %>
                                             <option><%= cases[ii].CASE_ID %></option>
@@ -240,8 +240,8 @@
 
 
 <% if(plannermessage) { %>
-<div class="alert alert-danger text-center" id="MessageDialog" style="display: none">
-    <p> <%= plannermessage %> </p>
+<div class="alert alert-danger text-center" id="MessageDialog">
+    <p id ="plannermessagep"><%- plannermessage %></p>
 </div>
 <% } %>
 <br><br>
@@ -276,8 +276,6 @@
     <p>Success!</p>
 </div>
 
-
-
 <footer>
     <% include ./partials/footer %>
 </footer>
@@ -288,6 +286,7 @@
 <script src="javascripts/loadestimatecasesbutton.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/javascripts/loadformdata.js"></script>
 <script type="text/javascript" src="/javascripts/deleteclick.js"></script>
+<script type="text/javascript" src="/javascripts/displayplannermessage.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 </body>
 </html>
