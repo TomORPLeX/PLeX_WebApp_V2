@@ -600,7 +600,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 // Reset form values to ""
     estimatenum = "";
     selectedcases = "";
-    plannermessage="";
     dso ="";
     tmbooked ="";
     skills="";
@@ -638,8 +637,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     eodtravel6="";
     travel6="";
     dates6="";
-
-
+    plannermessage="";
 });
 
 module.exports = router;
