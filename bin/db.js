@@ -7,7 +7,7 @@ function ConnectDB() {
         user: "nsusr",
         password: "N5p1A2",
         database: "plex",
-        connectionLimit: 10,
+        connectionLimit: 50,
         multipleStatements: true,
         acquireTimeout: 15000
     });
