@@ -104,7 +104,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     eodtravel6 = req.body.eodtravel6;
     dates6 = req.body.dates6;
     var numengs;
-    //console.log('selectedcases: '+selectedcases);
 
     var dropdownsjson = {
         "fluiditydropdown":req.cookies.fluiditycookie,
@@ -346,16 +345,16 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                 console.log('delflag: '+delflag);
                 console.log('EIN len: '+engein.length);
 
-                if (engein.length>0 && delflag==0) {
+                if (engein.length==9 && delflag==0) {
                     //console.log('engein1 exists');
                     // set count to num of days eng io working on the case
                     splitdates = dates.split(",");
-                    for(var temp1=0;temp1<splitdates.length;temp1++){
+                    for (var temp1 = 0; temp1 < splitdates.length; temp1++) {
                         splitdates[temp1] = splitdates[temp1].trim();
                     }
                     //console.log('num of days eng1 is working: '+splitdates.length);
                     var alldates = "[";
-                    for(var p =0; p<splitdates.length;p++) {
+                    for (var p = 0; p < splitdates.length; p++) {
 
                         //set case_id of row to be inserted
                         insertquerfields = insertquerfields + " CASE_ID ,";
@@ -367,25 +366,25 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         //selectcolumns = selectcolumns + " PLANNED_ENGINEERS,";
                         //selectcolcount++;
 
-                        if (tasknum.length>0) {
+                        if (tasknum.length > 0) {
                             insertquerfields = insertquerfields + " TASK_NUMBER ,";
                             insertquervalues = insertquervalues + " \'" + tasknum + "\',";
                             //selectcolumns = selectcolumns + " TASK_NUMBER,";
                             //selectcolcount++;
                         }
-                        if (travel.length>0) {
+                        if (travel.length > 0) {
                             insertquerfields = insertquerfields + " ENG_TRAVEL_TIME ,";
                             insertquervalues = insertquervalues + " \'" + travel + "\',";
                             //selectcolumns = selectcolumns + " ENG_TRAVEL_TIME,";
                             //selectcolcount++;
                         }
-                        if (eodtravel.length>0) {
+                        if (eodtravel.length > 0) {
                             insertquerfields = insertquerfields + " EOD_TRAVEL ,";
                             insertquervalues = insertquervalues + " \'" + eodtravel + "\',";
                             //selectcolumns = selectcolumns + " EOD_TRAVEL,";
                             //selectcolcount++;
                         }
-                        if (splitdates.length>0) {
+                        if (splitdates.length > 0) {
                             insertquerfields = insertquerfields + " PLANNED_DATE ,";
                             insertquervalues = insertquervalues + " str_to_date(\'" + splitdates[p] + " 00:00:00\','%m/%d/%Y %H:%i:%s'),";
                             //selectcolumns = selectcolumns + " PLANNED_DATE,";
@@ -404,16 +403,15 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         insertquervalues = insertquervalues + ")";
 
                         fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
-                        console.log('insertquer'+p+': ' + fullinsertquery);
+                        console.log('insertquer' + p + ': ' + fullinsertquery);
 
-                        pool.query(fullinsertquery, function(err,rows)
-                        {
+                        pool.query(fullinsertquery, function (err, rows) {
                             if (err) {
-                                console.log('error in insert query on eng1, day '+p);
-                                err.status=503;
+                                console.log('error in insert query on eng1, day ' + p);
+                                err.status = 503;
                                 return next(err);
                             } else {
-                                console.log('Rows Inserted Successfully: '+rows.affectedRows);
+                                console.log('Rows Inserted Successfully: ' + rows.affectedRows);
                             }
                         });
 
@@ -421,20 +419,20 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         insertquervalues = "(";
 
                     }
-                    console.log('str after eng 1 before dates: '+str);
+                    console.log('str after eng 1 before dates: ' + str);
                     str = str + "Pinned to = " + engein + ", ";
                     str = str + "Task Num = " + tasknum + ", ";
                     str = str + "Travel = " + travel + ", ";
                     str = str + "EOD Travel = " + eodtravel + ", ";
                     str = str + "Dates = " + alldates + "] <br />";
-                    console.log('str after inserted dates: '+str);
+                    console.log('str after inserted dates: ' + str);
                 }
 
                 console.log('numengsbefore eng 2: '+numengs);
                 var alldates2;
                 for(var ij=2;ij<numengs+1;ij++) {
                     alldates2 = "[";
-                    if (eval('engein' + ij+'.length > 0') && eval('delflag'+ij+' == 0')) {
+                    if (eval('engein' + ij+'.length == 9 ') && eval('delflag'+ij+' == 0')) {
                         // set count to num of days eng io working on the case
                         eval('splitdates = dates'+ij+'.split(",")');
                         for (var temp = 0; temp < splitdates.length; temp++) {
