@@ -9,6 +9,8 @@ $(document).ready(function() {
     var dataString = [];
     var qFlag;
     var execStatus;
+    var durationselection;
+    var durationinput;
 
 
 
@@ -33,6 +35,16 @@ $(document).ready(function() {
                 continue;
             }
         }
+    } );
+
+    $('#durationselection').change(function() {
+
+        if ($('#durationselection').find(":selected").val() == "No Duration"){
+            $('#durationinput').attr('disabled',true);
+        }else{
+            $('#durationinput').attr('disabled',false);
+        }
+
     } );
 
     $('#select_all_priority').change(function() {
@@ -92,6 +104,9 @@ $(document).ready(function() {
         oucSelection = $('#oucselection').find(":selected").text();
         execStatus = $('#execStatus').find(":selected").text();
         qFlag = $('#qFlag').find(":selected").text();
+        durationselection = $('#durationselection').find(":selected").attr('name');
+        durationinput = $('#durationinput').val();
+        alert(durationinput);
 
         dataString = {
             'fluidity':fluidityStatus,
@@ -100,7 +115,9 @@ $(document).ready(function() {
             'skills':skillsFilter,
             'execStatus':execStatus,
             'qFlag':qFlag,
-            'ouc':oucSelection
+            'ouc':oucSelection,
+            'durationselection': durationselection,
+            'durationinput': durationinput
         };
 
         //alert(dataString);
