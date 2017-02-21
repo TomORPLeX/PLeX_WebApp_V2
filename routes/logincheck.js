@@ -5,13 +5,16 @@ var fs = require('fs');
 var loginfunction = require("../bin/login.js");
 
 router.use('/', function( req, res, next) {
-
-    var url1 = req.baseUrl;
-    console.log("REQ: "+url1);
-
     var EIN = req.body.EIN;
     var quer1 = "SELECT * FROM users WHERE EIN = '"+EIN+"'";
     var obj = {};
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+
+    console.log("EIN:"+EIN+" Login:"+dateTime);
 
 
     if(EIN.length == 9) {

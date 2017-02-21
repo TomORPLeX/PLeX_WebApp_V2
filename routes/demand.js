@@ -11,7 +11,7 @@ var obj = {};
 var quer1 = "SELECT DISTINCT om_ouc FROM live_workstack ORDER BY om_ouc";
 
 router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
-    console.log(req.cookies.EIN );
+    //console.log(req.cookies.EIN );
     var tempfilelocation = '../public/data/' +req.cookies.EIN +'_LatLngData.json';
     var JsonData = JSON.parse(fs.readFileSync(tempfilelocation));
     var selection = JsonData.selection;
