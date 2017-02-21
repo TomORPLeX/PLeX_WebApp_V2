@@ -101,7 +101,8 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
     pool.query(selectquer1+'FINAL_STATUS'+selectquer2, function (err, rows) {
         if (err) {
             console.log('error in select query');
-            throw err;
+            err.status=500.18;
+            return next(err);
         } else {
             //console.log('JSON Returned Using('+selectquer1+'CASE_ID'+selectquer2+'): \n' + JSON.stringify(rows));
             fluiditydropdown = rows;
@@ -109,7 +110,8 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
             pool.query(selectquer1+'PRIMARY_SKILL'+selectquer2, function (err, rows) {
                 if (err) {
                     console.log('error in select query');
-                    throw err;
+                    err.status=500.19;
+                    return next(err);
                 } else {
                     console.log('skill dropdown:'+JSON.stringify(rows));
                     skillsdropdown = rows;
@@ -150,7 +152,8 @@ function runquery (selectquer) {
     pool.query(selectquer, function (err, rows) {
         if (err) {
             console.log('error in select query');
-            throw err;
+            err.status=500.20;
+            return next(err);
         } else {
             //console.log('JSON Returned Using('+selectquer+'): \n' + JSON.stringify(rows));
             return JSON.stringify(rows);

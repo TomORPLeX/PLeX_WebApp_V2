@@ -250,7 +250,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         pool.query(deleteexisting, function (err, rows) {
             if (err) {
                 console.log('error in delete eng query');
-                err.status = 503;
+                err.status = 500.08;
                 return next(err);
             } else {
                 console.log(rows.affectedRows + ' EngDay Rows Deleted:' + JSON.stringify(rows));
@@ -407,8 +407,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 
                         pool.query(fullinsertquery, function (err, rows) {
                             if (err) {
-                                console.log('error in insert query on eng1, day ' + p);
-                                err.status = 503;
+                                console.log('error in insert query on eng1, day '+p);
+                                err.status=500.09;
                                 return next(err);
                             } else {
                                 console.log('Rows Inserted Successfully: ' + rows.affectedRows);
@@ -495,7 +495,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                             pool.query(fullinsertquery, function (err, rows) {
                                 if (err) {
                                     console.log('error in insert query on eng'+ij+', day ' + pp);
-                                    err.status = 503;
+                                    err.status = 500.10;
                                     return next(err);
                                 } else {
                                     console.log('Rows Inserted Successfully: ' + rows.affectedRows);
@@ -525,7 +525,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                 pool.query(updatecase, function (err, rows) {
                     if (err) {
                         console.log('error in update query');
-                        err.status=503;
+                        err.status=500.11;
                         return next(err);
                     } else {
                         console.log('Database Updated');

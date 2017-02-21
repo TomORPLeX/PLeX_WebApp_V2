@@ -68,7 +68,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
     pool.query(selectquer, function (err, rows) {
         if (err) {
             console.log('error in select query');
-            err.status=503;
+            err.status=500.21;
             return next(err);
         } else {
             console.log('queried case data: '+JSON.stringify(rows));
@@ -87,7 +87,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
             pool.query(selectquer2, function (err, rows) {
                 if (err) {
                     console.log('error in select2 query:' +selectquer2);
-                    err.status=503;
+                    err.status=500.22;
                     return next(err);
                 } else {
                     var numengs = Object.keys(rows).length;
@@ -103,7 +103,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
                     pool.query(selectquer3, function (err, rows) {
                         if (err) {
                             console.log('error in select3 query');
-                            err.status = 503;
+                            err.status = 500.23;
                             return next(err);
                         } else {
 

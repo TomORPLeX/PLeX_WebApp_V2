@@ -21,7 +21,7 @@ router.use('/', function( req, res, next) {
         pool.query(quer1, function (err, rows) {
             if (err)
             {
-                err.status=503;
+                err.status=500.01;
                 return next(err);
             }
             else if (rows.length > 0) {

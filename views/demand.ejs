@@ -463,6 +463,29 @@
                     <option selected>All</option>
                     <%}%>
                 </select>
+                <h4 class="text-center">Task Duration</h4>
+                <select class="selectpicker" id="durationselection">
+                    <%if(selection.durationselection=="1"){%>
+                    <option name="1" selected>More Than (mins)</option>
+                    <option name="2">Less Than (mins)</option>
+                    <option name="0">No Duration</option>
+                    <%}else if(selection.durationselection=="2"){%>
+                    <option name="1">More Than (mins)</option>
+                    <option name="2" selected>Less Than (mins)</option>
+                    <option name="0">No Duration</option>
+                    <%}else {%>
+                    <option name="1">More Than (mins)</option>
+                    <option name="2">Less Than (mins)</option>
+                    <option name="0" selected>No Duration</option>
+                    <%}%>
+                </select>
+                <%if(selection.durationselection=="1"){%>
+                    <input type="number" min="0" id="durationinput" value="<%=parseInt(selection.durationinput)%>">
+                <%}else if(selection.durationselection=="2"){%>
+                    <input type="number" min="0" id="durationinput" value="<%=parseInt(selection.durationinput)%>">
+                <%}else{%>
+                    <input type="number" min="0" id="durationinput" disabled>
+                <%}%>
                 <h3></h3>
                 <div>
                 <input class="btn btn-info" id="button" type="button" value="Apply Filter"/>
