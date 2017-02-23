@@ -5,29 +5,37 @@ function validateForm() {
     var ein4 = document.forms["form1"]["engein4"].value;
     var ein5 = document.forms["form1"]["engein5"].value;
     var ein6 = document.forms["form1"]["engein6"].value;
-    //alert('ein1 :'+ein1 +' len :'+ein1.length);
-    if (!(ein1.length == 9 || ein1.length == 0)) {
-        alert("Please Enter 9 Digit EIN For Eng 1");
+
+    var dates1 = document.forms["form1"]["dates"].value;
+    var dates2 = document.forms["form1"]["dates2"].value;
+    var dates3 = document.forms["form1"]["dates3"].value;
+    var dates4 = document.forms["form1"]["dates4"].value;
+    var dates5 = document.forms["form1"]["dates5"].value;
+    var dates6 = document.forms["form1"]["dates6"].value;
+
+    if(!((ein1.length == 9 && dates1.length > 0) || (ein1.length == 0))) {
+        alert('Enter 9 digit EIN and Date for Eng 1');
         return false;
     }
-    if (!(ein2.length == 9 || ein2.length == 0)) {
-        alert("Please Enter 9 Digit EIN For Eng 2");
+    if(!((ein2.length == 9 && dates2.length > 0) || (ein2.length == 0))) {
+        alert('Enter 9 digit EIN and Date for Eng 2');
         return false;
     }
-    if (!(ein3.length == 9 || ein3.length == 0)) {
-        alert("Please Enter 9 Digit EIN For Eng 3");
+    if(!((ein3.length == 9 && dates3.length > 0) || (ein3.length == 0))) {
+        alert('Enter 9 digit EIN and Date for Eng 3');
         return false;
     }
-    if (!(ein4.length == 9 || ein4.length == 0)) {
-        alert("Please Enter 9 Digit EIN For Eng 4");
+    if(!((ein4.length == 9 && dates4.length > 0) || (ein4.length == 0))) {
+        alert('Enter 9 digit EIN and Date for Eng 4');
         return false;
     }
-    if (!(ein5.length == 9 || ein5.length == 0)) {
-        alert("Please Enter 9 Digit EIN For Eng 5");
+    if(!((ein5.length == 9 && dates5.length > 0) || (ein5.length == 0))) {
+        alert('Enter 9 digit EIN and Date for Eng 5');
         return false;
     }
-    if (!(ein6.length == 9 || ein6.length == 0)) {
-        alert("Please Enter 9 Digit EIN For Eng 6");
+    if(!((ein6.length == 9 && dates6.length > 0) || (ein6.length == 0))) {
+        alert('Enter 9 digit EIN and Date for Eng 6');
         return false;
     }
+
 }
