@@ -1,15 +1,15 @@
-var tempcounter = 1;
-$("#navbar-header").ready(function() {
-    if (tempcounter > 1)
+var tempcounter2 = 1;
+$(document).ready(function() {
+    if (tempcounter2 > 1)
     {
         return;
     } else {
-        //alert("loaded " + tempcounter + " times");
-        tempcounter++;
+        //alert("loaded " + tempcounter2 + " times");
+        tempcounter2++;
 
         $.ajax({
             type: 'POST',
-            url: '/getdatatable_planner',
+            url: '/getdatatabledata',
             success: function (obj) {
                 var parsed = [];
                 var row = new Array();
@@ -17,18 +17,47 @@ $("#navbar-header").ready(function() {
                 parsed = JSON.parse(obj);
                 for (var i = 0; i < parsed.length; i++) {
 
-                    row[0] = parsed[i].ESTIMATENUMBER;
-                    row[1] = parsed[i].CASE_ID;
-                    row[2] = parsed[i].PLANNED_DATE;
-                    row[3] = parsed[i].TASK_NUMBER;
-                    row[4] = parsed[i].ENG_TRAVEL_TIME;
-                    row[5] = parsed[i].EOD_TRAVEL;
-                    row[6] = parsed[i].WEB_PRIORITY_DESCRIPTION;
-                    row[7] = parsed[i].WEB_PRIMARY_SKILL;
-                    row[8] = parsed[i].WEB_REVIEW_FLAG;
-                    row[9] = parsed[i].WEB_KEYSTONE_TASK;
-                    row[10] = parsed[i].WEB_SPECIFIC_START_TIME;
-                    row[11] = parsed[i].WEB_SPECIFIC_END_TIME;
+                    row[0] = parsed[i].OUC;
+                    row[1] = parsed[i].EIN;
+                    row[2] = parsed[i].ENG_ID;
+                    row[3] = parsed[i].ENG_NAME;
+                    row[4] = parsed[i].PRIMARY_NS_SKILLS;
+
+                    row[5] = parsed[i].ATTENDANCE_DAY_0;
+                    row[6] = parsed[i].PERCENTAGE_ON_TASK_DAY_0;
+                    row[7] = parsed[i].PERCENTAGE_TRAVEL_DAY_0;
+                    row[8] = parsed[i].PLAN_ISSUES_DAY_0;
+                    row[9] = parsed[i].TOUR_DAY_0;
+
+                    row[10] = parsed[i].ATTENDANCE_DAY_1;
+                    row[11] = parsed[i].PERCENTAGE_ON_TASK_DAY_1;
+                    row[12] = parsed[i].PERCENTAGE_TRAVEL_DAY_1;
+                    row[13] = parsed[i].PLAN_ISSUES_DAY_1;
+                    row[14] = parsed[i].TOUR_DAY_1;
+
+                    row[15] = parsed[i].ATTENDANCE_DAY_2;
+                    row[16] = parsed[i].PERCENTAGE_ON_TASK_DAY_2;
+                    row[17] = parsed[i].PERCENTAGE_TRAVEL_DAY_2;
+                    row[18] = parsed[i].PLAN_ISSUES_DAY_2;
+                    row[19] = parsed[i].TOUR_DAY_2;
+
+                    row[20] = parsed[i].ATTENDANCE_DAY_3;
+                    row[21] = parsed[i].PERCENTAGE_ON_TASK_DAY_3;
+                    row[22] = parsed[i].PERCENTAGE_TRAVEL_DAY_3;
+                    row[23] = parsed[i].PLAN_ISSUES_DAY_3;
+                    row[24] = parsed[i].TOUR_DAY_3;
+
+                    row[25] = parsed[i].ATTENDANCE_DAY_4;
+                    row[26] = parsed[i].PERCENTAGE_ON_TASK_DAY_4;
+                    row[27] = parsed[i].PERCENTAGE_TRAVEL_DAY_4;
+                    row[28] = parsed[i].PLAN_ISSUES_DAY_4;
+                    row[29] = parsed[i].TOUR_DAY_4;
+
+                    row[30] = parsed[i].ATTENDANCE_DAY_5;
+                    row[31] = parsed[i].PERCENTAGE_ON_TASK_DAY_5;
+                    row[32] = parsed[i].PERCENTAGE_TRAVEL_DAY_5;
+                    row[33] = parsed[i].PLAN_ISSUES_DAY_5;
+                    row[34] = parsed[i].TOUR_DAY_5;
 
                     array[i] = row;
                     row = [];
@@ -37,20 +66,56 @@ $("#navbar-header").ready(function() {
                 $('#datatableplanner').DataTable({
                     data: array,
                     columns: [
-                        {title: "ESTIMATENUMBER"},
-                        {title: "CASE_ID"},
-                        {title: "PLANNED_DATE"},
-                        {title: "TASK_NUMBER"},
-                        {title: "ENG_TRAVEL_TIME"},
-                        {title: "EOD_TRAVEL"},
-                        {title: "WEB_PRIORITY_DESCRIPTION"},
-                        {title: "WEB_PRIMARY_SKILL"},
-                        {title: "WEB_REVIEW_FLAG"},
-                        {title: "WEB_KEYSTONE_TASK"},
-                        {title: "WEB_SPECIFIC_START_TIME"},
-                        {title: "WEB_SPECIFIC_END_TIME"}
+                        {title: "OUC"},
+                        {title: "EIN"},
+                        {title: "ENG_ID"},
+                        {title: "ENG_NAME"},
+                        {title: "PRIMARY_NS_SKILLS"},
+
+                        {title: "ATTENDANCE_DAY_0"},
+                        {title: "PERCENTAGE_ON_TASK_DAY_0"},
+                        {title: "PERCENTAGE_TRAVEL_DAY_0"},
+                        {title: "PLAN_ISSUES_DAY_0"},
+                        {title: "TOUR_DAY_0"},
+
+                        {title: "ATTENDANCE_DAY_1"},
+                        {title: "PERCENTAGE_ON_TASK_DAY_1"},
+                        {title: "PERCENTAGE_TRAVEL_DAY_1"},
+                        {title: "PLAN_ISSUES_DAY_1"},
+                        {title: "TOUR_DAY_1"},
+
+                        {title: "ATTENDANCE_DAY_2"},
+                        {title: "PERCENTAGE_ON_TASK_DAY_2"},
+                        {title: "PERCENTAGE_TRAVEL_DAY_2"},
+                        {title: "PLAN_ISSUES_DAY_2"},
+                        {title: "TOUR_DAY_2"},
+
+                        {title: "ATTENDANCE_DAY_3"},
+                        {title: "PERCENTAGE_ON_TASK_DAY_3"},
+                        {title: "PERCENTAGE_TRAVEL_DAY_3"},
+                        {title: "PLAN_ISSUES_DAY_3"},
+                        {title: "TOUR_DAY_3"},
+
+                        {title: "ATTENDANCE_DAY_4"},
+                        {title: "PERCENTAGE_ON_TASK_DAY_4"},
+                        {title: "PERCENTAGE_TRAVEL_DAY_4"},
+                        {title: "PLAN_ISSUES_DAY_4"},
+                        {title: "TOUR_DAY_4"},
+
+                        {title: "ATTENDANCE_DAY_5"},
+                        {title: "PERCENTAGE_ON_TASK_DAY_5"},
+                        {title: "PERCENTAGE_TRAVEL_DAY_5"},
+                        {title: "PLAN_ISSUES_DAY_5"},
+                        {title: "TOUR_DAY_5"}
                     ]
                 });
+
+
+                $('#datatableplanner').DataTable( {
+                    fixedColumns: {
+                        leftColumns: 3
+                    }
+                } );
             }
         });
     }
