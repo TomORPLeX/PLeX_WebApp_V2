@@ -122,7 +122,7 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
     dataString = fluidityStatus + plannedWork + priorityScore + skillsFilter + execStatusSelection + qFlagSelection + oucSelection + taskduration;
 
     //Filter out jobs in execute
-    var quer5 = "SELECT  LON, LAT, WEB_PRIMARY_SKILL AS PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, web_system_defined_priority, FINAL_STATUS as CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER, CASE_OBJID, QUEUE_ID FROM live_workstack " + dataString + ";";
+    var quer5 = "SELECT  LON, LAT, WEB_PRIMARY_SKILL AS PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, web_system_defined_priority, FINAL_STATUS as CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER, CASE_OBJID, QUEUE_ID, PLANNED_TT_DURATION, OM_OUC FROM live_workstack " + dataString + ";";
     var quer6 = "SELECT COUNT(*) as Total, priority_description as priority_description FROM live_workstack " + dataString + "group by priority_description;";
     //console.log(quer5);
     //console.log(data.durationinput);
