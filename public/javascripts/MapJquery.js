@@ -40,6 +40,7 @@ $(document).ready(function() {
     $('#durationselection').change(function() {
 
         if ($('#durationselection').find(":selected").val() == "No Duration"){
+            $('#durationinput').val('');
             $('#durationinput').attr('disabled',true);
         }else{
             $('#durationinput').attr('disabled',false);
@@ -106,7 +107,6 @@ $(document).ready(function() {
         qFlag = $('#qFlag').find(":selected").text();
         durationselection = $('#durationselection').find(":selected").attr('name');
         durationinput = $('#durationinput').val();
-        alert(durationinput);
 
         dataString = {
             'fluidity':fluidityStatus,
