@@ -54,12 +54,19 @@ router.use('/', function( req, res, next) {
                         "LON": "",
                         "LAT": "",
                         "PRIMARY_SKILL": "",
-                        "WT_DESCRIPTION": "",
+                        "JOBDESCRIPTION": "",
+                        "SUB_DESCRIPTION": "",
+                        "web_system_defined_priority": "",
                         "CASE_STATUS": "",
                         "PRIORITY_DESCRIPTION": "",
-                        "EXCH": "",
+                        "EXCHANGE": "",
                         "CASE_ID": "",
-                        "CUST_EST_NO": ""
+                        "ESTIMATENUMBER": "",
+                        "CASE_OBJID": "",
+                        "QUEUE_ID": "",
+                        "PLANNED_TT_DURATION": "",
+                        "OM_OUC": ""
+
                     }],
                     "selection": {
                         "fluidity": "All",
@@ -70,7 +77,7 @@ router.use('/', function( req, res, next) {
                     },
                     "priorityCount": [{
                         "Total": "",
-                        "priority_description": ""
+                        "web_priority_description": ""
                     }]
                 };
 
