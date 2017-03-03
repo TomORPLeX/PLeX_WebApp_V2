@@ -7,8 +7,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
-var pool = require('./bin/db.js');
-
 var index = require('./routes/index');
 var logincheck = require('./routes/logincheck');
 var demand = require('./routes/demand');

@@ -8,8 +8,9 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="/demand" style="color:white;"> Demand</a></li>
+                <% if (profile !== "OTD") { %>
                 <li><a href="/planner" style="color:white;"> Work Planner</a></li>
-                <li><a href="" style="color:white;"> OTD</a></li>
+                <% }%>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <% if (loginFlag == 1) { %>

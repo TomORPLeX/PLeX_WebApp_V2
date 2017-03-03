@@ -3,6 +3,8 @@ var router = express.Router();
 var pool = require('../bin/db.js');
 var loginfunction = require("../bin/login.js");
 
+var $ = require('jquery');
+
 var obj = {};
 var cases = '{"CASE_ID":"xxxxxx"},{"CASE_ID":"xxxxxx"}';
 
@@ -136,7 +138,8 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
                         "db":"",
                         "rowsize":0,
                         "loginFlag":req.cookies.loginFlag,
-                        "adminFlag":req.cookies.adminFlag
+                        "adminFlag":req.cookies.adminFlag,
+                        "profile": req.cookies.profile
                     };
                     //console.log("obj passed into planner: \n"+JSON.stringify(obj)+"\n");
                     res.render('planner', obj);

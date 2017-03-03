@@ -14,6 +14,7 @@
     "express": "~4.14.0",
     "forever": "0.15.3",
     "fs": "0.0.1-security",
+    "jquery": "3.1.1",
     "kalendae": "0.6.1",
     "leaflet": "1.0.2",
     "leaflet.markercluster": "1.0.0",

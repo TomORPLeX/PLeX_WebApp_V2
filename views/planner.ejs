@@ -9,7 +9,6 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link href="https://fonts.googleapis.com/css?family=Sarpanch" rel="stylesheet"><!--brand text-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
     <link rel="stylesheet" href="build/kalendae.css" type="text/css" charset="utf-8">
@@ -17,28 +16,26 @@
     <!-- Datatables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.13/b-1.2.4/b-flash-1.2.4/b-html5-1.2.4/fc-3.2.2/r-2.1.1/sc-1.4.2/datatables.min.css"/>
 
-    <script src="javascripts/jquery.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
-    <script src="javascripts/bootstrap.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="build/kalendae.standalone.js" type="text/javascript" charset="utf-8"></script>
 
 
-    <!--script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script-->
-    <!--script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script-->
-    <!--script-- type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script-->
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.2/js/dataTables.fixedColumns.min.js"></script>
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
+    <!-- Latest compiled and minified JavaScript-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
 
-    <!-- Latest compiled and minified Locales -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+    <!-- Latest compiled and minified Locales-->
+    <script-- src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script-->
 
 </head>
 
@@ -155,7 +152,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group col-md-offset-3 col-md-2">
+                        <div class="form-group col-md-offset-2 col-md-3">
                             <label style="padding: 0px" for="starttime">Enter Start Time</label>
                                 <% if(formvalues.starttime.length > 0) { %>
                             <input class="timepicker text-center" interval="model.options.interval" dynamic="model.options.dynamic" dropdown="model.options.dropdown" scrollbar="model.options.scrollbar" max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" time-format="model.options.timeFormat" default-time="model.options.defaultTime" time-string="model.timeString" time="model.time" jt-timepicker="" name="starttime" id="starttime" placeholder=" Enter Task Time" value="<%=formvalues.starttime%>">
