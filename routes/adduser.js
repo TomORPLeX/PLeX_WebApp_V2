@@ -59,7 +59,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         err.status=500.03;
                         return next(err);
                     } else {
-                        obj = {db: rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag};
+                        obj = {db: rows, 'username': req.cookies.username, 'loginFlag': req.cookies.loginFlag, 'adminFlag': req.cookies.adminFlag, "profile": req.cookies.profile};
                         addusermessage = 'Added User: [OUC: '+addouc+' Name: '+addname+' EIN: '+addein+' Profile: '+addprofile+' ]';
                         res.render('admin', obj);
                     }

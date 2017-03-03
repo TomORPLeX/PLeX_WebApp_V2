@@ -84,8 +84,12 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
     if (data.execStatus == "All") {
         execStatusFlag = 1;
         execStatusSelection = "";
+    } else if (skillsFilterFlag == 1 && data.execStatus == "Not Issued" ) {
+        execStatusSelection = "WHERE JIN_STATUS is null ";
+    } else if (skillsFilterFlag == 0 && data.execStatus == "Not Issued" ){
+        execStatusSelection = " AND JIN_STATUS is null ";
     } else if (skillsFilterFlag == 1) {
-        execStatusSelection = "WHERE JIN_STATUS= '" + data.execStatus + "'";
+        execStatusSelection = "WHERE JIN_STATUS = '" + data.execStatus + "'";
     } else {
         execStatusSelection = " AND JIN_STATUS= '" + data.execStatus + "'";
     }
@@ -121,11 +125,20 @@ router.all('/',loginfunction.isLoggedIn,function(req,res,next) {
 
     dataString = fluidityStatus + plannedWork + priorityScore + skillsFilter + execStatusSelection + qFlagSelection + oucSelection + taskduration;
 
+    console.log(data.toggle);
+
     //Filter out jobs in execute
-    var quer5 = "SELECT  LON, LAT, WEB_PRIMARY_SKILL AS PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, web_system_defined_priority, FINAL_STATUS as CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER, CASE_OBJID, QUEUE_ID, PLANNED_TT_DURATION, OM_OUC FROM live_workstack " + dataString + ";";
-    var quer6 = "SELECT COUNT(*) as Total, web_priority_description as web_priority_description FROM live_workstack " + dataString + "group by web_priority_description;";
-    //console.log(quer5);
-    //console.log(data.durationinput);
+    if (data.toggle==1) {
+        console.log('OTD profile');
+        var quer5 = "SELECT  LON, LAT, PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, web_system_defined_priority, CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER, CASE_OBJID, QUEUE_ID, PLANNED_TT_DURATION, OM_OUC FROM (SELECT  LON, LAT, WEB_PRIMARY_SKILL AS PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, web_system_defined_priority, FINAL_STATUS as CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER, CASE_OBJID, QUEUE_ID, PLANNED_TT_DURATION, OM_OUC, web_planned_flag FROM live_workstack "+ dataString +" )a LEFT JOIN (SELECT case_id as plancaseid, min(planned_date) as planned_date  FROM live_plexplanner GROUP BY case_id)b ON  a.case_id = b.plancaseid WHERE (planned_date >= CURDATE() + INTERVAL 4 DAY OR planned_date IS NULL);";
+        var quer6 = "SELECT COUNT(*) as Total, web_priority_description FROM (SELECT web_priority_description, case_id FROM live_workstack " + dataString + " )a LEFT JOIN (SELECT case_id as plancaseid, min(planned_date) as planned_date  FROM live_plexplanner GROUP BY case_id)b ON  a.case_id = b.plancaseid WHERE (planned_date >= CURDATE() + INTERVAL 4 DAY OR planned_date IS NULL) group by web_priority_description;";
+    } else{
+        console.log('all other profile');
+        var quer5 = "SELECT  LON, LAT, WEB_PRIMARY_SKILL AS PRIMARY_SKILL, JOBDESCRIPTION, SUB_DESCRIPTION, web_system_defined_priority, FINAL_STATUS as CASE_STATUS, EXCHANGE, CASE_ID, ESTIMATENUMBER, CASE_OBJID, QUEUE_ID, PLANNED_TT_DURATION, OM_OUC FROM live_workstack " + dataString + ";";
+        var quer6 = "SELECT COUNT(*) as Total, web_priority_description as web_priority_description FROM live_workstack " + dataString + "group by web_priority_description;";
+    }
+    console.log(quer5);
+    console.log(quer6);
 
     pool.query(quer5, function (err,rows) {
         if (err) {

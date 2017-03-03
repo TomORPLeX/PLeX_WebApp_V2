@@ -9,14 +9,11 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link href="https://fonts.googleapis.com/css?family=Sarpanch" rel="stylesheet"><!--brand text-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.css" />
-    <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="http://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
@@ -195,6 +192,33 @@
 <!-- /.row -->
     <div class="row row-centered">
             <div class="col-md-3 col-centered" id="queryform">
+                <%if(profile=="OTD"){
+                                    if(selection.toggle=="1"){%>
+                <h4 class="text-center">On The Day Toggle</h4>
+                <label style="font-weight: normal;">OFF</label>
+                <label class="switch">
+                    <input type="checkbox" id="toggle" name="1" checked>
+                    <div class="slider round"></div>
+                </label>
+                <label style="font-weight: normal;">ON</label>
+                <%}else if(selection.toggle=="0"){%>
+                <h4 class="text-center">On The Day Toggle</h4>
+                <label style="font-weight: normal;">OFF</label>
+                <label class="switch">
+                    <input type="checkbox" id="toggle" name="1">
+                    <div class="slider round"></div>
+                </label>
+                <label style="font-weight: normal;">ON</label>
+                <%}else {%>
+                <h4 class="text-center">On The Day Toggle</h4>
+                <label style="font-weight: normal;">OFF</label>
+                <label class="switch">
+                    <input type="checkbox" id="toggle" name="1" checked>
+                    <div class="slider round"></div>
+                </label>
+                <label style="font-weight: normal;">ON</label>
+                <%}}%>
+
                 <h4 class="text-center">Select Fluidity Status</h4>
                 <select class="selectpicker" id="fluidity">
                     <%if(selection.fluidity=="All"){%>
@@ -422,6 +446,16 @@
                     <%}else{%>
                     <option name="FUR">FUR</option>
                     <%}%>
+                    <%if(selection.execStatus=="HLD"){%>
+                    <option selected name="HLD">HLD</option>
+                    <%}else{%>
+                    <option name="HLD">HLD</option>
+                    <%}%>
+                    <%if(selection.execStatus=="Not Issued"){%>
+                    <option selected name="null">Not Issued</option>
+                    <%}else{%>
+                    <option name="null">Not Issued</option>
+                    <%}%>
                 </select>
 
                 <h4 class="text-center">Queue Flag</h4>
@@ -445,6 +479,11 @@
                     <option selected name="R">R</option>
                     <%}else{%>
                     <option name="R">R</option>
+                    <%}%>
+                    <%if(selection.qFlag=="C"){%>
+                    <option selected name="C">C</option>
+                    <%}else{%>
+                    <option name="C">C</option>
                     <%}%>
                 </select>
 
@@ -510,6 +549,5 @@
 <script  type="text/javascript" src="/javascripts/MapJquery.js"></script>
 <script  type="text/javascript" src="/javascripts/onbeforeunload.js"></script>
 <script src="/javascripts/getmapquerydatatable.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

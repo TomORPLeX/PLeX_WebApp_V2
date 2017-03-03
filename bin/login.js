@@ -14,19 +14,19 @@ exports.isLoggedIn = function (req,res,next) {
         }
         if (profile =='Manager')
         {
-            if (url1 == '/demand' || url1 == '/planner' || url1 =='/otd' || url1 =='/jobflow' || url1 =='/maprerender' || url1 == '/editestimate' || url1 == '/getdatatabledata' || url1 == '/queryestimatecases'){
+            if (url1 == '/demand' || url1 == '/planner' || url1 =='/jobflow' || url1 =='/maprerender' || url1 == '/editestimate' || url1 == '/getdatatabledata' || url1 == '/queryestimatecases'){
                 return next();
             } else {
                 res.redirect('/');
             }
         } else if (profile =='5DAP') {
-            if (url1 == '/demand' || url1 == '/planner' || url1 =='/otd' || url1 =='/maprerender' || url1 == '/editestimate' || url1 == '/getdatatabledata' || url1 == '/queryestimatecases'){
+            if (url1 == '/demand' || url1 == '/planner' ||url1 =='/maprerender' || url1 == '/editestimate' || url1 == '/getdatatabledata' || url1 == '/queryestimatecases'){
                 return next();
             } else {
                 res.redirect('/');
             }
         } else if (profile =='OTD') {
-            if (url1 == '/otd'){
+            if (url1 == '/demand' || url1 =='/maprerender' || url1 == '/getdatatabledata'){
                 return next();
             } else {
                 res.redirect('/');

@@ -16,6 +16,10 @@
     "forever": "0.15.3",
     "fs": "0.0.1-security",
     "jquery": "3.1.1",
+<<<<<<< HEAD
+=======
+    "kalendae": "0.6.1",
+>>>>>>> bfcca6207daf710cd9cc5d10894f53de5bcc7543
     "leaflet": "1.0.2",
     "leaflet.markercluster": "1.0.0",
     "morgan": "~1.7.0",

@@ -33,7 +33,8 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
                 'username': req.cookies.username,
                 'loginFlag': req.cookies.loginFlag,
                 'adminFlag': req.cookies.adminFlag,
-                'cases': req.cookies.cases};
+                'cases': req.cookies.cases,
+                'profile': req.cookies.profile};
                 res.render('demand', obj);
         }
     });

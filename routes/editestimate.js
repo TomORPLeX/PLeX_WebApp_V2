@@ -574,7 +574,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                                     "db":rows,
                                     "rowsize": selectcolcount,
                                     "loginFlag":loginflag0,
-                                    "adminFlag":adminflag0};
+                                    "adminFlag":adminflag0,
+                                    "profile": req.cookies.profile};
                                 res.render('planner', obj);
                             }
                         });
@@ -594,7 +595,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             "db":"",
             "rowsize": selectcolcount,
             "loginFlag":req.cookies.loginFlag,
-            "adminFlag":req.cookies.adminFlag
+            "adminFlag":req.cookies.adminFlag,
+            "profile": req.cookies.profile
         };
 
         res.render('planner', obj);

@@ -11,6 +11,7 @@ $(document).ready(function() {
     var execStatus;
     var durationselection;
     var durationinput;
+    var toggle=0;
 
 
 
@@ -99,6 +100,11 @@ $(document).ready(function() {
             }
         }
 
+        if ($("#toggle").is(":checked")) {
+
+            toggle = $('#toggle').attr('name');
+        }
+
         //skillsFilter[y-1] = skillsFilter[y-1]+");";
         fluidityStatus = $('#fluidity').find(":selected").text();
         plannedWork = $('#planned').find(":selected").attr('name');
@@ -117,7 +123,8 @@ $(document).ready(function() {
             'qFlag':qFlag,
             'ouc':oucSelection,
             'durationselection': durationselection,
-            'durationinput': durationinput
+            'durationinput': durationinput,
+            'toggle': toggle
         };
 
         //alert(dataString);
@@ -136,9 +143,9 @@ $(document).ready(function() {
                     }, 250);
 
                 },
-            error: function (request, status, error) {
-                window.location.replace("/error");
-            }
+                error: function (request, status, error) {
+                    window.location.replace("/error");
+                }
             });
         }else{
             $("#alert").show();
