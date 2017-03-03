@@ -48,6 +48,7 @@ var tasknum6="";
 var eodtravel6="";
 var travel6="";
 var dates6="";
+var notesarray = ["","","","","","",""];
 
 var formvalues = {
     "estimatenum":estimatenum,
@@ -88,7 +89,8 @@ var formvalues = {
     "tasknum6":tasknum6,
     "eodtravel6":eodtravel6,
     "travel6":travel6,
-    "dates6":dates6
+    "dates6":dates6,
+    "notesarray":notesarray
 };
 
 var fluiditydropdown = "";
@@ -115,9 +117,9 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
                 } else {
                     console.log('skill dropdown:'+JSON.stringify(rows));
                     skillsdropdown = rows;
-                    gangsizedropdown = [{"ASSUMED_GANG_SIZE":1},{"ASSUMED_GANG_SIZE":2},{"ASSUMED_GANG_SIZE":3},{"ASSUMED_GANG_SIZE":4},{"ASSUMED_GANG_SIZE":5},{"ASSUMED_GANG_SIZE":6}];
-                    traveldropdown = [{"PLANNED_TT_DURATION":10},{"PLANNED_TT_DURATION":"20"},{"PLANNED_TT_DURATION":"30"},{"PLANNED_TT_DURATION":"40"},{"PLANNED_TT_DURATION":"50"},{"PLANNED_TT_DURATION":"60"},{"PLANNED_TT_DURATION":"70"},{"PLANNED_TT_DURATION":"80"},{"PLANNED_TT_DURATION":"90"},{"PLANNED_TT_DURATION":"100"},{"PLANNED_TT_DURATION":"110"},{"PLANNED_TT_DURATION":"120"},{"PLANNED_TT_DURATION":"130"},{"PLANNED_TT_DURATION":"140"},{"PLANNED_TT_DURATION":"150"}];
-                    tasknumberdropdown = [{"TASK_NUMBER":1},{"TASK_NUMBER":2},{"TASK_NUMBER":3},{"TASK_NUMBER":4},{"TASK_NUMBER":5},{"TASK_NUMBER":6}];
+                    gangsizedropdown = [{"ASSUMED_GANG_SIZE":"1"},{"ASSUMED_GANG_SIZE":"2"},{"ASSUMED_GANG_SIZE":"3"},{"ASSUMED_GANG_SIZE":"4"},{"ASSUMED_GANG_SIZE":"5"},{"ASSUMED_GANG_SIZE":"6"}];
+                    traveldropdown = [{"PLANNED_TT_DURATION":"0"},{"PLANNED_TT_DURATION":"10"},{"PLANNED_TT_DURATION":"20"},{"PLANNED_TT_DURATION":"30"},{"PLANNED_TT_DURATION":"40"},{"PLANNED_TT_DURATION":"50"},{"PLANNED_TT_DURATION":"60"},{"PLANNED_TT_DURATION":"70"},{"PLANNED_TT_DURATION":"80"},{"PLANNED_TT_DURATION":"90"},{"PLANNED_TT_DURATION":"100"},{"PLANNED_TT_DURATION":"110"},{"PLANNED_TT_DURATION":"120"},{"PLANNED_TT_DURATION":"130"},{"PLANNED_TT_DURATION":"140"},{"PLANNED_TT_DURATION":"150"}];
+                    tasknumberdropdown = [{"TASK_NUMBER":"1"},{"TASK_NUMBER":"2"},{"TASK_NUMBER":"3"},{"TASK_NUMBER":"4"},{"TASK_NUMBER":"5"},{"TASK_NUMBER":"6"}];
                     res.cookie('fluiditycookie', fluiditydropdown, {maxAge: 900000, httpOnly: false});
                     res.cookie('skillscookie', skillsdropdown, {httpOnly: false});
 

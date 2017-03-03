@@ -63,7 +63,37 @@ $(document).ready(function() {
                     row = [];
                 }
 
-                $('#datatableplanner').DataTable({
+                var today = new Date(); //$.datepicker.formatDate('dd/mm', new Date());
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1;
+                var day0 = dd + '/'+ mm;
+                today.setDate(today.getDate() + 1);
+                dd = today.getDate();
+                mm = today.getMonth() + 1;
+                var day1 = dd + '/'+ mm;
+                today.setDate(today.getDate() + 1);
+                dd = today.getDate();
+                mm = today.getMonth() + 1;
+                var day2 = dd + '/'+ mm;
+                today.setDate(today.getDate() + 1);
+                dd = today.getDate();
+                mm = today.getMonth() + 1;
+                var day3 = dd + '/'+ mm;
+                today.setDate(today.getDate() + 1);
+                dd = today.getDate();
+                mm = today.getMonth() + 1;
+                var day3 = dd + '/'+ mm;
+                today.setDate(today.getDate() + 1);
+                dd = today.getDate();
+                mm = today.getMonth() + 1;
+                var day4 = dd + '/'+ mm;
+                today.setDate(today.getDate() + 1);
+                dd = today.getDate();
+                mm = today.getMonth() + 1;
+                var day5 = dd + '/'+ mm;
+                //alert(day0 + "  "+day1 + "  "+ day2 + " "+day3);
+
+                var table = $('#datatableplanner').DataTable({
                     data: array,
                     columns: [
                         {title: "OUC"},
@@ -107,15 +137,37 @@ $(document).ready(function() {
                         {title: "PERCENTAGE_TRAVEL_DAY_5"},
                         {title: "PLAN_ISSUES_DAY_5"},
                         {title: "TOUR_DAY_5"}
-                    ]
-                });
-
-
-                $('#datatableplanner').DataTable( {
-                    fixedColumns: {
-                        leftColumns: 3
+                    ],
+                    //scrollY:        "100px",
+                    scrollX:        "800px",
+                    paging:         true,
+                    fixedColumns:   {
+                        leftColumns: 5
+                    },
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'excel',
+                        {
+                            extend: 'colvisGroup',
+                            text: 'Day 0',
+                            show: [ 6, 7, 8, 9, 10 ],
+                            hide: [ 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]
+                        },
+                        {
+                            extend: 'colvisGroup',
+                            text: 'Show all',
+                            show: ':hidden'
+                        }
+                    ],
+                    rowCallback: function(row, data, index) {
+                        console.log(row);
+                        if (data[4]== null) {
+                            $(row).find('td:eq(3)').addClass('colorred');
+                            $(row).find('td:eq(1)').addClass('colorgrey');
+                            $(row).find('td:eq(5)').addClass('colorblue');
+                        }
                     }
-                } );
+                });
             }
         });
     }

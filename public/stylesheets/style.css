@@ -223,3 +223,14 @@ div.containerTableDemand{
 .error-template {padding: 40px 15px;text-align: center;}
 .error-actions {margin-top:15px;margin-bottom:15px;}
 .error-actions .btn { margin-right:10px; }
+
+/* Planner Datatable Formatting */
+td.colorred  {
+  background-color: red;
+}
+td.colorblue  {
+  background-color: blue;
+}
+td.colorgrey {
+  background-color: grey;
+}

@@ -16,7 +16,7 @@ document.getElementById("divcases").onclick = function ()
             contentType: 'application/json',
             url: '/querycasedata',
             success: function (values) {
-                alert(JSON.stringify(values));
+                //alert(JSON.stringify(values));
                 if(values.formvalues.dso != null){
                     document.getElementById("dso").checked = true;
                 }
@@ -127,6 +127,19 @@ document.getElementById("divcases").onclick = function ()
                 }
                 if(values.formvalues.dates6 != null){
                     document.getElementById("dates6").value = values.formvalues.dates6;
+                }
+                //alert('formvalues: '+values.formvalues.notearray+'   length: '+values.formvalues.notearray.length);
+                //alert(values.formvalues.notearray[1].length);
+                for(var c=1;c<values.formvalues.notearray.length;c++) {
+                    if(values.formvalues.notearray[c].length>0) {
+                        var rightNote = eval('\'note'+c+'\'');
+                        document.getElementById(rightNote).value = values.formvalues.notearray[c];
+                        // force glyicon to be file
+                        //alert('eng '+c+' has notes. '+'notelink: '+notelink);
+                        $("#eng"+c+"notes").removeClass().addClass('glyphicon\ glyphicon-file');
+                    } else {
+                        $("#eng"+c+"notes").removeClass().addClass('glyphicon\ glyphicon-plus');
+                    }
                 }
             },
             error: function (request, status, error) {

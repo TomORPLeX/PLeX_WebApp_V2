@@ -52,6 +52,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     var engein6 = "";
     var tasknum6 = "";
     var dates6 = "";
+    var notesarray =["","","","","","",""];
 
     var delflag=0;
     var delflag2=0;
@@ -103,6 +104,13 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     travel6 = req.body.traveltime6;
     eodtravel6 = req.body.eodtravel6;
     dates6 = req.body.dates6;
+    notesarray[1] = req.body.note1;
+    notesarray[2] = req.body.note2;
+    notesarray[3] = req.body.note3;
+    notesarray[4] = req.body.note4;
+    notesarray[5] = req.body.note5;
+    notesarray[6] = req.body.note6;
+
     var numengs;
 
     var dropdownsjson = {
@@ -152,7 +160,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         "tasknum6":tasknum6,
         "eodtravel6":eodtravel6,
         "travel6":travel6,
-        "dates6":dates6
+        "dates6":dates6,
+        "notesarray": notesarray
     };
     var str = "EST_NUM: <b>" + estimatenum +"</b>   CASE_ID: <b>" + selectedcases +"</b><br /><br />";
     var selectcolumns = "";
@@ -175,9 +184,9 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             selectcolcount = selectcolcount + 3;
         } else {
             updatecase = updatecase + " WEB_DSO_BOOKED = NULL ,";
-            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = NULL ,";
-            updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = NULL ,";
-            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = NULL ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = SYSTEM_DEFINED_PRIORITY_SCORE ,";
+            updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = PRIORITY_DESCRIPTION ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = SYSTEM_DEFINED_PRIORITY_FLAG ,";
             str = str + "DSO_BOOKED = N <br />";
         }
         if (flagtofluidity) {
@@ -199,8 +208,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             selectcolcount = selectcolcount + 3;
         } else {
             updatecase = updatecase + " WEB_DEPENDENCIES_BOOKED = NULL ,";
-            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = NULL ,";
-            updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = NULL ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = SYSTEM_DEFINED_PRIORITY ,";
+            updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = PRIORITY_DESCRIPTION ,";
             updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = NULL ,";
             str = str + "Dependancies Booked = N <br />";
         }
@@ -246,10 +255,10 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
 
         // delete all case data from engineer table.
         var deleteexisting = 'DELETE FROM live_plexplanner WHERE CASE_ID LIKE \'' + selectedcases + '\';';
-        console.log(deleteexisting);
+        //console.log(deleteexisting);
         pool.query(deleteexisting, function (err, rows) {
             if (err) {
-                console.log('error in delete eng query');
+                console.log('error in delete eng query:'+deleteexisting);
                 err.status = 500.08;
                 return next(err);
             } else {
@@ -338,12 +347,35 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                 } if(engein6.length>0){
                     looper++;
                 }
+
+                var looper2 =0;
+                if(engein.length>0 && delflag == 0){
+                    looper2++;
+                } if(engein2.length>0 && delflag2 == 0){
+                    looper2++;
+                } if(engein3.length>0 && delflag3 == 0){
+                    looper2++;
+                } if(engein4.length>0 && delflag4 == 0){
+                    looper2++;
+                } if(engein5.length>0 && delflag5 == 0){
+                    looper2++;
+                } if(engein6.length>0 && delflag6 == 0){
+                    looper2++;
+                }
+
                 numengs = looper;
+                var numengsincflag = looper2;
+                if (numengsincflag == 0) {
+                    console.log('no planned engineers');
+                    updatecase = updatecase + " WEB_PLANNED_FLAG = NULL,";
 
-                updatecase = updatecase + " WEB_PLANNED_FLAG = \'"+numengs+"\',";
+                } else {
+                    updatecase = updatecase + " WEB_PLANNED_FLAG = \'"+numengsincflag+"\',";
+                }
 
-                console.log('delflag: '+delflag);
-                console.log('EIN len: '+engein.length);
+
+                //console.log('delflag: '+delflag);
+                //console.log('EIN len: '+engein.length);
 
                 if (engein.length==9 && delflag==0) {
                     //console.log('engein1 exists');
@@ -403,7 +435,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         insertquervalues = insertquervalues + ")";
 
                         fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
-                        console.log('insertquer' + p + ': ' + fullinsertquery);
+                        //console.log('insertquer' + p + ': ' + fullinsertquery);
 
                         pool.query(fullinsertquery, function (err, rows) {
                             if (err) {
@@ -419,16 +451,15 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         insertquervalues = "(";
 
                     }
-                    console.log('str after eng 1 before dates: ' + str);
+                    //console.log('str after eng 1 before dates: ' + str);
                     str = str + "Pinned to = " + engein + ", ";
                     str = str + "Task Num = " + tasknum + ", ";
                     str = str + "Travel = " + travel + ", ";
                     str = str + "EOD Travel = " + eodtravel + ", ";
                     str = str + "Dates = " + alldates + "] <br />";
-                    console.log('str after inserted dates: ' + str);
+                    //console.log('str after inserted dates: ' + str);
                 }
 
-                console.log('numengsbefore eng 2: '+numengs);
                 var alldates2;
                 for(var ij=2;ij<numengs+1;ij++) {
                     alldates2 = "[";
@@ -438,10 +469,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         for (var temp = 0; temp < splitdates.length; temp++) {
                             splitdates[temp] = splitdates[temp].trim();
                         }
-                        console.log('num of days eng'+ij +' is working: '+splitdates.length);
+                        //console.log('num of days eng'+ij +' is working: '+splitdates.length);
                         for (var pp = 0; pp < splitdates.length; pp++) {
-                            // Set Web Planned Flag
-                            updatecase = updatecase + " WEB_PLANNED_FLAG = \'Y\',";
 
                             //set case_id of row to be inserted
                             insertquerfields = insertquerfields + " CASE_ID ,";
@@ -490,7 +519,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                             insertquervalues = insertquervalues + ")";
 
                             fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
-                            console.log('eng'+ij+', insertquer' + pp + ': ' + fullinsertquery);
+                            //console.log('eng'+ij+', insertquer' + pp + ': ' + fullinsertquery);
 
                             pool.query(fullinsertquery, function (err, rows) {
                                 if (err) {
@@ -519,8 +548,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                 updatecase = updatecase + " WHERE ESTIMATENUMBER LIKE '" + estimatenum + "' AND CASE_ID LIKE '"+selectedcases+"';";
 
                 var selectquer = "SELECT * FROM live_workstack LIMIT 1;";
-                console.log('select query: '+selectquer);
-                console.log('updatecase: '+updatecase);
+                //console.log('select query: '+selectquer);
+                //console.log('updatecase: '+updatecase);
 
                 pool.query(updatecase, function (err, rows) {
                     if (err) {
@@ -537,11 +566,11 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                             } else {
                                 var loginflag0 = req.cookies.loginFlag;
                                 var adminflag0 = req.cookies.adminFlag;
-                                //console.log("rows: "+JSON.stringify(rows));
+                                console.log("Selected cases: "+selectedcases);
                                 obj = {"dropdownsjson":dropdownsjson,
                                     "plannermessage": str,
                                     "formvalues": formvalues,
-                                    "cases":req.cookies.cases,
+                                    "cases":selectedcases,
                                     "db":rows,
                                     "rowsize": selectcolcount,
                                     "loginFlag":loginflag0,
@@ -556,44 +585,21 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         });
     } else
     {
+        //console.log('no selected cases :'+selectedcases);
         plannermessage = "Please select cases to edit";
         obj = {"dropdownsjson":dropdownsjson,
             "plannermessage": plannermessage,
             "formvalues": formvalues,
-            "cases": req.cookies.cases,
+            "cases": {"CASE_ID": ""},
             "db":"",
             "rowsize": selectcolcount,
             "loginFlag":req.cookies.loginFlag,
             "adminFlag":req.cookies.adminFlag
         };
 
-        console.log("form values: "+JSON.stringify(obj.formvalues));
         res.render('planner', obj);
     }
 
-    //call update function
-/*
-    selectquer = "SELECT * FROM live_table WHERE CASE_ID IN ("+cases+");";
-    pool.query(updatequer, function (err, rows) {
-        if (err) {
-            console.log('Error in update query');
-            throw err; //what does this actually do?!
-        } else {
-            console.log('Database Updated');
-            pool.query(selectquer, function (err, rows) {
-                if (err) {
-                    console.log('Error in select query');
-                    throw err;
-                } else {
-                    plannermessage = "Record Updated";
-                    obj = { "db": rows,
-                        "formvalues": formvalues,
-                        "plannermessage": plannermessage};
-                    res.render('admin', obj);
-                }
-            });
-        }
-    });*/
 
 // Reset form values to ""
     estimatenum = "";

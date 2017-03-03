@@ -26,7 +26,7 @@ $("#deletion").click(function () {
     var estimatenum1 = document.getElementById('estimate').value;
     var numofcases1 = cases1.length;
     var obj = {'cases': cases1, 'estimatenum': estimatenum1};
-    alert(cases1 +'\n'+'length: '+numofcases1);
+    //alert(cases1 +'\n'+'length: '+numofcases1);
 
     if (numofcases1 == 1) {
             $.ajax({
@@ -35,7 +35,7 @@ $("#deletion").click(function () {
                 contentType: 'application/json',
                 url: '/querydeletedata',
                 success: function (data) {
-                    alert(JSON.stringify(data.deletedata.length));
+                    //alert(JSON.stringify(data.deletedata.length));
                     if (data.deletedata.length>0) {
                         $(function () {
                             //alert('im here');
