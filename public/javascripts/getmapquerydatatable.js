@@ -18,6 +18,7 @@ $(document).ready(function() {
                 row[5] = parsed[i].EXCHANGE;
                 row[6] = parsed[i].CASE_ID;
                 row[7] = parsed[i].PLANNED_TT_DURATION;
+                row [8] = "<a href = http://10.187.148.18/ewocs2a/JobFlowPages/JobFlow/tabid/115/language/en-GB/Default.aspx?caseid="+ parsed[i].CASE_OBJID + "&queueid="+ parsed[i].QUEUE_ID +"#no-back-button target =\"_blank\">"+ parsed[i].ESTIMATENUMBER+ "</a>";
 
                 array[i] = row;
                 row = [];
@@ -34,6 +35,7 @@ $(document).ready(function() {
                     {title: "Exchange"},
                     {title: "Case ID"},
                     {title: "Duration"},
+                    {title: "Estimate"}
                 ]
             });
 

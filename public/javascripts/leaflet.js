@@ -54,6 +54,7 @@ $(document).ready(function() {
                     "<br><b>Priority: </b><br>" + LonLatData.LatLngData[i].web_system_defined_priority +
                     "<br><b>Exchange: </b><br>" + LonLatData.LatLngData[i].EXCHANGE +
                     "<br><b>Case ID: </b><br>" + LonLatData.LatLngData[i].CASE_ID +
+                    "<br><b>Task Duration (mins): </b><br>" + LonLatData.LatLngData[i].PLANNED_TT_DURATION +
                     "<br><b>Estimate: </b><br><a href = http://10.187.148.18/ewocs2a/JobFlowPages/JobFlow/tabid/115/language/en-GB/Default.aspx?caseid="+ LonLatData.LatLngData[i].CASE_OBJID + "&queueid="+ LonLatData.LatLngData[i].QUEUE_ID +"#no-back-button target =\"_blank\"> "+ LonLatData.LatLngData[i].ESTIMATENUMBER+ "</a>"
             ).openPopup();
             markers.addLayer(marker);
