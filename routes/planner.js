@@ -95,9 +95,9 @@ var formvalues = {
 
 var fluiditydropdown = "";
 var skillsdropdown = "";
-var gangsizedropdown = ""; //runquery(selectquer1+'ASSUMED_GANG_SIZE'+selectquer2);
-var traveldropdown = ""; //runquery(selectquer1+'TT_REMAINING'+selectquer2); //needs editing when real table done
-var tasknumberdropdown = ""; // runquery(selectquer1+'TT_REMAINING'+selectquer2); //needs editing when real table done
+var gangsizedropdown = "";
+var traveldropdown = "";
+var tasknumberdropdown = "";
 
 router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
     pool.query(selectquer1+'FINAL_STATUS'+selectquer2, function (err, rows) {
@@ -150,18 +150,5 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
 
     });
 });
-
-function runquery (selectquer) {
-    pool.query(selectquer, function (err, rows) {
-        if (err) {
-            console.log('error in select query');
-            err.status=500.20;
-            return next(err);
-        } else {
-            //console.log('JSON Returned Using('+selectquer+'): \n' + JSON.stringify(rows));
-            return JSON.stringify(rows);
-        }
-    });
-}
 
 module.exports = router;
