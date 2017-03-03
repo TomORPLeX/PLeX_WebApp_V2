@@ -3,8 +3,6 @@ var router = express.Router();
 var pool = require('../bin/db.js');
 var loginfunction = require("../bin/login.js");
 
-var $ = require('jquery');
-
 var obj = {};
 var cases = '{"CASE_ID":"xxxxxx"},{"CASE_ID":"xxxxxx"}';
 
@@ -97,9 +95,9 @@ var formvalues = {
 
 var fluiditydropdown = "";
 var skillsdropdown = "";
-var gangsizedropdown = ""; //runquery(selectquer1+'ASSUMED_GANG_SIZE'+selectquer2);
-var traveldropdown = ""; //runquery(selectquer1+'TT_REMAINING'+selectquer2); //needs editing when real table done
-var tasknumberdropdown = ""; // runquery(selectquer1+'TT_REMAINING'+selectquer2); //needs editing when real table done
+var gangsizedropdown = "";
+var traveldropdown = "";
+var tasknumberdropdown = "";
 
 router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
     pool.query(selectquer1+'FINAL_STATUS'+selectquer2, function (err, rows) {
@@ -113,11 +111,11 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
 
             pool.query(selectquer1+'PRIMARY_SKILL'+selectquer2, function (err, rows) {
                 if (err) {
-                    console.log('error in select query');
+                    console.log('error in select query :'+selectquer1+'PRIMARY_SKILL'+selectquer2);
                     err.status=500.19;
                     return next(err);
                 } else {
-                    console.log('skill dropdown:'+JSON.stringify(rows));
+                    //console.log('skill dropdown:'+JSON.stringify(rows));
                     skillsdropdown = rows;
                     gangsizedropdown = [{"ASSUMED_GANG_SIZE":"1"},{"ASSUMED_GANG_SIZE":"2"},{"ASSUMED_GANG_SIZE":"3"},{"ASSUMED_GANG_SIZE":"4"},{"ASSUMED_GANG_SIZE":"5"},{"ASSUMED_GANG_SIZE":"6"}];
                     traveldropdown = [{"PLANNED_TT_DURATION":"0"},{"PLANNED_TT_DURATION":"10"},{"PLANNED_TT_DURATION":"20"},{"PLANNED_TT_DURATION":"30"},{"PLANNED_TT_DURATION":"40"},{"PLANNED_TT_DURATION":"50"},{"PLANNED_TT_DURATION":"60"},{"PLANNED_TT_DURATION":"70"},{"PLANNED_TT_DURATION":"80"},{"PLANNED_TT_DURATION":"90"},{"PLANNED_TT_DURATION":"100"},{"PLANNED_TT_DURATION":"110"},{"PLANNED_TT_DURATION":"120"},{"PLANNED_TT_DURATION":"130"},{"PLANNED_TT_DURATION":"140"},{"PLANNED_TT_DURATION":"150"}];
@@ -153,17 +151,5 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
     });
 });
 
-function runquery (selectquer) {
-    pool.query(selectquer, function (err, rows) {
-        if (err) {
-            console.log('error in select query');
-            err.status=500.20;
-            return next(err);
-        } else {
-            //console.log('JSON Returned Using('+selectquer+'): \n' + JSON.stringify(rows));
-            return JSON.stringify(rows);
-        }
-    });
-}
 
 module.exports = router;

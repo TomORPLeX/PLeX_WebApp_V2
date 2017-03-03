@@ -73,6 +73,11 @@ $('span[name="noteicon"]').click(function () {
                                 buttons: {
                                     "Close": function () {
                                         $(this).dialog("close");
+                                        if(note.length> 0 ){
+                                            $("#eng"+engnum+"notes").removeClass().addClass('glyphicon\ glyphicon-file');
+                                        } else {
+                                            $("#eng"+engnum+"notes").removeClass().addClass('glyphicon\ glyphicon-plus');
+                                        }
                                     }
                                 },
                                 title: "Updated Case Notes",
