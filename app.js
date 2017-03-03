@@ -23,6 +23,9 @@ var getdatatabledata = require('./routes/getdatatabledata');
 var querycasedata = require ('./routes/querycasedata');
 var querydeletedata = require ('./routes/querydeletedata');
 var deleteclicked = require ('./routes/deleteclicked');
+var updatenotes= require ('./routes/updatenotes');
+//var $ = require('jquery');
+//var ajax = require('ajax');
 
 var app = express();
 
@@ -61,6 +64,7 @@ app.use('/getdatatabledata', getdatatabledata);
 app.use('/querycasedata', querycasedata);
 app.use('/querydeletedata', querydeletedata);
 app.use('/deleteclicked', deleteclicked);
+app.use('/updatenotes', updatenotes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

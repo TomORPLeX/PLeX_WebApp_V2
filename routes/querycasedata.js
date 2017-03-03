@@ -59,9 +59,7 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
     var travel6="";
     var dates6="";
 
-
-
-    var selectquer = 'SELECT CASE_ID, WEB_DEPENDENCIES_BOOKED, WEB_DSO_BOOKED, WEB_KEYSTONE_TASK, WEB_REVIEW_FLAG, WEB_PRIMARY_SKILL, WEB_SPECIFIC_START_TIME, WEB_SPECIFIC_END_TIME FROM live_workstack WHERE ESTIMATENUMBER LIKE \''+estimatenum+'\' AND CASE_ID LIKE \''+cases+'\';';
+    var selectquer = 'SELECT CASE_ID, WEB_DEPENDENCIES_BOOKED, WEB_DSO_BOOKED, WEB_KEYSTONE_TASK, WEB_REVIEW_FLAG, WEB_PRIMARY_SKILL, WEB_SPECIFIC_START_TIME, WEB_SPECIFIC_END_TIME FROM live_workstack WHERE CASE_ID LIKE \''+cases+'\';';
 
     console.log(selectquer);
     // query to get case specific data
@@ -148,98 +146,126 @@ router.use('/', loginfunction.isLoggedIn, function(req, res, next) {
                                                 datestring2 = datestring2 + cleandate2;
                                             }
                                         }
-                                        console.log('datestring2: ' + datestring2);
+                                        //console.log('datestring2: ' + datestring2);
                                         eval('dates' + j + ' = datestring2');
                                         rowindex = maxrowindex;
-                                        console.log('rowindex after eng('+j+'): ' + rowindex);
+                                        //console.log('rowindex after eng('+j+'): ' + rowindex);
                                     }
                                 }
                             }
 
-                            var formvalues = {
-                                "estimatenum":estimatenum,
-                                "dso":dso,
-                                "cases":cases,
-                                "tmbooked":tmbooked,
-                                "skills":skills,
-                                "starttime":starttime,
-                                "finishtime":finishtime,
-                                "keystonetask":keystonetask,
-                                "travel":travel,
-                                "eodtravel":eodtravel,
-                                "engein":engein,
-                                "tasknum":tasknum,
-                                "dates":dates,
-                                "flagtofluidity":flagtofluidity,
-                                "engein2":engein2,
-                                "tasknum2":tasknum2,
-                                "eodtravel2":eodtravel2,
-                                "travel2":travel2,
-                                "dates2":dates2,
-                                "engein3":engein3,
-                                "tasknum3":tasknum3,
-                                "eodtravel3":eodtravel3,
-                                "travel3":travel3,
-                                "dates3":dates3,
-                                "engein4":engein4,
-                                "tasknum4":tasknum4,
-                                "eodtravel4":eodtravel4,
-                                "travel4":travel4,
-                                "dates4":dates4,
-                                "engein5":engein5,
-                                "tasknum5":tasknum5,
-                                "eodtravel5":eodtravel5,
-                                "travel5":travel5,
-                                "dates5":dates5,
-                                "engein6":engein6,
-                                "tasknum6":tasknum6,
-                                "eodtravel6":eodtravel6,
-                                "travel6":travel6,
-                                "dates6":dates6
-                            };
+                            var notesquer = 'SELECT planned_engineer, case_notes from live_casenotes WHERE case_id like \''+cases+'\';';
+                            var noteArray= ["","","","","","",""]; // to pass in obj back to client (with formvalues)
+                            pool.query(notesquer, function (err, allNotes) {
+                                if (err) {
+                                    console.log('error in notesquer query:' +notesquer);
+                                    err.status=500.22;
+                                    return next(err);
+                                } else {
+                                    //eng 1 notes added to array
+                                    for (var i =0; i<Object.keys(allNotes).length;i++) {
+                                            if (allNotes[i].planned_engineer == engein) {
+                                                noteArray[1] = allNotes[i].case_notes;
+                                            }
+                                    }
+                                    //engs 2-6 notes added to array
+                                    for (var i =0; i<Object.keys(allNotes).length;i++) {
+                                        for (var j =2; j<numengs+1;j++) { // starting on eng2
+                                            if (allNotes[i].planned_engineer == eval('engein'+j )) {
+                                                eval('noteArray['+j+'] = \''+allNotes[i].case_notes+'\'');
+                                            }
+                                        }
+                                    }
+                                    console.log('complete noteArray: '+noteArray);
 
-                            cases = "";
-                            estimatenum = "";
-                            dso ="";
-                            tmbooked ="";
-                            skills="";
-                            starttime="";
-                            finishtime="";
-                            keystonetask="";
-                            travel = "";
-                            eodtravel ="";
-                            engein = "";
-                            tasknum = "";
-                            dates = "";
-                            flagtofluidity ="";
-                            engein2="";
-                            tasknum2="";
-                            eodtravel2="";
-                            travel2="";
-                            dates2="";
-                            engein3="";
-                            tasknum3="";
-                            eodtravel3="";
-                            travel3="";
-                            dates3="";
-                            engein4="";
-                            tasknum4="";
-                            eodtravel4="";
-                            travel4="";
-                            dates4="";
-                            engein5="";
-                            tasknum5="";
-                            eodtravel5="";
-                            travel5="";
-                            dates5="";
-                            engein6="";
-                            tasknum6="";
-                            eodtravel6="";
-                            travel6="";
-                            dates6="";
+                                    var formvalues = {
+                                        "estimatenum":estimatenum,
+                                        "dso":dso,
+                                        "cases":cases,
+                                        "tmbooked":tmbooked,
+                                        "skills":skills,
+                                        "starttime":starttime,
+                                        "finishtime":finishtime,
+                                        "keystonetask":keystonetask,
+                                        "travel":travel,
+                                        "eodtravel":eodtravel,
+                                        "engein":engein,
+                                        "tasknum":tasknum,
+                                        "dates":dates,
+                                        "flagtofluidity":flagtofluidity,
+                                        "engein2":engein2,
+                                        "tasknum2":tasknum2,
+                                        "eodtravel2":eodtravel2,
+                                        "travel2":travel2,
+                                        "dates2":dates2,
+                                        "engein3":engein3,
+                                        "tasknum3":tasknum3,
+                                        "eodtravel3":eodtravel3,
+                                        "travel3":travel3,
+                                        "dates3":dates3,
+                                        "engein4":engein4,
+                                        "tasknum4":tasknum4,
+                                        "eodtravel4":eodtravel4,
+                                        "travel4":travel4,
+                                        "dates4":dates4,
+                                        "engein5":engein5,
+                                        "tasknum5":tasknum5,
+                                        "eodtravel5":eodtravel5,
+                                        "travel5":travel5,
+                                        "dates5":dates5,
+                                        "engein6":engein6,
+                                        "tasknum6":tasknum6,
+                                        "eodtravel6":eodtravel6,
+                                        "travel6":travel6,
+                                        "dates6":dates6,
+                                        "notearray": noteArray
+                                    };
 
-                            var obj = {"formvalues": formvalues};
-                            res.send(obj);
+                                    cases = "";
+                                    estimatenum = "";
+                                    dso ="";
+                                    tmbooked ="";
+                                    skills="";
+                                    starttime="";
+                                    finishtime="";
+                                    keystonetask="";
+                                    travel = "";
+                                    eodtravel ="";
+                                    engein = "";
+                                    tasknum = "";
+                                    dates = "";
+                                    flagtofluidity ="";
+                                    engein2="";
+                                    tasknum2="";
+                                    eodtravel2="";
+                                    travel2="";
+                                    dates2="";
+                                    engein3="";
+                                    tasknum3="";
+                                    eodtravel3="";
+                                    travel3="";
+                                    dates3="";
+                                    engein4="";
+                                    tasknum4="";
+                                    eodtravel4="";
+                                    travel4="";
+                                    dates4="";
+                                    engein5="";
+                                    tasknum5="";
+                                    eodtravel5="";
+                                    travel5="";
+                                    dates5="";
+                                    engein6="";
+                                    tasknum6="";
+                                    eodtravel6="";
+                                    travel6="";
+                                    dates6="";
+
+                                    var obj = {"formvalues": formvalues};
+                                    res.send(obj);
+
+                                }
+                            });
                         }
                     });
                 }

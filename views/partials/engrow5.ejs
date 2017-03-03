@@ -1,5 +1,5 @@
 <div class="form-group row" id="engrow5" style="padding: 0px">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         <% if(formvalues.engein5.length > 0) { %>
         <input style="padding: 0px" type="number" class="form-control" name="engein5" id="engein5" value="<%=formvalues.engein5%>">
         <% } else { %>
@@ -48,14 +48,36 @@
 
     <div class="form-group col-md-2">
         <% if(formvalues.dates5.length > 0) { %>
-        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates5" id="dates5" value = "<%=formvalues.dates5%>" readonly>
+        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'today-future'" name="dates5" id="dates5" value = "<%=formvalues.dates5%>" readonly>
         <% } else { %>
-        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " name="dates5" id="dates5" readonly>
+        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'today-future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " name="dates5" id="dates5" readonly>
         <% } %>
     </div>
 
-    <div class="form-group col-md-1" style="padding-left: 25px">
-        <input class="form-check-input" type="checkbox" id="deleteeng" name="deleteeng5" value="Y" style="padding-left: 10px">
+    <div class="form-group col-md-1">
+        <% if (formvalues.notesarray[5].length > 0) { %>
+        <a href="javascript:" id="notelink5">
+            <span style="text-indent: 25px" class="glyphicon glyphicon-file" id ="eng5notes" name="noteicon"></span>
+        </a>
+        <% } else { %>
+        <a href="javascript:" id="notelink5">
+            <span style="text-indent: 25px" class="glyphicon glyphicon-plus" id ="eng5notes" name="noteicon"></span>
+        </a>
+        <% } %>
     </div>
+
+    <div class="form-group col-md-1" >
+        <input class="form-check-input" type="checkbox" id="deleteeng5" name="deleteeng5" value="Y" style="padding-left: 10px">
+    </div>
+
+    <% if (formvalues.notesarray[5].length > 0 ) { %>
+    <div id="note5dialog" title="Notes" style="display: none;">
+        <textarea id="note5" name="note5" maxlength="255" style="width:550px; height:250px;"><%= formvalues.notesarray[5] %></textarea>
+    </div>
+    <%} else { %>
+    <div id="note5dialog" title="Notes" style="display: none;">
+        <textarea id="note5" name="note5" maxlength="255" style="width:550px; height:250px;"></textarea>
+    </div>
+    <% } %>
 
 </div>

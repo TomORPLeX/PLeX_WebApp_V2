@@ -1,6 +1,6 @@
 <div class="form-group row" id="engrow1">
-    <div class="form-group col-md-3">
-        <label for="EIN">Enter Eng EIN for Task</label><br><br>
+    <div class="form-group col-md-2">
+        <label for="EIN">Engineer EIN</label><br><br>
         <% if(formvalues.engein.length > 0) { %>
         <input style="padding: 0px" type="number" class="form-control" name="engein" id="engein" value="<%=formvalues.engein%>">
         <% } else { %>
@@ -9,7 +9,7 @@
     </div>
 
     <div class="form-group col-md-2">
-        <label style="padding: 0px" for="Profile">Select Task Number</label>
+        <label style="padding: 0px" for="Profile">Task Number</label> <br><br>
         <select name="tasknum" id="tasknum" class="form-control">
             <option value="" selected><em>Select From List</em></option>
             <%for(var oo =0;oo<dropdownsjson.tasknumberdropdown.length;oo++) { %>
@@ -23,7 +23,7 @@
     </div>
 
     <div class="form-group col-md-2">
-        <label style="padding: 0px" for="Profile">Travel To Next Task<br><br></label>
+        <label style="padding: 0px" for="Profile">Travel To Task<br><br></label>
         <select name="traveltime" id="traveltime" class="form-control">
             <option value="" selected><em>Select From List</em></option>
             <%for(var mm =0;mm<dropdownsjson.traveldropdown.length;mm++) { %>
@@ -51,11 +51,24 @@
     </div>
 
     <div class="form-group col-md-2">
-        <label style="padding: 0px" for="EIN" name="datewrap">Select Planner Defined Date(s)</label>
+        <label style="padding: 0px" for="EIN" name="datewrap">Date(s)</label><br /><br />
         <% if(formvalues.dates.length > 0) { %>
-        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future'" name="dates" id="dates" value = "<%=formvalues.dates%>" readonly>
+        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'today-future'" name="dates" id="dates" value = "<%=formvalues.dates%>" readonly>
         <% } else { %>
-        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'future', blackout: function(date) { var today = new Date(); today.getDate(); var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " id="dates" name="dates" readonly>
+        <input type="text" class="auto-kal" data-kal="mode: 'multiple', months: 1, direction: 'today-future', blackout: function(date) { var today = new Date(); today.getDate()-1; var plus30 = today.setMonth(today.getMonth()+1); return date > plus30} " id="dates" name="dates" readonly>
+        <% } %>
+    </div>
+
+    <div class="form-group col-md-1">
+        <label for="Check" name="">Notes</label> <br /><br />
+        <% if (formvalues.notesarray[1].length > 0) { %>
+        <a href="javascript:" id="notelink1">
+            <span style="text-indent: 25px" class="glyphicon glyphicon-file" id ="eng1notes" name="noteicon"></span>
+        </a>
+        <% } else { %>
+        <a href="javascript:" id="notelink1">
+            <span style="text-indent: 25px" class="glyphicon glyphicon-plus" id ="eng1notes" name="noteicon"></span>
+        </a>
         <% } %>
     </div>
 
@@ -63,5 +76,15 @@
         <label for="Check" name="deleteRow">Delete Row</label>
         <input class="form-check-input" type="checkbox" id="deleteeng" name="deleteeng" value="Y" style="margin-left: 10px">
     </div>
+
+    <% if (formvalues.notesarray[1].length > 0 ) { %>
+    <div id="note1dialog" title="Notes" style="display: none;">
+        <textarea id="note1" name=note1" maxlength="255" style="width:550px; height:250px;"><%= formvalues.notesarray[1] %></textarea>
+    </div>
+    <%} else { %>
+    <div id="note1dialog" title="Notes" style="display: none;">
+        <textarea id="note1" name="note1" maxlength="255" style="width:550px; height:250px;"></textarea>
+    </div>
+    <% } %>
 
 </div>

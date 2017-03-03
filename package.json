@@ -6,6 +6,7 @@
     "start": "node ./bin/server"
   },
   "dependencies": {
+    "ajax": "0.0.4",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "datatables.net-fixedcolumns": "3.2.2",
@@ -20,6 +21,7 @@
     "leaflet.markercluster": "1.0.0",
     "morgan": "~1.7.0",
     "mysql": "2.12.0",
+    "n": "0.6.1",
     "serve-favicon": "~2.3.0"
   }
 }
