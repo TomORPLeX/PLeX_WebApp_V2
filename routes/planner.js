@@ -151,5 +151,4 @@ router.get('/', loginfunction.isLoggedIn, function(req, res, next) {
     });
 });
 
-
 module.exports = router;

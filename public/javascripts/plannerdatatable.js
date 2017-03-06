@@ -95,20 +95,8 @@ $(document).ready(function() {
                 var day5 = dd + '/'+ mm;
                 //alert(day0 + "  "+day1 + "  "+ day2 + " "+day3);
 
-
-                $('#datatableplanner thead tr:eq(0) th:eq(6)').html("This is a really long column title!");
-                // Wrap the colspan'ing header cells with a span so they can be positioned
-                // absolutely - filling the available space, and no more.
-                $('#datatableplanner thead th[colspan]').wrapInner( '<span/>' ).append( '&nbsp;' );
-
-
-
                 var table = $('#datatableplanner').DataTable({
                     data: array,
-                    "columnDefs": [ {
-                    "visible": false,
-                    "targets": -1
-                    } ],
                     columns: [
                         {title: "OUC"},
                         {title: "EIN"},
