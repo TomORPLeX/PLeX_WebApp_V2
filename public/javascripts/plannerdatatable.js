@@ -95,6 +95,14 @@ $(document).ready(function() {
                 var day5 = dd + '/'+ mm;
                 //alert(day0 + "  "+day1 + "  "+ day2 + " "+day3);
 
+
+                var tableRows = $('#datatableplanner tbody tr');
+                $.each(tableRows, function (index, value) {
+                    var cells = $(value).find('td');
+                    $(cells[0]).attr('colspan','2'); // for example I want to set colspan = 2 for cell 0
+                });
+
+
                 var table = $('#datatableplanner').DataTable({
                     data: array,
                     columns: [
@@ -145,6 +153,7 @@ $(document).ready(function() {
                     //scrollY:        "100px",
                     scrollX:        "800px",
                     paging:         true,
+                    "pageLength": 25,
                     fixedColumns:   {
                         leftColumns: 7
                     },
