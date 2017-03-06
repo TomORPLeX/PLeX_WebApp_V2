@@ -184,9 +184,9 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             selectcolcount = selectcolcount + 3;
         } else {
             updatecase = updatecase + " WEB_DSO_BOOKED = NULL ,";
-            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = SYSTEM_DEFINED_PRIORITY_SCORE ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY = SYSTEM_DEFINED_PRIORITY ,";
             updatecase = updatecase + " WEB_PRIORITY_DESCRIPTION = PRIORITY_DESCRIPTION ,";
-            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = SYSTEM_DEFINED_PRIORITY_FLAG ,";
+            updatecase = updatecase + " WEB_SYSTEM_DEFINED_PRIORITY_FLAG = NULL ,";
             str = str + "DSO_BOOKED = N <br />";
         }
         if (flagtofluidity) {

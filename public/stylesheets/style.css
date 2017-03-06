@@ -228,7 +228,6 @@ div.containerTableDemand{
 .error-actions {margin-top:15px;margin-bottom:15px;}
 .error-actions .btn { margin-right:10px; }
 
-<<<<<<< HEAD
 /* Planner Datatable Formatting */
 td.colorred  {
   background-color: red;
@@ -238,7 +237,7 @@ td.colorblue  {
 }
 td.colorgrey {
   background-color: grey;
-=======
+}
 /*toggle button style*/
 .switch {
   position: relative;
@@ -294,5 +293,4 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
->>>>>>> bfcca6207daf710cd9cc5d10894f53de5bcc7543
 }
