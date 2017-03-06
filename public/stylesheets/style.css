@@ -293,6 +293,7 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+<<<<<<< HEAD
 }
 
 
@@ -309,4 +310,6 @@ input:checked + .slider:before {
   text-align: center;
   padding-top: 25%;
   opacity: 0.5;
+=======
+>>>>>>> 46c69b5bbaee6850aa91ed2c0d241c41bf233883
 }

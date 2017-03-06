@@ -24,8 +24,8 @@ var querycasedata = require ('./routes/querycasedata');
 var querydeletedata = require ('./routes/querydeletedata');
 var deleteclicked = require ('./routes/deleteclicked');
 var updatenotes= require ('./routes/updatenotes');
-//var $ = require('jquery');
-//var ajax = require('ajax');
+var jobflow = require('./routes/jobflow');
+var queryjobflowdata = require('./routes/queryjobflowdata');
 
 var app = express();
 
@@ -65,6 +65,8 @@ app.use('/querycasedata', querycasedata);
 app.use('/querydeletedata', querydeletedata);
 app.use('/deleteclicked', deleteclicked);
 app.use('/updatenotes', updatenotes);
+app.use('/jobflow', jobflow);
+app.use('/queryjobflowdata', queryjobflowdata);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -85,15 +87,4 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-//process.on("uncaughtException", function(err,error, req, res, next) {
-  //  // set locals, only providing error in development
-    //console.log('caught exception: '+err);
-    //res.status(err.status || 500);
-    //if (err){
-//        res.redirect('error');
-    //}
-//});
-
 module.exports = app;
-
-//Hiiiiiiiiiiiiiiiiiii
