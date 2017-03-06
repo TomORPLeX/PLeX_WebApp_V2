@@ -6,7 +6,7 @@ $(document).ready(function() {
     } else {
         //alert("loaded " + tempcounter2 + " times");
         tempcounter2++;
-
+        $('#overlay').show();
         $.ajax({
             type: 'POST',
             url: '/getdatatabledata',
@@ -170,5 +170,6 @@ $(document).ready(function() {
                 });
             }
         });
+        $('#overlay').fadeOut(1000);
     }
 } );
