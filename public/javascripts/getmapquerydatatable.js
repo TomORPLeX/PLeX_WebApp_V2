@@ -1,8 +1,10 @@
 $(document).ready(function() {
 
+
     var temp = getCookie('EIN');
     var tempfilelocation = './data/' +temp+'_LatLngData.json';
     $.getJSON(tempfilelocation, function (data) {
+        $('#overlay').show();
         var parsed = [];
         var row = new Array();
         var array = new Array();
@@ -44,5 +46,6 @@ $(document).ready(function() {
 
             table.order( [ 4, 'asc' ]).draw();
         }
+        $('#overlay').fadeOut(1000);
     });
 });

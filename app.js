@@ -83,7 +83,7 @@ app.use(function(err, req, res, next) {
     //if (res.locals.message == 'ER_PARSE_ERROR') { console.log('in error handler');}
     console.log('in error app.js');
     // render the error page
-    res.status(err.status || 500);
+    res.status(err.status || 500.01 || 500.02);
     res.render('error');
 });
 

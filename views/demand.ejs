@@ -25,6 +25,12 @@
 <div class="alert alert-danger text-center" id="alert">
     <h4><strong>Priority Score and Skills to be mapped must be populated with a value!</strong></h4>
 </div>
+
+<div id="overlay" title="Loading">
+    <h3>Loading</h3>
+    <p><img src="/images/ajax-loader-bar.gif"> </p>
+</div>
+
 <!-- /.row priority panels-->
 <div class="row" id="priority-panels">
     <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2">
@@ -538,6 +544,7 @@
 <div id = "tablecontainer" class="tablecontainer">
         <table id="datatabledemandjson" class="table table-striped hover"></table>
 </div>
+
 
 <footer>
     <% include ./partials/footer %>

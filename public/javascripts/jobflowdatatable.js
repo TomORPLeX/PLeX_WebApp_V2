@@ -4,6 +4,7 @@ $(document).ready(function() {
         type: 'POST',
         url: '/queryjobflowdata',
         success: function(data1) {
+            $('#overlay').show();
             //alert(JSON.stringify(data1));
             var table = $('#datatablejobflow').DataTable({
                 data: data1.data1,
@@ -43,6 +44,7 @@ $(document).ready(function() {
                 ],
                 "pageLength": 20
             });
+            $('#overlay').fadeOut(1000);
         }
     });
 

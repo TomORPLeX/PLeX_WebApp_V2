@@ -95,7 +95,9 @@ div.containerTableDemand{
   margin-top: 10px;
   margin-right: 50px;
   margin-left:  25px;
+  margin-bottom: 25px;
 }
+
 
 #priority-panels{
   margin:10px;
@@ -318,4 +320,20 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+
+#overlay {
+  background: #ffffff;
+  color: #666666;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 5000;
+  top: 0;
+  left: 0;
+  float: left;
+  text-align: center;
+  padding-top: 25%;
+  opacity: 0.5;
 }

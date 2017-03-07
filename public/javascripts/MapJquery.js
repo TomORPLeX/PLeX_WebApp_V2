@@ -14,6 +14,17 @@ $(document).ready(function() {
     var toggle=0;
 
 
+    /*$('#LoadingDialog')
+        .hide()  // Hide it initially
+        .ajaxStart(function() {
+            $('#LoadingDialog').dialog('open');
+        })
+        .ajaxStop(function() {
+            $('#LoadingDialog').dialog('close');
+        })
+    ;*/
+
+
 
     $('#select_all_skill').change(function() {
 
@@ -71,6 +82,7 @@ $(document).ready(function() {
     });
 
     $("#button").click(function () {
+
         window.onbeforeunload = null;
         skillsFilter = [];
         priorityScore = [];
