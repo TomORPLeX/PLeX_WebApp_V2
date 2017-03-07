@@ -6,11 +6,12 @@ $(document).ready(function() {
     } else {
         //alert("loaded " + tempcounter2 + " times");
         tempcounter2++;
-        $('#overlay').show();
+
         $.ajax({
             type: 'POST',
             url: '/getdatatabledata',
             success: function (obj) {
+                $('#overlay').show();
                 var parsed = [];
                 var row = new Array();
                 var array = new Array();
@@ -28,38 +29,39 @@ $(document).ready(function() {
                     row[7] = parsed[i].ATTENDANCE_DAY_0;
                     row[8] = parsed[i].PERCENTAGE_ON_TASK_DAY_0;
                     row[9] = parsed[i].PERCENTAGE_TRAVEL_DAY_0;
-                    row[10] = parsed[i].PLAN_ISSUES_DAY_0;
-                    row[11] = parsed[i].TOUR_DAY_0;
+                    row[10] = parsed[i].TOUR_DAY_0;
+                    row[11] = parsed[i].PLAN_ISSUES_DAY_0;
+
 
                     row[12] = parsed[i].ATTENDANCE_DAY_1;
                     row[13] = parsed[i].PERCENTAGE_ON_TASK_DAY_1;
                     row[14] = parsed[i].PERCENTAGE_TRAVEL_DAY_1;
-                    row[15] = parsed[i].PLAN_ISSUES_DAY_1;
-                    row[16] = parsed[i].TOUR_DAY_1;
+                    row[15] = parsed[i].TOUR_DAY_1;
+                    row[16] = parsed[i].PLAN_ISSUES_DAY_1;
 
                     row[17] = parsed[i].ATTENDANCE_DAY_2;
                     row[18] = parsed[i].PERCENTAGE_ON_TASK_DAY_2;
                     row[19] = parsed[i].PERCENTAGE_TRAVEL_DAY_2;
-                    row[20] = parsed[i].PLAN_ISSUES_DAY_2;
-                    row[21] = parsed[i].TOUR_DAY_2;
+                    row[20] = parsed[i].TOUR_DAY_2;
+                    row[21] = parsed[i].PLAN_ISSUES_DAY_2;
 
                     row[22] = parsed[i].ATTENDANCE_DAY_3;
                     row[23] = parsed[i].PERCENTAGE_ON_TASK_DAY_3;
                     row[24] = parsed[i].PERCENTAGE_TRAVEL_DAY_3;
-                    row[25] = parsed[i].PLAN_ISSUES_DAY_3;
-                    row[26] = parsed[i].TOUR_DAY_3;
+                    row[25] = parsed[i].TOUR_DAY_3;
+                    row[26] = parsed[i].PLAN_ISSUES_DAY_3;
 
                     row[27] = parsed[i].ATTENDANCE_DAY_4;
                     row[28] = parsed[i].PERCENTAGE_ON_TASK_DAY_4;
                     row[29] = parsed[i].PERCENTAGE_TRAVEL_DAY_4;
-                    row[30] = parsed[i].PLAN_ISSUES_DAY_4;
-                    row[31] = parsed[i].TOUR_DAY_4;
+                    row[30] = parsed[i].TOUR_DAY_4;
+                    row[31] = parsed[i].PLAN_ISSUES_DAY_4;
 
                     row[32] = parsed[i].ATTENDANCE_DAY_5;
                     row[33] = parsed[i].PERCENTAGE_ON_TASK_DAY_5;
                     row[34] = parsed[i].PERCENTAGE_TRAVEL_DAY_5;
-                    row[35] = parsed[i].PLAN_ISSUES_DAY_5;
-                    row[36] = parsed[i].TOUR_DAY_5;
+                    row[35] = parsed[i].TOUR_DAY_5;
+                    row[36] = parsed[i].PLAN_ISSUES_DAY_5;
 
                     array[i] = row;
                     row = [];
@@ -95,8 +97,21 @@ $(document).ready(function() {
                 var day5 = dd + '/'+ mm;
                 //alert(day0 + "  "+day1 + "  "+ day2 + " "+day3);
 
+                var tablehead2;
+                var fixedcolhead;
+
+                tablehead2 = $(".dataTables_scrollHeadInner table thead");
+                fixedcolhead = $(".DTFC_LeftHeadWrapper table thead");
+                tablehead2.prepend("<tr><th colspan=\"7\"></th><th colspan=\"5\">Day 0 ("+day0+")</th><th colspan=\"5\">Day 1 ("+day1+")</th><th colspan=\"5\">Day 2 ("+day2+")</th><th colspan=\"5\">Day 3 ("+day3+")</th><th colspan=\"5\">Day 4 ("+day4+")</th><th colspan=\"5\">Day 5 ("+day5+")</th></tr>");
+                fixedcolhead.prepend("<tr><th colspan=\"7\">Engineer Info</th></tr>");
+
+
                 var table = $('#datatableplanner').DataTable({
                     data: array,
+                    "columnDefs": [ {
+                        "visible": false,
+                        "targets": -1
+                    }],
                     columns: [
                         {title: "OUC"},
                         {title: "EIN"},
@@ -106,63 +121,50 @@ $(document).ready(function() {
                         {title: "Vehicles"},
                         {title: "Location"},
 
-                        {title: "ATTENDANCE_DAY_0"},
-                        {title: "PERCENTAGE_ON_TASK_DAY_0"},
-                        {title: "PERCENTAGE_TRAVEL_DAY_0"},
-                        {title: "PLAN_ISSUES_DAY_0"},
-                        {title: "TOUR_DAY_0"},
+                        {title: "Attendance"},
+                        {title: "% Utilised"},
+                        {title: "% Travel"},
+                        {title: "Tasks Planned"},
+                        {title: "Issues"},
 
-                        {title: "ATTENDANCE_DAY_1"},
-                        {title: "PERCENTAGE_ON_TASK_DAY_1"},
-                        {title: "PERCENTAGE_TRAVEL_DAY_1"},
-                        {title: "PLAN_ISSUES_DAY_1"},
-                        {title: "TOUR_DAY_1"},
+                        {title: "Attendance"},
+                        {title: "% Utilised"},
+                        {title: "% Travel"},
+                        {title: "Tasks Planned"},
+                        {title: "Issues"},
 
-                        {title: "ATTENDANCE_DAY_2"},
-                        {title: "PERCENTAGE_ON_TASK_DAY_2"},
-                        {title: "PERCENTAGE_TRAVEL_DAY_2"},
-                        {title: "PLAN_ISSUES_DAY_2"},
-                        {title: "TOUR_DAY_2"},
+                        {title: "Attendance"},
+                        {title: "% Utilised"},
+                        {title: "% Travel"},
+                        {title: "Tasks Planned"},
+                        {title: "Issues"},
 
-                        {title: "ATTENDANCE_DAY_3"},
-                        {title: "PERCENTAGE_ON_TASK_DAY_3"},
-                        {title: "PERCENTAGE_TRAVEL_DAY_3"},
-                        {title: "PLAN_ISSUES_DAY_3"},
-                        {title: "TOUR_DAY_3"},
+                        {title: "Attendance"},
+                        {title: "% Utilised"},
+                        {title: "% Travel"},
+                        {title: "Tasks Planned"},
+                        {title: "Issues"},
 
-                        {title: "ATTENDANCE_DAY_4"},
-                        {title: "PERCENTAGE_ON_TASK_DAY_4"},
-                        {title: "PERCENTAGE_TRAVEL_DAY_4"},
-                        {title: "PLAN_ISSUES_DAY_4"},
-                        {title: "TOUR_DAY_4"},
+                        {title: "Attendance"},
+                        {title: "% Utilised"},
+                        {title: "% Travel"},
+                        {title: "Tasks Planned"},
+                        {title: "Issues"},
 
-                        {title: "ATTENDANCE_DAY_5"},
-                        {title: "PERCENTAGE_ON_TASK_DAY_5"},
-                        {title: "PERCENTAGE_TRAVEL_DAY_5"},
-                        {title: "PLAN_ISSUES_DAY_5"},
-                        {title: "TOUR_DAY_5"}
+                        {title: "Attendance"},
+                        {title: "% Utilised"},
+                        {title: "% Travel"},
+                        {title: "Tasks Planned"},
+                        {title: "Issues"}
                     ],
                     //scrollY:        "100px",
                     scrollX:        "800px",
                     paging:         true,
+                    pageLength: 25,
                     fixedColumns:   {
                         leftColumns: 7
                     },
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'excel',
-                        {
-                            extend: 'colvisGroup',
-                            text: 'Day 0',
-                            show: [ 6, 7, 8, 9, 10 ],
-                            hide: [ 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]
-                        },
-                        {
-                            extend: 'colvisGroup',
-                            text: 'Show all',
-                            show: ':hidden'
-                        }
-                    ],
+                    //dom: 'Bfrtip',
                     rowCallback: function(row, data, index) {
                         console.log(row);
                         if (data[4]== null) {
@@ -172,8 +174,11 @@ $(document).ready(function() {
                         }
                     }
                 });
+                $('#overlay').fadeOut(1000);
             }
         });
-        $('#overlay').fadeOut(1000);
     }
 } );
+
+
+

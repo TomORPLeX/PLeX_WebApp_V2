@@ -78,12 +78,13 @@ div.containerTableDemand{
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
   width: 95%;
+  height: auto;
   padding-top: 15px;
-  margin-top: 10x;
   margin-right: 50px;
   margin-left:  25px;
-  margin-bottom: 0px;
+  margin-bottom: 25px;
 }
+
 
 #priority-panels{
   margin:10px;
@@ -293,7 +294,6 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
-<<<<<<< HEAD
 }
 
 
@@ -310,6 +310,4 @@ input:checked + .slider:before {
   text-align: center;
   padding-top: 25%;
   opacity: 0.5;
-=======
->>>>>>> 46c69b5bbaee6850aa91ed2c0d241c41bf233883
 }
