@@ -69,9 +69,21 @@ div.containerTableDemand{
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
 }
+
+#datatableplanner {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.datatable_scrollBody{
+  padding-bottom: -50px !important;
+}
+
 #tablecontainer{
+  height: auto;
   position: relative;
   overflow-x: auto;
+  overflow-y: auto;
   border: 1px solid black;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -79,10 +91,10 @@ div.containerTableDemand{
   border-bottom-left-radius: 0px;
   width: 95%;
   padding-top: 15px;
-  margin-top: 10x;
+  padding-bottom: 20px;
+  margin-top: 10px;
   margin-right: 50px;
   margin-left:  25px;
-  margin-bottom: 0px;
 }
 
 #priority-panels{
@@ -229,15 +241,28 @@ div.containerTableDemand{
 .error-actions .btn { margin-right:10px; }
 
 /* Planner Datatable Formatting */
-td.colorred  {
-  background-color: red;
+td.colorgreen  {
+  background-color: green;
 }
-td.colorblue  {
-  background-color: blue;
+td.colororange  {
+  background-color: orange;
 }
 td.colorgrey {
   background-color: grey;
 }
+td.colorpink {
+  background-color: pink;
+}
+td.colorpurple {
+  background-color: rebeccapurple;
+}
+td.coloryellow{
+  background-color: yellow;
+}
+
+
+
+
 /*toggle button style*/
 .switch {
   position: relative;
