@@ -175,6 +175,7 @@ $(document).ready(function() {
                         leftColumns: 7
                     },
                     dom: '<"top"iflp<"clear">>rt<"bottom"<"clear">>',
+
                     rowCallback: function(row, data, index) {
                         // attendance formatting
                         if (data[7]== "RDO") {
@@ -378,13 +379,14 @@ $(document).ready(function() {
                         } if (!(data[42] == null)) {
                             $(row).find('td:eq(42)').addClass('colorpink');
                         }
-                    }
+                    },
+                    dom: '<"top"iflp<"clear">>rt<"bottom"<"clear">>',
                 });
                 $("#plannerdatatable").resize();
 
                 tablehead2 = $(".dataTables_scrollHeadInner table thead");
                 fixedcolhead = $(".DTFC_LeftHeadWrapper table thead");
-                tablehead2.prepend("<tr><th colspan=\"7\"></th><th colspan=\"6\">Day 0 ("+day0+")</th><th colspan=\"6\">Day 1 ("+day1+")</th><th colspan=\"6\">Day 2 ("+day2+")</th><th colspan=\"6\">Day 3 ("+day3+")</th><th colspan=\"6\">Day 4 ("+day4+")</th><th colspan=\"6\">Day 5 ("+day5+")</th></tr>");
+                tablehead2.prepend("<tr><th colspan=\"7\"></th><th colspan=\"5\">Day 0 ("+day0+")</th><th colspan=\"5\">Day 1 ("+day1+")</th><th colspan=\"5\">Day 2 ("+day2+")</th><th colspan=\"5\">Day 3 ("+day3+")</th><th colspan=\"5\">Day 4 ("+day4+")</th><th colspan=\"5\">Day 5 ("+day5+")</th></tr>");
                 fixedcolhead.prepend("<tr><th colspan=\"7\">Engineer Info</th></tr>");
 
                 $('#overlay').fadeOut(1000);
@@ -393,6 +395,5 @@ $(document).ready(function() {
         });
     }
 } );
-
 
 

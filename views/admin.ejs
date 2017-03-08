@@ -14,83 +14,88 @@
 <header>
     <% include ./partials/header %>
 </header>
-<h1>Admin Page</h1>
-<%if (username) { %>
-<p>Hi <%- username%></p>
-<%}%>
+
+<div class="row">
+    <div class="col-md-2 col-md-offset-5">
+        <h1>Admin Page</h1>
+        <%if (username) { %>
+        <p>Hi <%- username%></p>
+        <%}%>
 
 
-<form class="form-inline" action="/adduser" method="post">
-    <div class="form-group">
-        <label for="OUC">OUC</label>
-        <input type="text" class="form-control" name="ouc" placeholder="BVH123">
-    </div>
-    <div class="form-group">
-        <label for="Name">Name</label>
-        <input type="text" class="form-control" name="name" placeholder="Jane Doe">
-    </div>
-    <div class="form-group">
-        <label for="EIN">EIN</label>
-        <input type="number" class="form-control" name="ein" placeholder="600123456">
-    </div>
-    <div class="form-group">
-        <label for="Profile">Profile</label>
-        <select name="profile">
-            <option value="" selected><em>Select From List</em></option>
-            <option value="Admin">Admin</option>
-            <option value="Manager">Manager</option>
-            <option value="5DAP">5DAP</option>
-            <option value="OTD">OTD</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Add User</button>
-</form>
-<%if (addusermessage) { %>
-<p><%- addusermessage%></p>
-<%}%>
-<br><br>
+        <form class="form-inline" action="/adduser" method="post">
+            <div class="form-group">
+                <label for="OUC">OUC</label>
+                <input type="text" class="form-control" name="ouc" placeholder="BVH123">
+            </div>
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" name="name" placeholder="Jane Doe">
+            </div>
+            <div class="form-group">
+                <label for="EIN">EIN</label>
+                <input type="number" class="form-control" name="ein" placeholder="600123456">
+            </div>
+            <div class="form-group">
+                <label for="Profile">Profile</label>
+                <select name="profile">
+                    <option value="" selected><em>Select From List</em></option>
+                    <option value="Admin">Admin</option>
+                    <option value="Manager">Manager</option>
+                    <option value="5DAP">5DAP</option>
+                    <option value="OTD">OTD</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add User</button>
+        </form>
+        <%if (addusermessage) { %>
+        <p><%- addusermessage%></p>
+        <%}%>
+        <br><br>
 
-<form class="form-inline" action="/deleteuser" method="post">
-    <div class="form-group">
-        <label for="OUC">EIN</label>
-        <input type="text" class="form-control" name="delein" placeholder="600123456">
-    </div>
-    <button type="submit" class="btn btn-primary">Delete User</button>
-</form>
-<%if (delusermessage) { %>
-<p><%- delusermessage%></p>
-<%}%>
-<br><br>
+        <form class="form-inline" action="/deleteuser" method="post">
+            <div class="form-group">
+                <label for="OUC">EIN</label>
+                <input type="text" class="form-control" name="delein" placeholder="600123456">
+            </div>
+            <button type="submit" class="btn btn-primary">Delete User</button>
+        </form>
+        <%if (delusermessage) { %>
+        <p><%- delusermessage%></p>
+        <%}%>
+        <br><br>
 
-<form class="form-inline" action="/edituser" method="post">
-    <div class="form-group">
-        <label for="EIN">EIN</label>
-        <input type="number" class="form-control" name="editein" placeholder="600123456">
-    </div> <b>:</b>
-    <div class="form-group">
-        <label for="OUC">OUC</label>
-        <input type="text" class="form-control" name="editouc" placeholder="BVH123">
+        <form class="form-inline" action="/edituser" method="post">
+            <div class="form-group">
+                <label for="EIN">EIN</label>
+                <input type="number" class="form-control" name="editein" placeholder="600123456">
+            </div> <b>:</b>
+            <div class="form-group">
+                <label for="OUC">OUC</label>
+                <input type="text" class="form-control" name="editouc" placeholder="BVH123">
+            </div>
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" name="editname" placeholder="Jane Doe">
+            </div>
+            <div class="form-group">
+                <label for="Profile">Profile</label>
+                <select name="editprofile">
+                    <option value="" selected><i>Select From List</i></option>
+                    <option value="Admin">Admin</option>
+                    <option value="Manager">Manager</option>
+                    <option value="5DAP">5DAP</option>
+                    <option value="OTD">OTD</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit User</button>
+        </form>
+        <%if (editusermessage) { %>
+        <p><%- editusermessage%></p>
+        <%}%>
     </div>
-    <div class="form-group">
-        <label for="Name">Name</label>
-        <input type="text" class="form-control" name="editname" placeholder="Jane Doe">
-    </div>
-    <div class="form-group">
-        <label for="Profile">Profile</label>
-        <select name="editprofile">
-            <option value="" selected><i>Select From List</i></option>
-            <option value="Admin">Admin</option>
-            <option value="Manager">Manager</option>
-            <option value="5DAP">5DAP</option>
-            <option value="OTD">OTD</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Edit User</button>
-</form>
-<%if (editusermessage) { %>
-<p><%- editusermessage%></p>
-<%}%>
-<br><br>
+</div>
+
 
 <%if (db.length>0) { %>
     <div class="containerTableDemand">
@@ -120,6 +125,7 @@
         </div>
     </div>
 <%}%>
+<br><br>
 
 <footer>
     <% include ./partials/footer %>

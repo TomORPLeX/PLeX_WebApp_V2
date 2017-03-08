@@ -76,8 +76,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             updatedatabase(updatequer, res ,req);
         }
     }
-
-
 });
 
 module.exports = router;
