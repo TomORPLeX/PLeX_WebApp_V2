@@ -566,7 +566,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                             } else {
                                 var loginflag0 = req.cookies.loginFlag;
                                 var adminflag0 = req.cookies.adminFlag;
-                                console.log("Selected cases: "+selectedcases);
+                                console.log("Selected cases before passed back (edit estimate): "+selectedcases);
                                 obj = {"dropdownsjson":dropdownsjson,
                                     "plannermessage": str,
                                     "formvalues": formvalues,
@@ -591,7 +591,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         obj = {"dropdownsjson":dropdownsjson,
             "plannermessage": plannermessage,
             "formvalues": formvalues,
-            "cases": {"CASE_ID": ""},
+            "cases": selectedcases,
             "db":"",
             "rowsize": selectcolcount,
             "loginFlag":req.cookies.loginFlag,
