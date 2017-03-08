@@ -11,11 +11,9 @@ router.all('/', function(req, res, next) {
             return next(err);
         } else {
 
-            //console.log('rows:'+JSON.stringify(rows));
             var row = new Array();
             var array = new Array();
 
-            //console.log('len:'+Object.keys(rows).length);
             for (var i = 0; i < Object.keys(rows).length; i++) {
 
                 row[0] = rows[i].OUC;
