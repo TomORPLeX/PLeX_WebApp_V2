@@ -26,6 +26,7 @@ var deleteclicked = require ('./routes/deleteclicked');
 var updatenotes= require ('./routes/updatenotes');
 var jobflow = require('./routes/jobflow');
 var queryjobflowdata = require('./routes/queryjobflowdata');
+var teammanagement = require('./routes/teammanagement');
 
 var app = express();
 
@@ -67,6 +68,7 @@ app.use('/deleteclicked', deleteclicked);
 app.use('/updatenotes', updatenotes);
 app.use('/jobflow', jobflow);
 app.use('/queryjobflowdata', queryjobflowdata);
+app.use('/teammanagement', teammanagement);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

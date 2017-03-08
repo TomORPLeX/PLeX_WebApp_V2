@@ -98,32 +98,32 @@
 
 
 <%if (db.length>0) { %>
-    <div class="containerTableDemand">
-        <div class="table-responsive">
-            <table id="table" class="table table-condensed">
-                <thead>
-                <tr>
-                    <th>OUC</th>
-                    <th>Name</th>
-                    <th>EIN</th>
-                    <th>Profile</th>
-                    <th>Added Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                <% for(var i=0;i<db.length;i++) { %>
-                <tr>
-                    <td><%= db[i].OUC %></td>
-                    <td><%= db[i].NAME%></td>
-                    <td><%= db[i].EIN%></td>
-                    <td><%= db[i].PROFILE%></td>
-                    <td><%= db[i].ADDED_DATE%></td>
-                </tr>
-                <% } %>
-                </tbody>
-            </table>
-        </div>
+<div class="containerTableDemand">
+    <div class="table-responsive">
+        <table id="table" class="table table-condensed">
+            <thead>
+            <tr>
+                <th>OUC</th>
+                <th>Name</th>
+                <th>EIN</th>
+                <th>Profile</th>
+                <th>Added Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0;i<db.length;i++) { %>
+            <tr>
+                <td><%= db[i].OUC %></td>
+                <td><%= db[i].NAME%></td>
+                <td><%= db[i].EIN%></td>
+                <td><%= db[i].PROFILE%></td>
+                <td><%= db[i].ADDED_DATE%></td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
     </div>
+</div>
 <%}%>
 <br><br>
 

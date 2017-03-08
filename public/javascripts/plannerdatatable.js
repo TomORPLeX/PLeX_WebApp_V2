@@ -100,12 +100,6 @@ $(document).ready(function() {
                 var tablehead2;
                 var fixedcolhead;
 
-                tablehead2 = $(".dataTables_scrollHeadInner table thead");
-                fixedcolhead = $(".DTFC_LeftHeadWrapper table thead");
-                tablehead2.prepend("<tr><th colspan=\"7\"></th><th colspan=\"5\">Day 0 ("+day0+")</th><th colspan=\"5\">Day 1 ("+day1+")</th><th colspan=\"5\">Day 2 ("+day2+")</th><th colspan=\"5\">Day 3 ("+day3+")</th><th colspan=\"5\">Day 4 ("+day4+")</th><th colspan=\"5\">Day 5 ("+day5+")</th></tr>");
-                fixedcolhead.prepend("<tr><th colspan=\"7\">Engineer Info</th></tr>");
-
-
                 var table = $('#datatableplanner').DataTable({
                     data: array,
                     "columnDefs": [ {
@@ -164,7 +158,6 @@ $(document).ready(function() {
                     fixedColumns:   {
                         leftColumns: 7
                     },
-                    //dom: 'Bfrtip',
                     rowCallback: function(row, data, index) {
                         console.log(row);
                         if (data[4]== null) {
@@ -172,13 +165,21 @@ $(document).ready(function() {
                             $(row).find('td:eq(1)').addClass('colorgrey');
                             //$(row).find('td:eq(5)').addClass('colorblue');
                         }
-                    }
+                    },
+                    dom: '<"top"iflp<"clear">>rt<"bottom"<"clear">>',
                 });
+
+
+                tablehead2 = $(".dataTables_scrollHeadInner table thead");
+                fixedcolhead = $(".DTFC_LeftHeadWrapper table thead");
+                tablehead2.prepend("<tr><th colspan=\"7\"></th><th colspan=\"5\">Day 0 ("+day0+")</th><th colspan=\"5\">Day 1 ("+day1+")</th><th colspan=\"5\">Day 2 ("+day2+")</th><th colspan=\"5\">Day 3 ("+day3+")</th><th colspan=\"5\">Day 4 ("+day4+")</th><th colspan=\"5\">Day 5 ("+day5+")</th></tr>");
+                fixedcolhead.prepend("<tr><th colspan=\"7\">Engineer Info</th></tr>");
+
                 $('#overlay').fadeOut(1000);
+
             }
         });
     }
 } );
-
 
 
