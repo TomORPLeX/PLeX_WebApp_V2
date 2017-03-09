@@ -17,32 +17,30 @@
     <% include ./partials/header %>
 </header>
 
-<div class="teameditformcontainer" style="margin:auto;">
+<div class="teameditformcontainer row-centered" style="margin:auto;">
     <h1>Team Manager</h1>
-    <form action="/queryengoucinfo" method="post">
-        <div class="row">
+    <form action="/queryengoucinfo" class="form-inline" method="post">
+        <div class="row row-centered">
             <div class="col">
-                <label for="EIN">EIN</label>
-                <input class="form-check-input" type="number" name="ein" id="ein" placeholder="600123456">
+                <label for="EIN" style="margin-right: 25px; margin-left: 5px;">EIN</label>
+                <input class="form-control" type="number" name="ein" id="ein" placeholder="600123456">
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <label for="ouc">OUC</label>
-                <input class="form-check-input" type="text" name="ouc" id="ouc" placeholder="BVH123">
+        <div class="row row-centered">
+            <div class="col" style="margin-top: 10px;">
+                <label for="ouc" style="margin-right: 18px; margin-left: 5px;">OUC</label>
+                <input class="form-control" type="text" name="ouc" id="ouc" placeholder="BVH123">
             </div>
             <div class="col">
-                <label for="exclude">Exclude</label>
-                <input class="form-check-input" type="checkbox" id="exclude" value="Y" name="exclude" style="padding: 0px"><br>
+                <label for="exclude" style="margin-top: 10px;">Exclude</label>
+                <input class="checkbox-inline" type="checkbox" id="exclude" value="Y" name="exclude" style="margin-bottom: 8px;" style="padding: 0px"><br>
             </div>
             <div class="col">
                 <label for="reason">Reason</label>
-                <textarea name="reason" id="reason" placeholder="Engineer is on loan to this area..."></textarea>
+                <textarea class="form-control" name="reason" id="reason" placeholder="Engineer is on loan to this area..."></textarea>
             </div>
         </div>
-        <div class="row">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Submit</button>
     </form>
     <%if (teameditmessage) { %>
         <p><%- teameditmessage %></p>
