@@ -110,7 +110,10 @@ $(document).ready(function() {
                     "columnDefs": [ {
                         "visible": false,
                         "targets": -1
-                    }],
+                        },
+                        { "width": "150%", "targets": 11 },
+                        { "width": "150%", "targets": 17 }
+                    ],
                     columns: [
                         {title: "OUC"},
                         {title: "EIN"},
@@ -164,6 +167,8 @@ $(document).ready(function() {
                     ],
                     //scrollY:        "100px",
                     scrollX:        "800px",
+                    "sScrollX": "100%",
+                    "autoWidth": false,
                     paging:         true,
                     pageLength: 25,
                     fixedColumns:   {
@@ -377,6 +382,7 @@ $(document).ready(function() {
                     },
                     dom: '<"top"iflp<"clear">>rt<"bottom"<"clear">>',
                 });
+                $("#plannerdatatable").resize();
 
                 tablehead2 = $(".dataTables_scrollHeadInner table thead");
                 fixedcolhead = $(".DTFC_LeftHeadWrapper table thead");

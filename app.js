@@ -1,4 +1,3 @@
-//comment by adam
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -27,6 +26,7 @@ var updatenotes= require ('./routes/updatenotes');
 var jobflow = require('./routes/jobflow');
 var queryjobflowdata = require('./routes/queryjobflowdata');
 var teammanagement = require('./routes/teammanagement');
+var queryengoucinfo = require('./routes/queryengoucinfo');
 
 var app = express();
 
@@ -69,6 +69,7 @@ app.use('/updatenotes', updatenotes);
 app.use('/jobflow', jobflow);
 app.use('/queryjobflowdata', queryjobflowdata);
 app.use('/teammanagement', teammanagement);
+app.use('/queryengoucinfo', queryengoucinfo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

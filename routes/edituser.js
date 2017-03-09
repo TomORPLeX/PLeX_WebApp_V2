@@ -3,7 +3,6 @@ var router = express.Router();
 var pool = require('../bin/db.js');
 var loginfunction = require("../bin/login.js");
 
-
 var editname ="";
 var editein ="";
 var editouc ="";
@@ -74,11 +73,9 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             // update all 3 - ouc name & profile
             updatequer = "UPDATE users SET ouc= '"+editouc+"', name ='"+editname+"', profile = '"+editprofile +"' WHERE EIN ="+editein+";";
             console.log(updatequer);
-            updatedatabase(updatequer, res, req);
+            updatedatabase(updatequer, res ,req);
         }
     }
-
-
 });
 
 module.exports = router;

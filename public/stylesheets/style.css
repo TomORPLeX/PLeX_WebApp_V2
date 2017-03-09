@@ -244,27 +244,28 @@ div.containerTableDemand{
 
 /* Planner Datatable Formatting */
 td.colorgreen  {
-  background-color: green;
+  background-color: green !important;
 }
 td.colororange  {
-  background-color: orange;
+  background-color: orange !important;
 }
 td.colorgrey {
-  background-color: grey;
+  background-color: grey !important;
 }
 td.colorpink {
-  background-color: pink;
+  background-color: pink !important;
 }
 td.colorpurple {
-  background-color: rebeccapurple;
+  background-color: rebeccapurple !important;
 }
 td.coloryellow{
-  background-color: yellow;
+  background-color: yellow !important;
 }
-
-
-
-
+/* team management */
+.teameditformcontainer {
+  width:800px;
+  margin:0 auto;
+}
 /*toggle button style*/
 .switch {
   position: relative;
