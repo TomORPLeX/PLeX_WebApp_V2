@@ -31,7 +31,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
 </head>
 
-<body style="background-color: lightgrey;">
+<body style="background-color: lightgrey; overflow-x:hidden;">
 <header>
     <% include ./partials/header %>
 </header>
@@ -61,7 +61,7 @@
                             <label> Enter EWOC Estimate:</label>
                         </div>
                         <div class="form-group col-md-6" id="estimatediv" style="padding-bottom: 0px;">
-                            <% if(formvalues.estimatenum.length > 0) { %>
+                            <% if(formvalues.estimatenum) { %>
                                 <input type="text" class="form-control" id="estimate" name="ewocestimate" value="<%= formvalues.estimatenum %>">
                             <% } else { %>
                                 <input type="text" class="form-control" id="estimate" placeholder="example EWOC estimate" name="ewocestimate">
@@ -79,9 +79,9 @@
                         </div>
                         <div class="form-group col-md-6">
                         <select multiple="multiple" class="form-control input-large" name="cases" id="cases" style="padding: 0px">
-                            <% if (cases.length > 0) { %>
-                                <% for(var ii=0;ii<cases.length;ii++) { %>
-                                        <% if (formvalues.cases.indexOf(cases[ii].CASE_ID) > -1) { %>
+                            <% if (cases) { %>
+                                <% for(var ii=0;ii<Object.keys(cases).length;ii++) { %>
+                                        <% if (formvalues.cases == cases[ii].CASE_ID) { %>
                                             <option selected><%= cases[ii].CASE_ID %></option>
                                         <% } else { %>
                                             <option><%= cases[ii].CASE_ID %></option>
@@ -151,7 +151,7 @@
 
                         <div class="form-group col-md-offset-2 col-md-3">
                             <label style="padding: 0px" for="starttime">Enter Start Time</label>
-                                <% if(formvalues.starttime.length > 0) { %>
+                                <% if(formvalues.starttime) { %>
                             <input class="timepicker text-center" interval="model.options.interval" dynamic="model.options.dynamic" dropdown="model.options.dropdown" scrollbar="model.options.scrollbar" max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" time-format="model.options.timeFormat" default-time="model.options.defaultTime" time-string="model.timeString" time="model.time" jt-timepicker="" name="starttime" id="starttime" placeholder=" Enter Task Time" value="<%=formvalues.starttime%>">
                             <% } else { %>
                             <input class="timepicker text-center" interval="model.options.interval" dynamic="model.options.dynamic" dropdown="model.options.dropdown" scrollbar="model.options.scrollbar" max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" time-format="model.options.timeFormat" default-time="model.options.defaultTime" time-string="model.timeString" time="model.time" jt-timepicker="" name="starttime" id="starttime" placeholder=" Enter Task Time" value="">
@@ -160,7 +160,7 @@
 
                         <div class="form-group col-md-3">
                             <label style="padding: 0px" for="finishtime">Enter Finish Time</label>
-                            <% if(formvalues.starttime.length > 0) { %>
+                            <% if(formvalues.finishtime) { %>
                             <input class="timepicker text-center" interval="model.options.interval" dynamic="model.options.dynamic" dropdown="model.options.dropdown" scrollbar="model.options.scrollbar" max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" time-format="model.options.timeFormat" default-time="model.options.defaultTime" time-string="model.timeString" time="model.time" jt-timepicker="" name="finishtime" id="finishtime" placeholder=" Enter Task Time" value="<%=formvalues.finishtime%>">
                             <% } else { %>
                             <input class="timepicker text-center" interval="model.options.interval" dynamic="model.options.dynamic" dropdown="model.options.dropdown" scrollbar="model.options.scrollbar" max-time="model.options.maxTime" min-time="model.options.minTime" start-time="model.options.startTime" time-format="model.options.timeFormat" default-time="model.options.defaultTime" time-string="model.timeString" time="model.time" jt-timepicker="" name="finishtime" id="finishtime" placeholder=" Enter Task Time" value="">
@@ -244,7 +244,7 @@
 <% } %>
 <br><br>
 
-<div id = "tablecontainer" class="tablecontainer">
+<div id = "tablecontainer" class="tablecontainer" style="overflow-y:hidden;">
     <table id="datatableplanner" class="table table-striped hover"></table>
 </div>
 

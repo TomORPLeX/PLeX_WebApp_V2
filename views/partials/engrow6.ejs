@@ -56,7 +56,7 @@
 
 
     <div class="form-group col-md-1">
-        <% if (formvalues.notesarray[6].length > 0) { %>
+        <% if (formvalues.notesarray[6]) { %>
         <a href="javascript:" id="notelink6">
             <span style="text-indent: 25px" class="glyphicon glyphicon-file" id ="eng6notes" name="noteicon"></span>
         </a>
@@ -71,7 +71,7 @@
         <input class="form-check-input" type="checkbox" id="deleteeng6" name="deleteeng6" value="Y" style="padding-left: 10px">
     </div>
 
-    <% if (formvalues.notesarray[6].length > 0 ) { %>
+    <% if (formvalues.notesarray[6]) { %>
     <div id="note6dialog" title="Notes" style="display: none;">
         <textarea id="note6" name="note6" maxlength="255" style="width:550px; height:250px;"><%= formvalues.notesarray[6] %></textarea>
     </div>

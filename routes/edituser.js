@@ -30,7 +30,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             //update profile using EIN .
             updatequer = "UPDATE users SET profile = '"+editprofile+"' WHERE EIN ="+editein+";";
             console.log(updatequer);
-            updatedatabase(updatequer, res, req);
+            updatedatabase(updatequer, res, req, next);
             //res.render('admin', obj1);
         }
         else if (editname.length == 0 && editprofile.length ==0)
@@ -38,21 +38,21 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             //update ouc using EIN
             updatequer = "UPDATE users SET ouc = '"+editouc+"' WHERE EIN ="+editein+";";
             console.log(updatequer);
-            updatedatabase(updatequer, res, req);
+            updatedatabase(updatequer, res, req, next);
         }
         else if (editouc.length == 0 && editprofile.length ==0)
         {
             //update name using EIN
             updatequer = "UPDATE users SET name= '"+editname+"' WHERE EIN ="+editein+";";
             console.log(updatequer);
-            updatedatabase(updatequer, res, req);
+            updatedatabase(updatequer, res, req, next);
         }
         else if (editouc.length == 0)
         {
             //update profile & name using EIN
             updatequer = "UPDATE users SET name= '"+editname+"', profile ='"+editprofile+"' WHERE EIN ="+editein+";";
             console.log(updatequer);
-            updatedatabase(updatequer, res, req);
+            updatedatabase(updatequer, res, req, next);
         }
         else if (editname.length == 0)
         {
@@ -66,21 +66,21 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             //update name & ouc using EIN
             updatequer = "UPDATE users SET ouc= '"+editouc+"', name ='"+editname+"' WHERE EIN ="+editein+";";
             console.log(updatequer);
-            updatedatabase(updatequer, res, req);
+            updatedatabase(updatequer, res, req, next);
         }
         else
         {
             // update all 3 - ouc name & profile
             updatequer = "UPDATE users SET ouc= '"+editouc+"', name ='"+editname+"', profile = '"+editprofile +"' WHERE EIN ="+editein+";";
             console.log(updatequer);
-            updatedatabase(updatequer, res ,req);
+            updatedatabase(updatequer, res ,req, next);
         }
     }
 });
 
 module.exports = router;
 
-function updatedatabase(updatequer, res, req) {
+function updatedatabase(updatequer, res, req, next) {
     selectquer = "SELECT * FROM users ORDER BY ADDED_DATE DESC;";
     pool.query(updatequer, function (err, rows) {
         if (err) {
