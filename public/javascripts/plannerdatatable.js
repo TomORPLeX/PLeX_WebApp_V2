@@ -91,10 +91,6 @@ $(document).ready(function() {
                 today.setDate(today.getDate() + 1);
                 dd = today.getDate();
                 mm = today.getMonth() + 1;
-                var day3 = dd + '/'+ mm;
-                today.setDate(today.getDate() + 1);
-                dd = today.getDate();
-                mm = today.getMonth() + 1;
                 var day4 = dd + '/'+ mm;
                 today.setDate(today.getDate() + 1);
                 dd = today.getDate();
@@ -110,7 +106,7 @@ $(document).ready(function() {
                     "columnDefs": [ {
                         "visible": false,
                         "targets": -1
-                        },
+                    },
                         { "width": "150%", "targets": 11 },
                         { "width": "150%", "targets": 17 }
                     ],
@@ -174,49 +170,60 @@ $(document).ready(function() {
                     fixedColumns:   {
                         leftColumns: 7
                     },
-                    dom: '<"top"iflp<"clear">>rt<"bottom"<"clear">>',
-
+                    dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
                     rowCallback: function(row, data, index) {
                         // attendance formatting
                         if (data[7]== "RDO") {
                             $(row).find('td:eq(7)').addClass('colorgrey');
-                        } else if (data[7].substring(0,2) == 'OT' || !isNaN(data[7].substring(0,1)) ) {
-                            $(row).find('td:eq(7)').addClass('colorgreen');
+                        } else if (data[7]) {
+                            if (data[7].substring(0, 2) == 'OT' || !isNaN(data[7].substring(0, 1))) {
+                                $(row).find('td:eq(7)').addClass('colorgreen');
+                            }
                         } else {
                             $(row).find('td:eq(7)').addClass('colororange');
                         }
                         if (data[13]== "RDO") {
                             $(row).find('td:eq(13)').addClass('colorgrey');
-                        } else if (data[13].substring(0,2) == 'OT' || !isNaN(data[13].substring(0,1)) ) {
-                            $(row).find('td:eq(13)').addClass('colorgreen');
+                        } else if (data[13]) {
+                            if (data[13].substring(0, 2) == 'OT' || !isNaN(data[13].substring(0, 1))) {
+                                $(row).find('td:eq(13)').addClass('colorgreen');
+                            }
                         } else {
                             $(row).find('td:eq(13)').addClass('colororange');
                         }
                         if (data[19]== "RDO") {
                             $(row).find('td:eq(19)').addClass('colorgrey');
-                        } else if (data[19].substring(0,2) == 'OT' || !isNaN(data[19].substring(0,1)) ) {
-                            $(row).find('td:eq(19)').addClass('colorgreen');
+                        } else if (data[19]) {
+                            if (data[19].substring(0, 2) == 'OT' || !isNaN(data[19].substring(0, 1))) {
+                                $(row).find('td:eq(19)').addClass('colorgreen');
+                            }
                         } else {
                             $(row).find('td:eq(19)').addClass('colororange');
                         }
                         if (data[25]== "RDO") {
                             $(row).find('td:eq(25)').addClass('colorgrey');
-                        } else if (data[25].substring(0,2) == 'OT' || !isNaN(data[25].substring(0,1)) ) {
-                            $(row).find('td:eq(25)').addClass('colorgreen');
+                        } else if (data[25]) {
+                            if (data[25].substring(0, 2) == 'OT' || !isNaN(data[25].substring(0, 1))) {
+                                $(row).find('td:eq(25)').addClass('colorgreen');
+                            }
                         } else {
                             $(row).find('td:eq(25)').addClass('colororange');
                         }
                         if (data[31]== "RDO") {
                             $(row).find('td:eq(31)').addClass('colorgrey');
-                        } else if (data[31].substring(0,2) == 'OT' || !isNaN(data[31].substring(0,1)) ) {
-                            $(row).find('td:eq(31)').addClass('colorgreen');
+                        } else if (data[31]) {
+                            if (data[31].substring(0, 2) == 'OT' || !isNaN(data[31].substring(0, 1))) {
+                                $(row).find('td:eq(31)').addClass('colorgreen');
+                            }
                         } else {
                             $(row).find('td:eq(31)').addClass('colororange');
                         }
                         if (data[37]== "RDO") {
                             $(row).find('td:eq(37)').addClass('colorgrey');
-                        } else if (data[37].substring(0,2) == 'OT' || !isNaN(data[37].substring(0,1)) ) {
-                            $(row).find('td:eq(37)').addClass('colorgreen');
+                        } else if (data[37]) {
+                            if (data[37].substring(0, 2) == 'OT' || !isNaN(data[37].substring(0, 1))) {
+                                $(row).find('td:eq(37)').addClass('colorgreen');
+                            }
                         } else {
                             $(row).find('td:eq(37)').addClass('colororange');
                         }
@@ -386,7 +393,7 @@ $(document).ready(function() {
 
                 tablehead2 = $(".dataTables_scrollHeadInner table thead");
                 fixedcolhead = $(".DTFC_LeftHeadWrapper table thead");
-                tablehead2.prepend("<tr><th colspan=\"7\"></th><th colspan=\"5\">Day 0 ("+day0+")</th><th colspan=\"5\">Day 1 ("+day1+")</th><th colspan=\"5\">Day 2 ("+day2+")</th><th colspan=\"5\">Day 3 ("+day3+")</th><th colspan=\"5\">Day 4 ("+day4+")</th><th colspan=\"5\">Day 5 ("+day5+")</th></tr>");
+                tablehead2.prepend("<tr><th colspan=\"7\"></th><th colspan=\"6\">Day 0 ("+day0+")</th><th colspan=\"6\">Day 1 ("+day1+")</th><th colspan=\"6\">Day 2 ("+day2+")</th><th colspan=\"6\">Day 3 ("+day3+")</th><th colspan=\"6\">Day 4 ("+day4+")</th><th colspan=\"6\">Day 5 ("+day5+")</th></tr>");
                 fixedcolhead.prepend("<tr><th colspan=\"7\">Engineer Info</th></tr>");
 
                 $('#overlay').fadeOut(1000);
@@ -395,5 +402,3 @@ $(document).ready(function() {
         });
     }
 } );
-
-

@@ -45,7 +45,16 @@ $(document).ready(function() {
             var table = $('#datatabledemandjson').DataTable();
 
             table.order( [ 4, 'asc' ]).draw();
+
         }
+
+        var table1 = $('#example').DataTable( {
+            fixedHeader: {
+                header: true
+            }
+        } );
+
+
         $('#overlay').fadeOut(1000);
     });
 });
