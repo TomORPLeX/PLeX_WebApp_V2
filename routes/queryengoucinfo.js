@@ -16,7 +16,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     pool.query(insertquer, function (err, rows) {
         if (err) {
             console.log('error in insert ouc query');
-            err.status=500.02;
+            err.status=500.03;
             return next(err);
         } else {
             console.log('Database Updated');
@@ -34,5 +34,4 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     });
 
 });
-
 module.exports = router;

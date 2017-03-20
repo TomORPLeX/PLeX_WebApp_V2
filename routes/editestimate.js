@@ -1,4 +1,5 @@
 var express = require('express');
+var fs = require('fs');
 var router = express.Router();
 var pool = require('../bin/db.js');
 var loginfunction = require("../bin/login.js");
@@ -252,6 +253,17 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
             updatecase = updatecase + " WEB_SPECIFIC_END_TIME = NULL ,";
             str = str + "Start Time = NULL <br />";
         }
+
+        // write plexplanner data before delete and clear after so no loss of data
+        var today = new Date().getTime(); //$.datepicker.formatDate('dd/mm', new Date());
+        today = Math.round(today/1000/60/60);
+        console.log('todays date:'+today);
+
+        var tempfilelocation = '../public/data/' + req.cookies.EIN +'_'+today+'_tempcasedata.json';
+        var formvalues_temp = JSON.stringify(formvalues);
+        console.log(tempfilelocation);
+        console.log(formvalues_temp);
+        fs.writeFile(tempfilelocation, formvalues_temp);
 
         // delete all case data from engineer table.
         var deleteexisting = 'DELETE FROM live_plexplanner WHERE CASE_ID LIKE \'' + selectedcases + '\';';
@@ -542,6 +554,16 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                     }
                 }
 
+                fs.stat(tempfilelocation, function(err, stat) {
+                    if(err == null) {
+                        fs.unlinkSync(tempfilelocation);
+                    } else if(err.code == 'ENOENT') {
+                        return;
+                    } else {
+                        return;
+                    }
+                });
+
                 updatecase = updatecase +" WEB_MOD_UIN = \'"+req.cookies.EIN+"\';";
                 updatecase = updatecase.slice(",", -1);
                 selectcolumns = selectcolumns.slice(",", -1);
@@ -566,16 +588,17 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                             } else {
                                 var loginflag0 = req.cookies.loginFlag;
                                 var adminflag0 = req.cookies.adminFlag;
-                                console.log("Selected cases before passed back (edit estimate): "+selectedcases);
+
                                 obj = {"dropdownsjson":dropdownsjson,
                                     "plannermessage": str,
                                     "formvalues": formvalues,
-                                    "cases":selectedcases,
+                                    "cases":req.cookies.cases,
                                     "db":rows,
                                     "rowsize": selectcolcount,
                                     "loginFlag":loginflag0,
                                     "adminFlag":adminflag0,
                                     "profile": req.cookies.profile};
+                                //console.log(obj);
                                 res.render('planner', obj);
                             }
                         });
@@ -591,7 +614,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         obj = {"dropdownsjson":dropdownsjson,
             "plannermessage": plannermessage,
             "formvalues": formvalues,
-            "cases": selectedcases,
+            "cases": req.cookies.cases,
             "db":"",
             "rowsize": selectcolcount,
             "loginFlag":req.cookies.loginFlag,

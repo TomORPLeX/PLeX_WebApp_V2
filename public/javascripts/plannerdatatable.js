@@ -171,6 +171,7 @@ $(document).ready(function() {
                         leftColumns: 7
                     },
                     dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
+
                     rowCallback: function(row, data, index) {
                         // attendance formatting
                         if (data[7]== "RDO") {
@@ -180,7 +181,7 @@ $(document).ready(function() {
                                 $(row).find('td:eq(7)').addClass('colorgreen');
                             }
                         } else {
-                            $(row).find('td:eq(7)').addClass('colororange');
+                                $(row).find('td:eq(7)').addClass('colororange');
                         }
                         if (data[13]== "RDO") {
                             $(row).find('td:eq(13)').addClass('colorgrey');
