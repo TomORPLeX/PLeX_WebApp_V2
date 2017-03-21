@@ -113,7 +113,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     notesarray[6] = req.body.note6;
 
     var numengs;
-
     var dropdownsjson = {
         "fluiditydropdown":req.cookies.fluiditycookie,
         "skillsdropdown":req.cookies.skillscookie,
@@ -266,7 +265,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         // delete all case data from engineer table.
         var insertqueries = [];
         var deleteexisting = 'DELETE FROM live_plexplanner WHERE CASE_ID LIKE \'' + selectedcases + '\';';
-        //console.log(deleteexisting);
+        console.log(deleteexisting);
         pool.query(deleteexisting, function (err, rows) {
             if (err) {
                 console.log('error in delete eng query:'+deleteexisting);
@@ -315,7 +314,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                 estimatenum = req.body.ewocestimate;
                 selectedcases = req.body.cases;
                 var numengs;
-                //console.log('selectedcases: '+selectedcases);
+                console.log('selectedcases: '+selectedcases);
 
                 if (req.body.deleteeng == 'Y'){
                     delflag = 1;
@@ -385,8 +384,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                 }
 
 
-                //console.log('delflag: '+delflag);
-                //console.log('EIN len: '+engein.length);
+                console.log('delflag: '+delflag);
+                console.log('EIN len: '+engein.length);
 
                 if (engein.length==9 && delflag==0) {
                     //console.log('engein1 exists');
@@ -395,7 +394,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                     for (var temp1 = 0; temp1 < splitdates.length; temp1++) {
                         splitdates[temp1] = splitdates[temp1].trim();
                     }
-                    //console.log('num of days eng1 is working: '+splitdates.length);
+                    console.log('num of days eng1 is working: '+splitdates.length);
                     var alldates = "[";
                     for (var p = 0; p < splitdates.length; p++) {
 
@@ -446,7 +445,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         insertquervalues = insertquervalues + ")";
 
                         fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
-                        //console.log('insertquer' + p + ': ' + fullinsertquery);
+                        console.log('insertquer' + p + ': ' + fullinsertquery);
 
                         insertqueries.push(fullinsertquery);
 /*
@@ -532,10 +531,9 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                             insertquervalues = insertquervalues + ")";
 
                             fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
-                            console.log('eng'+ij+', insertquer' + pp + ': ' + fullinsertquery);
+                            //console.log('eng'+ij+', insertquer' + pp + ': ' + fullinsertquery);
 
                             insertqueries.push(fullinsertquery);
-
                             /*
                             pool.query(fullinsertquery, function (err, rows) {
                                 if (err) {
@@ -568,8 +566,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                 updatecase = updatecase + " WHERE ESTIMATENUMBER LIKE '" + estimatenum + "' AND CASE_ID LIKE '"+selectedcases+"';";
 
                 var selectquer = "SELECT * FROM live_workstack LIMIT 1;";
-                //console.log('select query: '+selectquer);
-                //console.log('updatecase: '+updatecase);
+                console.log('select query: '+selectquer);
+                console.log('updatecase: '+updatecase);
 
                 //insertqueries.join("");
                 //console.log(insertqueries);
@@ -620,7 +618,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         });
     } else
     {
-        //console.log('no selected cases :'+selectedcases);
+        console.log('no selected cases :'+selectedcases);
         plannermessage = "Please select cases to edit";
         obj = {"dropdownsjson":dropdownsjson,
             "plannermessage": plannermessage,

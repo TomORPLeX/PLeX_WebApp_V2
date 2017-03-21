@@ -106,7 +106,7 @@ $(document).ready(function() {
                     "columnDefs": [ {
                         "visible": false,
                         "targets": -1
-                        },
+                    },
                         { "width": "150%", "targets": 11 },
                         { "width": "150%", "targets": 17 }
                     ],
@@ -170,7 +170,8 @@ $(document).ready(function() {
                     fixedColumns:   {
                         leftColumns: 7
                     },
-                    dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
+                    dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
+
                     rowCallback: function(row, data, index) {
                         // attendance formatting
                         if (data[7]== "RDO") {
@@ -402,5 +403,3 @@ $(document).ready(function() {
         });
     }
 } );
-
-
