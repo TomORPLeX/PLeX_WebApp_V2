@@ -91,10 +91,6 @@ $(document).ready(function() {
                 today.setDate(today.getDate() + 1);
                 dd = today.getDate();
                 mm = today.getMonth() + 1;
-                var day3 = dd + '/'+ mm;
-                today.setDate(today.getDate() + 1);
-                dd = today.getDate();
-                mm = today.getMonth() + 1;
                 var day4 = dd + '/'+ mm;
                 today.setDate(today.getDate() + 1);
                 dd = today.getDate();
@@ -397,7 +393,7 @@ $(document).ready(function() {
 
                 tablehead2 = $(".dataTables_scrollHeadInner table thead");
                 fixedcolhead = $(".DTFC_LeftHeadWrapper table thead");
-                tablehead2.prepend("<tr><th colspan=\"7\"></th><th colspan=\"5\">Day 0 ("+day0+")</th><th colspan=\"5\">Day 1 ("+day1+")</th><th colspan=\"5\">Day 2 ("+day2+")</th><th colspan=\"5\">Day 3 ("+day3+")</th><th colspan=\"5\">Day 4 ("+day4+")</th><th colspan=\"5\">Day 5 ("+day5+")</th></tr>");
+                tablehead2.prepend("<tr><th colspan=\"7\"></th><th colspan=\"6\">Day 0 ("+day0+")</th><th colspan=\"6\">Day 1 ("+day1+")</th><th colspan=\"6\">Day 2 ("+day2+")</th><th colspan=\"6\">Day 3 ("+day3+")</th><th colspan=\"6\">Day 4 ("+day4+")</th><th colspan=\"6\">Day 5 ("+day5+")</th></tr>");
                 fixedcolhead.prepend("<tr><th colspan=\"7\">Engineer Info</th></tr>");
 
                 $('#overlay').fadeOut(1000);

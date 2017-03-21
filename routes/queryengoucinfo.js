@@ -8,6 +8,9 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
     var ein = req.body.ein;
     var ouc = req.body.ouc;
     var exclude = req.body.exclude;
+    if(!exclude){
+        exclude = 'N';
+    }
     var reason = req.body.reason;
     var modein = req.cookies.EIN;
     var selectquer = "SELECT * FROM live_teammanagement WHERE ENGINEER_EIN LIKE "+ein+";";

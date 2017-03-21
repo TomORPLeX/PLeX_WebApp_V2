@@ -257,15 +257,14 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
         // write plexplanner data before delete and clear after so no loss of data
         var today = new Date().getTime(); //$.datepicker.formatDate('dd/mm', new Date());
         today = Math.round(today/1000/60/60);
-        console.log('todays date:'+today);
+        //console.log('todays date:'+today);
 
         var tempfilelocation = '../public/data/' + req.cookies.EIN +'_'+today+'_tempcasedata.json';
         var formvalues_temp = JSON.stringify(formvalues);
-        console.log(tempfilelocation);
-        console.log(formvalues_temp);
         fs.writeFile(tempfilelocation, formvalues_temp);
 
         // delete all case data from engineer table.
+        var insertqueries = [];
         var deleteexisting = 'DELETE FROM live_plexplanner WHERE CASE_ID LIKE \'' + selectedcases + '\';';
         //console.log(deleteexisting);
         pool.query(deleteexisting, function (err, rows) {
@@ -449,6 +448,8 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
                         //console.log('insertquer' + p + ': ' + fullinsertquery);
 
+                        insertqueries.push(fullinsertquery);
+/*
                         pool.query(fullinsertquery, function (err, rows) {
                             if (err) {
                                 console.log('error in insert query on eng1, day '+p);
@@ -456,9 +457,10 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                                 return next(err);
                             } else {
                                 console.log('Rows Inserted Successfully: ' + rows.affectedRows);
+                                eng1flag = rows.affectedRows;
                             }
                         });
-
+*/
                         insertquerfields = "(";
                         insertquervalues = "(";
 
@@ -522,7 +524,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                                 }
                                 //selectcolumns = selectcolumns + " PLANNED_DATE,";
                                 //selectcolcount++;
-
                             }
 
                             insertquerfields = insertquerfields.slice(",", -1);
@@ -531,17 +532,22 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                             insertquervalues = insertquervalues + ")";
 
                             fullinsertquery = insertquerpre + insertquerfields + insertquermid + insertquervalues + ";";
-                            //console.log('eng'+ij+', insertquer' + pp + ': ' + fullinsertquery);
+                            console.log('eng'+ij+', insertquer' + pp + ': ' + fullinsertquery);
 
+                            insertqueries.push(fullinsertquery);
+
+                            /*
                             pool.query(fullinsertquery, function (err, rows) {
                                 if (err) {
-                                    console.log('error in insert query on eng'+ij+', day ' + pp);
+                                    console.log('error in insert query on eng'+ij+', day ' + pp +': '+fullinsertquery);
                                     err.status = 500.10;
                                     return next(err);
                                 } else {
-                                    console.log('Rows Inserted Successfully: ' + rows.affectedRows);
+                                    console.log('eng'+ij+', day'+pp+' Rows Inserted Successfully: ' + rows.affectedRows);
+                                    //var eng1flag = rows.affectedRows;
                                 }
                             });
+                            */
 
                             insertquerfields = "(";
                             insertquervalues = "(";
@@ -554,15 +560,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                     }
                 }
 
-                fs.stat(tempfilelocation, function(err, stat) {
-                    if(err == null) {
-                        fs.unlinkSync(tempfilelocation);
-                    } else if(err.code == 'ENOENT') {
-                        return;
-                    } else {
-                        return;
-                    }
-                });
+
 
                 updatecase = updatecase +" WEB_MOD_UIN = \'"+req.cookies.EIN+"\';";
                 updatecase = updatecase.slice(",", -1);
@@ -573,19 +571,33 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                 //console.log('select query: '+selectquer);
                 //console.log('updatecase: '+updatecase);
 
+                //insertqueries.join("");
+                //console.log(insertqueries);
+
+                console.log('Database Updated');
                 pool.query(updatecase, function (err, rows) {
                     if (err) {
-                        console.log('error in update query');
-                        err.status=500.11;
+                        console.log('Error in update query');
+                        err.status=503;
                         return next(err);
                     } else {
-                        console.log('Database Updated');
-                        pool.query(selectquer, function (err, rows) {
+                        pool.query(insertqueries.join(""), function (err, rows) {
                             if (err) {
-                                console.log('Error in select query');
+                                console.log('Error in insert query');
                                 err.status=503;
                                 return next(err);
                             } else {
+
+                                fs.stat(tempfilelocation, function(err, stat) {
+                                    if(err == null) {
+                                        fs.unlinkSync(tempfilelocation);
+                                    } else if(err.code == 'ENOENT') {
+                                        return;
+                                    } else {
+                                        return;
+                                    }
+                                });
+
                                 var loginflag0 = req.cookies.loginFlag;
                                 var adminflag0 = req.cookies.adminFlag;
 
@@ -593,7 +605,7 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                                     "plannermessage": str,
                                     "formvalues": formvalues,
                                     "cases":req.cookies.cases,
-                                    "db":rows,
+                                    "db":"",
                                     "rowsize": selectcolcount,
                                     "loginFlag":loginflag0,
                                     "adminFlag":adminflag0,
@@ -604,7 +616,6 @@ router.all('/', loginfunction.isLoggedIn, function(req,res,next) {
                         });
                     }
                 });
-
             }
         });
     } else
